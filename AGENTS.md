@@ -4,7 +4,7 @@ An unofficial field guide to [Paper](https://paper.design) — every shortcut wo
 
 Made by Seth Jenks ([@sethjenks](https://x.com/sethjenks)). Not affiliated with or endorsed by Paper or Figma.
 
-## For agents: read this before editing
+## Read this before editing
 
 This project looks like "just an HTML file" but carries a measured design contract and a fact-checking discipline. Changes that break either will be noticed.
 
