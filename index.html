@@ -1,0 +1,1296 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Paper.tips</title>
+<meta name="description" content="Paper.tips — an unofficial field guide to Paper: shortcuts, tips, and gotchas from the build log and docs, arranged like a Paper canvas.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300..700&family=Geist+Mono:wght@400;500&display=swap">
+<style>
+/* ============================================================
+   Paper Field Guide
+   Palette + type metrics sampled from paper.design (Sept 2026).
+   Matter -> Inter, Paper Mono -> Geist Mono (their commercial
+   faces; Inter is Paper's own declared fallback).
+   Single-theme by intent: Paper's identity is dark-only, so every
+   color is painted explicitly rather than inherited from the host.
+   ============================================================ */
+:root{
+  /* --- ground: three surfaces, not six --------------------- */
+  --sunk:#131313;    /* recessed: key map, terminal            */
+  --bg:#181818;      /* page ground                            */
+  --panel:#1E1E1E;   /* raised: cards, ledger rows             */
+
+  /* --- ink: three text tiers, all >= 4.5:1 on every surface  */
+  --ink:#EFEFE4;     /* 14.4:1 on panel                        */
+  --muted:#9E9E9E;   /*  6.2:1 on panel — secondary body       */
+  --label:#878787;   /*  4.6:1 on panel — small mono labels    */
+
+  /* --- decoration only: never carries text ----------------- */
+  --faint:#6E6E6E;   /* section numbers, separators            */
+  --line:#2A2A2A;    /* hairlines between rows                 */
+  --line-2:#333333;  /* artboard frame AND its corner ticks —
+                        one family, so the frame reads as
+                        structure and the ticks as punctuation */
+
+  /* --- accent: Paper periwinkle, used sparingly ------------- */
+  --accent:#86B9FF;
+  --accent-dim:rgba(134,185,255,.16);
+
+  --kbd-bg:rgba(255,255,255,.05);
+  --kbd-line:rgba(255,255,255,.10);
+
+  /* --- type scale: 7 steps, each with one job -------------- */
+  --t-label:11px;    /* mono uppercase labels                  */
+  --t-mono:12.5px;   /* keycaps, code                          */
+  --t-sm:14px;       /* tip cards, rail, footer                */
+  --t-body:16px;     /* body, ledger descriptions              */
+  --t-lead:19px;     /* lede, start-here                       */
+  --t-title:25px;    /* section titles                         */
+  --t-display:64px;  /* masthead                               */
+
+  /* --- weights: 3, not 7 ----------------------------------- */
+  --w-display:360;
+  --w-body:400;
+  --w-strong:550;
+
+  /* --- radii: 3, not 7 ------------------------------------- */
+  --r-sm:4px;        /* keycaps, chips                         */
+  --r-md:8px;        /* panels, cards, frames                  */
+  --r-pill:999px;
+
+  --mono:"Geist Mono",SFMono-Regular,Menlo,ui-monospace,monospace;
+  --sans:"Inter",-apple-system,system-ui,"Segoe UI",sans-serif;
+
+  --gut:clamp(20px,4vw,40px);
+  --tail:64px;   /* air above the byline, matched by .shell padding-bottom */
+  --col:1180px;
+}
+
+*{box-sizing:border-box}
+html{scroll-behavior:smooth; scroll-padding-top:96px; -webkit-text-size-adjust:100%}
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  *,*::before,*::after{animation-duration:.001ms !important; transition-duration:.001ms !important}
+}
+
+body{
+  margin:0;
+  background-color:var(--bg);
+  /* Paper's own 120px canvas grid (layout/grid.svg): solid horizontal
+     rule, dashed vertical rule, 0.5px, crossing at the tile centre. */
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cline x1='60.25' y1='0' x2='60.25' y2='120' stroke='%23EFEFE4' stroke-opacity='.07' stroke-width='.5' stroke-dasharray='7.56 7.56'/%3E%3Cline x1='0' y1='60.25' x2='120' y2='60.25' stroke='%23EFEFE4' stroke-opacity='.055' stroke-width='.5'/%3E%3C/svg%3E");
+  background-size:120px 120px;
+  background-position:center 0;
+  color:var(--ink);
+  font-family:var(--sans);
+  font-size:var(--t-body); font-weight:var(--w-body);
+  line-height:1.62; letter-spacing:.011em;
+  -webkit-font-smoothing:antialiased; text-rendering:optimizeLegibility;
+}
+
+/* ---------- ruler strip (paper.design layout/ruler-y.svg, in CSS) ---------- */
+.ruler{
+  position:sticky; top:0; z-index:40;
+  height:28px;
+  background:rgba(24,24,24,.86);
+  backdrop-filter:blur(10px); -webkit-backdrop-filter:blur(10px);
+  border-bottom:1px solid var(--line);
+  background-image:
+    repeating-linear-gradient(to right, var(--faint) 0 1px, transparent 1px 10px);
+  background-size:100% 7px;
+  background-repeat:no-repeat;
+  background-position:0 100%;
+}
+.ruler::after{
+  content:""; position:absolute; inset:auto 0 0 0; height:14px;
+  background-image:repeating-linear-gradient(to right, var(--line-2) 0 1px, transparent 1px 60px);
+  background-position:0 100%; background-repeat:repeat-x;
+}
+
+/* ---------- shell ---------- */
+.shell{
+  max-width:var(--col); margin:0 auto; padding:0 var(--gut) var(--tail);
+  display:grid; grid-template-columns:1fr; gap:0;
+}
+@media (min-width:1080px){
+  .shell{grid-template-columns:186px minmax(0,1fr); column-gap:56px}
+  /* these sit above the rail, so they span the full width */
+  .masthead,.quickcard{grid-column:1 / -1}
+  /* the footer sits beside the rail, and it's content rather than chrome —
+     align it with main instead of starting at the rail's left edge */
+  footer{grid-column:2}
+}
+
+/* ---------- masthead ---------- */
+.masthead{padding:72px 0 34px}
+.eyebrow{
+  font-family:var(--mono); font-size:var(--t-label); font-weight:var(--w-body);
+  letter-spacing:.08em; color:var(--label); margin:0 0 20px;
+  display:flex; flex-wrap:wrap; gap:0 10px; align-items:center;
+}
+.eyebrow .dot{color:var(--faint)}
+h1{
+  font-weight:var(--w-display); font-size:clamp(40px,6.4vw,var(--t-display));
+  line-height:1.0; letter-spacing:-.02em; margin:0 0 22px;
+  text-wrap:balance; max-width:14ch;
+}
+.lede{
+  max-width:60ch; color:var(--muted); margin:0;
+  font-size:var(--t-lead); line-height:1.58; letter-spacing:.006em;
+}
+.lede strong{color:var(--ink); font-weight:var(--w-strong)}
+
+/* ---------- "start here" band ---------- */
+.startbar{
+  margin:52px 0 0; padding:24px 26px;
+  border:1px solid var(--line-2); border-radius:var(--r-md);
+  background:linear-gradient(90deg, var(--accent-dim), transparent 46%), var(--panel);
+  display:grid; gap:14px 26px; align-items:start;
+}
+@media (min-width:760px){ .startbar{grid-template-columns:auto minmax(0,1fr)} }
+.startbar .flag{
+  font-family:var(--mono); font-size:var(--t-label); letter-spacing:.08em;
+  color:var(--accent); white-space:nowrap; padding-top:5px;
+}
+.startbar p{margin:0; font-size:var(--t-lead); line-height:1.5; max-width:66ch}
+.startbar p strong{font-weight:var(--w-strong); color:var(--ink)}
+.startbar p + p{margin-top:10px; color:var(--muted); font-size:var(--t-body)}
+/* it now leads directly into the featured artboard, so close the gap
+   that .featured's own 76px top padding would otherwise leave */
+.startbar + .artboard.featured{padding-top:22px}
+
+/* ---------- quick card: the one-screen lookup ---------- */
+.quickcard{
+  margin:40px 0 0; border:1px solid var(--line-2); border-radius:var(--r-md);
+  background:var(--panel); overflow:hidden;
+}
+.quickcard > header{
+  display:flex; flex-wrap:wrap; gap:4px 12px; align-items:baseline;
+  padding:14px 20px; border-bottom:1px solid var(--line);
+}
+.quickcard > header h2{
+  margin:0; font-family:var(--mono); font-size:var(--t-label);
+  font-weight:var(--w-body); letter-spacing:.08em; color:var(--ink);
+}
+.quickcard > header span{
+  font-family:var(--mono); font-size:var(--t-label);
+  letter-spacing:.06em; color:var(--label);
+}
+.qc-grid{
+  display:grid; grid-template-columns:repeat(3,1fr);
+  gap:1px; background:var(--line);
+}
+@media (max-width:860px){ .qc-grid{grid-template-columns:repeat(2,1fr)} }
+@media (max-width:520px){ .qc-grid{grid-template-columns:1fr} }
+.qc-grid div{
+  background:var(--panel); padding:11px 20px;
+  display:flex; flex-wrap:wrap; gap:4px 12px;
+  /* baseline keeps the keycap and its label sitting on one baseline;
+     align-content centres that line block in a cell stretched by the
+     tallest cell in the row */
+  align-items:baseline; align-content:center;
+}
+.qc-grid .k{display:flex; gap:4px; align-items:center; flex:none}
+.qc-grid .k .plus{color:var(--label); font-size:var(--t-mono)}
+.qc-grid .d{color:var(--muted); font-size:var(--t-sm); line-height:1.45}
+
+/* ---------- layer-tree rail ---------- */
+.rail{display:none}
+@media (min-width:1080px){
+  .rail{
+    display:block; position:sticky; top:60px; align-self:start;
+    padding:52px 0 0; max-height:calc(100vh - 80px); overflow-y:auto;
+  }
+}
+.rail h2{
+  font-family:var(--mono); font-size:var(--t-label); font-weight:var(--w-body);
+  letter-spacing:.09em; color:var(--label); margin:0 0 12px; padding-left:14px;
+}
+.rail h2 .n{color:var(--label)}
+.rail ol{list-style:none; margin:0; padding:0}
+.rail a{
+  display:flex; align-items:center; gap:9px;
+  padding:5.5px 10px 5.5px 14px; border-left:1px solid var(--line);
+  color:var(--muted); text-decoration:none; font-size:var(--t-sm);
+  letter-spacing:.005em;
+  transition:color .14s, border-color .14s, background-color .14s;
+}
+.rail a svg{width:14px; height:14px; flex:none; opacity:.6; transition:opacity .14s}
+.rail a:hover{color:var(--ink); border-left-color:var(--line-2); background:rgba(255,255,255,.02)}
+.rail a:hover svg{opacity:1}
+.rail a[aria-current="true"]{color:var(--ink); border-left-color:var(--accent)}
+.rail a[aria-current="true"] svg{opacity:1; color:var(--accent)}
+
+/* brand marks — third-party logos, nominative use. They keep their own
+   colour, so they sit outside the monochrome icon system. */
+.eyebrow .mark{width:13px; height:13px; color:var(--accent); flex:none; margin-right:-4px}
+footer .mark{width:17px; height:17px; color:var(--accent); vertical-align:-3px; margin-right:7px}
+.ab-head .icon.brand{background:var(--sunk); padding:6px}
+.ab-head .icon.brand svg{width:100%; height:100%}
+/* full-colour logo in the rail would break a 11-item monochrome list, so
+   the rail mark is dimmed to sit with its neighbours and lights up on hover */
+.rail a .brandmark{filter:grayscale(1); opacity:.55}
+.rail a:hover .brandmark,.rail a[aria-current="true"] .brandmark{filter:none; opacity:1}
+
+/* mobile chip nav */
+/* mobile contents. Not a pile of chips: the same icons as the desktop
+   layer rail, in the panel language the quick card already uses, with the
+   section number right-aligned like page numbers in a book's contents. */
+.pagenav{
+  margin:30px 0 0; border:1px solid var(--line-2); border-radius:var(--r-md);
+  background:var(--panel); overflow:hidden;
+}
+@media (min-width:1080px){.pagenav{display:none}}
+.pagenav > header{
+  display:flex; flex-wrap:wrap; gap:4px 12px; align-items:baseline;
+  padding:13px 18px; border-bottom:1px solid var(--line);
+}
+.pagenav > header h2{
+  margin:0; font-family:var(--mono); font-size:var(--t-label);
+  font-weight:var(--w-body); letter-spacing:.08em; color:var(--ink);
+}
+.pagenav > header span{
+  font-family:var(--mono); font-size:var(--t-label);
+  letter-spacing:.06em; color:var(--label);
+}
+.pagenav ol{
+  list-style:none; margin:0; padding:0;
+  display:grid; grid-template-columns:1fr 1fr; gap:1px; background:var(--line);
+}
+/* Breakpoints are the measured thresholds, not round numbers. The widest
+   label is "Color & tokens" at 99px; a two-column cell needs 186px to hold
+   it with the number and 161px without. */
+@media (min-width:375px) and (max-width:413px){
+  .pagenav a .n{display:none}      /* two columns still fit, the number doesn't */
+}
+@media (max-width:374px){
+  .pagenav ol{grid-template-columns:1fr}   /* neither fits — go single file */
+}
+/* 11 items in two columns leaves a hole in the last slot, where the grid's
+   gap colour shows through as a phantom cell — let the last one span. */
+.pagenav li:last-child{grid-column:1 / -1}
+.pagenav a{
+  display:flex; align-items:center; gap:11px;
+  background:var(--panel); padding:12px 18px;
+  color:var(--muted); text-decoration:none; font-size:var(--t-sm);
+  transition:color .14s, background-color .14s;
+}
+.pagenav a svg{width:15px; height:15px; flex:none; opacity:.6; transition:opacity .14s}
+.pagenav a .lbl{flex:1 1 auto; min-width:0}
+.pagenav a .n{
+  font-family:var(--mono); font-size:var(--t-label); color:var(--faint);
+  font-variant-numeric:tabular-nums; flex:none;
+}
+.pagenav a:hover,.pagenav a:focus-visible{color:var(--ink); background:rgba(255,255,255,.03)}
+.pagenav a:hover svg{opacity:1}
+/* full-colour logo would break a monochrome list, same as in the rail */
+.pagenav a .brandmark{filter:grayscale(1); opacity:.55}
+.pagenav a:hover .brandmark{filter:none; opacity:1}
+
+/* ---------- artboards ---------- */
+main{min-width:0}
+.artboard{padding:52px 0 4px}
+.artboard + .artboard{margin-top:10px}
+.ab-label{
+  font-family:var(--mono); font-size:var(--t-label); letter-spacing:.07em;
+  color:var(--label); margin:0 0 9px;
+  display:flex; align-items:center; gap:8px;
+}
+.ab-label .num{color:var(--faint); font-variant-numeric:tabular-nums}
+.ab-frame{
+  border:1px solid var(--line-2); border-radius:var(--r-md);
+  padding:clamp(20px,3.4vw,34px);
+  background:linear-gradient(180deg, rgba(255,255,255,.012), transparent 220px);
+  position:relative;
+}
+/* registration ticks — same colour family as the frame they punctuate */
+.ab-frame::before,.ab-frame::after{
+  content:""; position:absolute; width:9px; height:9px; pointer-events:none;
+}
+.ab-frame::before{top:-1px; left:-1px; border-top:1px solid var(--line-2); border-left:1px solid var(--line-2); border-top-left-radius:var(--r-md)}
+.ab-frame::after{bottom:-1px; right:-1px; border-bottom:1px solid var(--line-2); border-right:1px solid var(--line-2); border-bottom-right-radius:var(--r-md)}
+
+/* the section the page's own thesis points at. Emphasis comes from the
+   accent label, the filled ground and extra air — deliberately NOT from a
+   wider frame, so every artboard shares one left and right edge. */
+.artboard.featured{padding:76px 0 28px}
+.artboard.featured .ab-label{color:var(--accent)}
+.artboard.featured .ab-label .num{color:var(--accent); opacity:.55}
+.artboard.featured .ab-frame{
+  background:var(--panel); border-color:#3C3C3C;
+  padding:clamp(24px,4vw,44px);
+}
+
+.ab-head{display:flex; gap:14px; align-items:flex-start; margin:0 0 6px}
+.ab-head .icon{
+  width:34px; height:34px; flex:none; border-radius:var(--r-sm);
+  border:1px solid var(--line-2); background:var(--sunk);
+  display:grid; place-items:center; color:var(--ink); margin-top:1px;
+}
+.ab-head .icon svg{width:18px; height:18px}
+h2.ab-title{
+  font-weight:var(--w-strong); font-size:var(--t-title); line-height:1.24;
+  letter-spacing:-.004em; margin:0; text-wrap:balance;
+}
+.sub{color:var(--muted); margin:8px 0 26px; max-width:66ch; font-size:var(--t-body)}
+
+h3{
+  font-family:var(--mono); font-weight:var(--w-body); font-size:var(--t-label);
+  letter-spacing:.08em; color:var(--label); margin:34px 0 14px;
+  padding-bottom:8px; border-bottom:1px solid var(--line);
+}
+
+/* ---------- keycaps ---------- */
+kbd{
+  display:inline-block; font-family:var(--mono);
+  font-size:var(--t-mono); font-weight:var(--w-body); line-height:1.55;
+  padding:2px 8px; border-radius:var(--r-sm);
+  background:var(--kbd-bg); border:1px solid var(--kbd-line);
+  color:var(--ink); white-space:nowrap;
+}
+
+/* ---------- shortcut ledger — also carries the export formats ---------- */
+.ledger{
+  margin:0; display:grid; gap:1px; background:var(--line);
+  border:1px solid var(--line); border-radius:var(--r-md); overflow:hidden;
+}
+.ledger .row{
+  display:grid; grid-template-columns:196px minmax(0,1fr);
+  gap:6px 24px; background:var(--panel); padding:11px 16px;
+  /* centre, not baseline: rows whose description wraps to two lines were
+     leaving the keycaps pinned to the first line */
+  align-items:center;
+}
+@media (max-width:600px){ .ledger .row{grid-template-columns:1fr; gap:7px} }
+.ledger .keys{display:flex; flex-wrap:wrap; gap:5px; align-items:center}
+.ledger .keys .plus{color:var(--label); font-size:var(--t-mono)}
+/* mono label in the same slot as the keys, for non-shortcut rows */
+.ledger .fmt{
+  font-family:var(--mono); font-size:var(--t-mono); letter-spacing:.05em;
+  color:var(--ink); align-self:center;
+}
+.ledger .desc{color:var(--muted); font-size:var(--t-body); line-height:1.5}
+.ledger .desc b{color:var(--ink); font-weight:var(--w-strong)}
+
+/* ---------- tip cards, asymmetric ---------- */
+.tips{
+  display:grid; grid-template-columns:repeat(6,1fr); gap:12px;
+  margin:26px 0 0; padding:0; list-style:none;
+}
+.tips li{
+  grid-column:span 3;
+  background:var(--panel); border:1px solid var(--line); border-radius:var(--r-md);
+  padding:16px 18px 17px; font-size:var(--t-sm); line-height:1.55;
+}
+.tips li.wide{grid-column:span 6}
+.tips li.third{grid-column:span 2}
+@media (max-width:820px){
+  .tips{grid-template-columns:1fr}
+  .tips li,.tips li.wide,.tips li.third{grid-column:auto}
+}
+.tips li b{
+  display:flex; align-items:center; gap:8px;
+  font-weight:var(--w-strong); margin-bottom:6px; letter-spacing:.003em; color:var(--ink);
+}
+/* the warning triangle is now the ONLY icon in this slot, so it means something */
+.tips li b svg{width:14px; height:14px; flex:none; color:var(--muted)}
+.tips li .m{color:var(--muted); display:block}
+
+/* ---------- key map (typography centrepiece) ---------- */
+.keymap{
+  border:1px solid var(--line-2); border-radius:var(--r-md); background:var(--sunk);
+  padding:clamp(18px,3vw,28px); overflow-x:auto;
+}
+.keymap-grid{display:grid; gap:1px; min-width:430px; background:var(--line)}
+.km-row{
+  display:grid; grid-template-columns:minmax(120px,1.1fr) minmax(112px,auto) 76px 76px;
+  background:var(--bg); align-items:center; gap:18px; padding:12px 16px;
+}
+.km-row.head{background:var(--sunk); padding-bottom:10px}
+.km-row.head span{
+  font-family:var(--mono); font-size:var(--t-label); letter-spacing:.09em;
+  color:var(--label); text-align:center;
+}
+.km-row.head span:first-child,.km-row.head span:nth-child(2){text-align:left}
+.km-prop{font-size:var(--t-body)}
+.km-mods{display:flex; gap:5px; flex-wrap:wrap}
+.km-cap{
+  display:grid; place-items:center; height:42px; border-radius:var(--r-sm);
+  border:1px solid var(--kbd-line); background:var(--kbd-bg);
+  font-family:var(--mono); font-size:var(--t-lead); line-height:1; color:var(--ink);
+  padding-bottom:5px; box-shadow:inset 0 -2px 0 rgba(0,0,0,.35);
+}
+.km-cap.hot{border-color:rgba(134,185,255,.45); color:var(--accent); background:var(--accent-dim)}
+.km-note{
+  margin:16px 0 0; font-size:var(--t-sm); color:var(--muted);
+  display:flex; gap:8px; align-items:flex-start;
+}
+.km-note svg{width:15px; height:15px; flex:none; margin-top:2px; color:var(--faint)}
+
+/* ---------- transfer split (figma) ---------- */
+.split{display:grid; gap:12px; margin:26px 0 0}
+@media (min-width:760px){.split{grid-template-columns:1fr 1fr}}
+.split section{
+  border:1px solid var(--line); border-radius:var(--r-md);
+  background:var(--panel); padding:16px 18px 18px;
+}
+.split h4{
+  margin:0 0 12px; font-family:var(--mono); font-size:var(--t-label);
+  font-weight:var(--w-body); letter-spacing:.08em;
+  display:flex; align-items:center; gap:8px; color:var(--ink);
+}
+.split h4 svg{width:14px; height:14px}
+.split section.ok h4 svg{color:var(--accent)}
+.split section.no h4 svg{color:var(--muted)}
+.split ul{margin:0; padding:0; list-style:none; display:grid; gap:8px}
+.split li{
+  font-size:var(--t-sm); color:var(--muted); line-height:1.5;
+  padding-left:16px; position:relative;
+}
+.split li::before{
+  content:""; position:absolute; left:0; top:9px;
+  width:5px; height:5px; border-radius:1px; background:var(--line-2);
+}
+.split section.ok li::before{background:rgba(134,185,255,.5)}
+.split li b{color:var(--ink); font-weight:var(--w-strong)}
+
+/* ---------- shader swatches ---------- */
+.swatches{
+  display:grid; grid-template-columns:repeat(auto-fill,minmax(172px,1fr));
+  gap:8px; margin:0; padding:0; list-style:none;
+}
+.swatches li{
+  display:flex; align-items:center; gap:10px;
+  border:1px solid var(--line); border-radius:var(--r-sm); background:var(--panel);
+  padding:8px 12px; font-size:var(--t-sm); color:var(--muted);
+}
+.swatches i{
+  width:22px; height:22px; border-radius:var(--r-sm); flex:none;
+  border:1px solid rgba(255,255,255,.09);
+}
+
+/* ---------- terminal ---------- */
+.term{
+  border:1px solid var(--line-2); border-radius:var(--r-md); background:var(--sunk);
+  overflow:hidden; margin:26px 0 0;
+}
+.term > header{
+  display:flex; align-items:center; gap:7px; padding:9px 14px;
+  border-bottom:1px solid var(--line); background:var(--panel);
+}
+.term > header i{width:9px; height:9px; border-radius:50%; background:var(--line-2)}
+.term > header span{
+  font-family:var(--mono); font-size:var(--t-label); color:var(--label);
+  letter-spacing:.06em; margin-left:6px;
+}
+.term .body{padding:16px 18px; overflow-x:auto}
+.term pre{
+  margin:0; font-family:var(--mono); font-size:var(--t-mono); line-height:1.85;
+  color:var(--ink); white-space:pre;
+}
+.term .c{color:var(--label)}
+.term .p{color:var(--accent)}
+
+/* ---------- copy affordances ---------- */
+.copy{
+  margin-left:auto; font-family:var(--mono); font-size:var(--t-label);
+  letter-spacing:.06em; color:var(--label);
+  background:transparent; border:1px solid var(--line-2);
+  border-radius:var(--r-sm); padding:3px 10px; cursor:pointer;
+  transition:color .14s, border-color .14s;
+}
+.copy:hover{color:var(--ink); border-color:var(--muted)}
+.copy[data-done="1"]{color:var(--accent); border-color:rgba(134,185,255,.45)}
+.copy[data-done="0"],.cmd[data-done="0"]{color:var(--ink); border-color:var(--muted)}
+/* inline command that copies itself — a button dressed as <code> */
+.cmd{
+  font-family:var(--mono); font-size:var(--t-mono); line-height:inherit;
+  background:rgba(255,255,255,.05); border:1px solid transparent;
+  border-radius:var(--r-sm); padding:1px 5px; color:var(--ink);
+  cursor:pointer; transition:border-color .14s, background-color .14s;
+}
+.cmd:hover{border-color:var(--line-2); background:rgba(255,255,255,.08)}
+.cmd[data-done="1"]{color:var(--accent)}
+
+code{
+  font-family:var(--mono); font-size:var(--t-mono);
+  background:rgba(255,255,255,.05); border-radius:var(--r-sm); padding:2px 5px; color:var(--ink);
+}
+
+/* ---------- footer ---------- */
+/* no grid-column here: this rule sits after the 1080px block, so setting
+   one would override the desktop placement on cascade order. In the
+   single-column mobile grid the default placement is already full width. */
+footer{
+  margin-top:64px; padding-top:28px;
+  border-top:1px solid var(--line);
+  color:var(--label); font-size:var(--t-sm); line-height:1.6;
+}
+
+footer p{margin:0}
+footer p + p{margin-top:14px}
+/* class beats "footer p + p", so this margin wins regardless of order.
+   --tail is the gap above; .shell reuses it below, so the byline sits
+   centred between the last copy and the bottom of the page. */
+.byline{
+  margin-top:var(--tail);
+  color:var(--muted); font-size:var(--t-body);
+}
+.byline a{color:var(--ink); text-decoration-color:var(--label)}
+.byline .heart{
+  width:14px; height:14px; color:var(--accent);
+  vertical-align:-2px; margin:0 1px;
+}
+/* visually hidden, still read aloud — the heart carries the word "love" */
+.sr{position:absolute; width:1px; height:1px; overflow:hidden; clip:rect(0 0 0 0); white-space:nowrap}
+.fine{font-size:var(--t-mono); line-height:1.65}
+
+a{color:var(--ink); text-decoration:underline; text-underline-offset:3px; text-decoration-color:var(--faint); text-decoration-thickness:1px}
+a:hover{text-decoration-color:var(--accent)}
+.rail a,.pagenav a{text-decoration:none}
+a:focus-visible,.rail a:focus-visible,.copy:focus-visible,.cmd:focus-visible{
+  outline:2px solid var(--accent); outline-offset:3px; border-radius:var(--r-sm);
+}
+
+/* ---------- print: just the quick card, one page ---------- */
+@media print{
+  @page{margin:14mm}
+  body{
+    background:#fff; background-image:none; color:#111;
+    font-size:11pt; line-height:1.4;
+  }
+  .ruler,.rail,.pagenav,main,footer,.startbar,.eyebrow{display:none !important}
+  .shell{display:block; max-width:none; padding:0}
+  .masthead{padding:0 0 10mm}
+  h1{font-size:22pt; color:#111; margin:0 0 3mm}
+  .lede{
+    font-size:10pt; color:#444; max-width:none; margin:0;
+  }
+  .lede::after{content:" · Printed reference: the 12 shortcuts worth memorising."}
+  .quickcard{
+    margin:0; border:1px solid #bbb; border-radius:0;
+    background:#fff; break-inside:avoid;
+  }
+  .quickcard > header{border-bottom:1px solid #bbb; padding:3mm 4mm}
+  .quickcard > header h2,.quickcard > header span{color:#111}
+  .qc-grid{background:#bbb; grid-template-columns:repeat(2,1fr) !important}
+  .qc-grid div{background:#fff; padding:2.5mm 4mm}
+  .qc-grid .d{color:#333; font-size:9.5pt}
+  kbd{
+    background:#f2f2f2; border:1px solid #bbb; color:#111;
+    font-size:9pt; padding:1px 5px;
+  }
+  .qc-grid .k .plus{color:#888}
+}
+</style>
+</head>
+<body>
+
+<!-- icon sprite ------------------------------------------------ -->
+<svg width="0" height="0" aria-hidden="true" style="position:absolute" focusable="false">
+  <symbol id="ic-canvas" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M8 3v18M16 3v18M3 8h18M3 16h18"/>
+  </symbol>
+  <symbol id="ic-select" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M5 3l13 8.2-5.6 1.3L10 19z"/>
+  </symbol>
+  <symbol id="ic-resize" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round">
+    <rect x="4" y="4" width="16" height="16" rx="1.5"/><path d="M10 14l4-4M14 14v-4h-4"/>
+  </symbol>
+  <symbol id="ic-type" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M4 6V4h11v2M9.5 4v16M7 20h5M15 12v-1h5v1M17.5 11v9M16 20h3"/>
+  </symbol>
+  <symbol id="ic-pen" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M12 3l5 5-5 11-5-11z"/><path d="M7 8h10"/><circle cx="12" cy="9.5" r="1.4"/>
+  </symbol>
+  <symbol id="ic-ai" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M11 3l1.7 4.6L17.3 9l-4.6 1.7L11 15l-1.7-4.3L4.7 9l4.6-1.4z"/><path d="M17.5 14.5l.8 2.2 2.2.8-2.2.8-.8 2.2-.8-2.2-2.2-.8 2.2-.8z"/>
+  </symbol>
+  <symbol id="ic-color" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M12 3.5s5.5 6.1 5.5 9.6a5.5 5.5 0 1 1-11 0C6.5 9.6 12 3.5 12 3.5z"/><path d="M9.4 13.4a2.7 2.7 0 0 0 2.6 2.7"/>
+  </symbol>
+  <symbol id="ic-export" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M12 15V4M12 4L8.5 7.5M12 4l3.5 3.5"/><path d="M4.5 14v4.5a1.5 1.5 0 0 0 1.5 1.5h12a1.5 1.5 0 0 0 1.5-1.5V14"/>
+  </symbol>
+  <symbol id="ic-comment" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M20 12.5a6.5 6.5 0 0 1-6.5 6.5H9l-4 2.5.9-3.3A6.5 6.5 0 0 1 9.5 6h4a6.5 6.5 0 0 1 6.5 6.5z"/>
+  </symbol>
+  <symbol id="ic-mcp" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round">
+    <rect x="3.5" y="5" width="17" height="14" rx="1.5"/><path d="M7.5 10l2.5 2-2.5 2M12.5 14.5h4"/>
+  </symbol>
+  <!-- brand marks. Third-party logos, used nominatively to identify the
+       products this guide documents. Both carry their own fill rules, so
+       they sit outside the monochrome stroke system above.
+       Paper mark: paper.design header lockup. Figma mark: figma.com
+       favicon.svg (current palette — the 2024 refresh, not the legacy
+       #F24E1E / #A259FF set). -->
+  <symbol id="ic-paper" viewBox="0 0 21 21">
+    <path d="M3 0H21V13H13V3H3ZM0 3H3V13H13V21H0Z" fill="currentColor"/>
+  </symbol>
+  <symbol id="ic-figma" viewBox="12 2 40 60">
+    <path d="M12 52c0-5.523 4.477-10 10-10h10v10c0 5.523-4.477 10-10 10s-10-4.477-10-10z" fill="#24CB71"/>
+    <path d="M32 2v20h10c5.523 0 10-4.477 10-10S47.523 2 42 2L32 2z" fill="#FF7237"/>
+    <circle cx="41.9166" cy="32" r="10" fill="#00B6FF"/>
+    <path d="M12 12c0 5.523 4.477 10 10 10h10V2H22c-5.523 0-10 4.477-10 10z" fill="#FF3737"/>
+    <path d="M12 32c0 5.523 4.477 10 10 10h10V22H22c-5.523 0-10 4.477-10 10z" fill="#874FFF"/>
+  </symbol>
+
+  <!-- inline utility icons -->
+  <symbol id="ic-bulb" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M9.5 17h5M10 20h4M12 3a5.5 5.5 0 0 0-3.2 10c.6.5 1 1.2 1.1 2h4.2c.1-.8.5-1.5 1.1-2A5.5 5.5 0 0 0 12 3z"/>
+  </symbol>
+  <symbol id="ic-heart" viewBox="0 0 24 24">
+    <path d="M12 20.4l-1.5-1.35C5.4 14.5 2.5 11.9 2.5 8.7 2.5 6.1 4.6 4 7.2 4c1.5 0 2.9.7 3.8 1.8L12 6.9l1-1.1C13.9 4.7 15.3 4 16.8 4 19.4 4 21.5 6.1 21.5 8.7c0 3.2-2.9 5.8-8 10.35L12 20.4z" fill="currentColor"/>
+  </symbol>
+  <symbol id="ic-warn" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M12 4.5l8.5 15h-17z"/><path d="M12 10v4M12 16.8v.1"/>
+  </symbol>
+  <symbol id="ic-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M4.5 12.5l5 5 10-11"/>
+  </symbol>
+  <symbol id="ic-x" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M6 6l12 12M18 6L6 18"/>
+  </symbol>
+</svg>
+
+<div class="ruler" aria-hidden="true"></div>
+
+<div class="shell">
+
+<header class="masthead">
+  <p class="eyebrow">
+    <span>an unofficial field guide to</span>
+    <svg class="mark" aria-hidden="true"><use href="#ic-paper"/></svg><span>paper.design</span><span class="dot" aria-hidden="true">/</span>
+    <span>macos</span><span class="dot" aria-hidden="true">/</span>
+    <span>compiled september 2026</span>
+  </p>
+  <h1>Paper.tips</h1>
+  <p class="lede"><strong>Get fast in Paper.</strong> Every shortcut worth knowing, plus the tips and gotchas the shortcut list leaves out.</p>
+
+</header>
+
+<!-- quick card: the common case, without scrolling -->
+<section class="quickcard" aria-labelledby="qc-title">
+  <header>
+    <h2 id="qc-title">THE TWELVE</h2>
+    <span>the shortcuts worth memorising</span>
+    <button class="copy" type="button" data-copy-svg>copy as svg</button>
+  </header>
+  <div class="qc-grid">
+    <div><span class="k"><kbd>Space</kbd></span><span class="d">Pan the canvas</span></div>
+    <div><span class="k"><kbd>&#8984;</kbd><span class="plus">+</span><kbd>click</kbd></span><span class="d">Deep select, inside groups</span></div>
+    <div><span class="k"><kbd>&#8997;</kbd><span class="plus">+</span><kbd>drag</kbd></span><span class="d">Duplicate while dragging</span></div>
+    <div><span class="k"><kbd>&#8997;</kbd><span class="plus">+</span><kbd>resize</kbd></span><span class="d">Resize from centre</span></div>
+    <div><span class="k"><kbd>&#8984;</kbd><span class="plus">+</span><kbd>resize</kbd></span><span class="d">Crop an image, not scale it</span></div>
+    <div><span class="k"><kbd>&#8984;</kbd><kbd>Enter</kbd></span><span class="d">Screenshot the frame</span></div>
+    <div><span class="k"><kbd>&#8679;</kbd><kbd>&#8984;</kbd><kbd>,</kbd><span class="plus">/</span><kbd>.</kbd></span><span class="d">Font size, down / up</span></div>
+    <div><span class="k"><kbd>&#8997;</kbd><kbd>&#8984;</kbd><kbd>,</kbd><span class="plus">/</span><kbd>.</kbd></span><span class="d">Font weight, down / up</span></div>
+    <div><span class="k"><kbd>&#8997;</kbd><kbd>,</kbd><span class="plus">/</span><kbd>.</kbd></span><span class="d">Letter spacing, down / up</span></div>
+    <div><span class="k"><kbd>I</kbd></span><span class="d">Eyedropper</span></div>
+    <div><span class="k"><kbd>&#8997;</kbd><kbd>R</kbd><span class="plus">/</span><kbd>&#8997;</kbd><kbd>T</kbd></span><span class="d">Copy as React / Tailwind</span></div>
+    <div><span class="k"><kbd>C</kbd></span><span class="d">Comment tool</span></div>
+  </div>
+</section>
+
+<nav class="pagenav" aria-label="Sections">
+  <header><h2>CONTENTS</h2><span>11 sections</span></header>
+  <ol>
+    <li><a href="#canvas"><svg><use href="#ic-canvas"/></svg><span class="lbl">Canvas</span><span class="n" aria-hidden="true">01</span></a></li>
+    <li><a href="#selection"><svg><use href="#ic-select"/></svg><span class="lbl">Selection</span><span class="n" aria-hidden="true">02</span></a></li>
+    <li><a href="#editing"><svg><use href="#ic-resize"/></svg><span class="lbl">Move &amp; resize</span><span class="n" aria-hidden="true">03</span></a></li>
+    <li><a href="#type"><svg><use href="#ic-type"/></svg><span class="lbl">Typography</span><span class="n" aria-hidden="true">04</span></a></li>
+    <li><a href="#vector"><svg><use href="#ic-pen"/></svg><span class="lbl">Vector &amp; pen</span><span class="n" aria-hidden="true">05</span></a></li>
+    <li><a href="#ai"><svg><use href="#ic-ai"/></svg><span class="lbl">AI &amp; shaders</span><span class="n" aria-hidden="true">06</span></a></li>
+    <li><a href="#color"><svg><use href="#ic-color"/></svg><span class="lbl">Color &amp; tokens</span><span class="n" aria-hidden="true">07</span></a></li>
+    <li><a href="#export"><svg><use href="#ic-export"/></svg><span class="lbl">Export</span><span class="n" aria-hidden="true">08</span></a></li>
+    <li><a href="#figma"><svg class="brandmark"><use href="#ic-figma"/></svg><span class="lbl">Figma &amp; paste</span><span class="n" aria-hidden="true">09</span></a></li>
+    <li><a href="#collab"><svg><use href="#ic-comment"/></svg><span class="lbl">Collaboration</span><span class="n" aria-hidden="true">10</span></a></li>
+    <li><a href="#mcp"><svg><use href="#ic-mcp"/></svg><span class="lbl">MCP &amp; agents</span><span class="n" aria-hidden="true">11</span></a></li>
+  </ol>
+</nav>
+
+<aside class="rail" aria-label="Contents">
+  <h2>LAYERS <span class="n">&middot; 11</span></h2>
+  <ol>
+    <li><a href="#canvas"><svg><use href="#ic-canvas"/></svg>Canvas</a></li>
+    <li><a href="#selection"><svg><use href="#ic-select"/></svg>Selection</a></li>
+    <li><a href="#editing"><svg><use href="#ic-resize"/></svg>Move &amp; resize</a></li>
+    <li><a href="#type"><svg><use href="#ic-type"/></svg>Typography</a></li>
+    <li><a href="#vector"><svg><use href="#ic-pen"/></svg>Vector &amp; pen</a></li>
+    <li><a href="#ai"><svg><use href="#ic-ai"/></svg>AI &amp; shaders</a></li>
+    <li><a href="#color"><svg><use href="#ic-color"/></svg>Color &amp; tokens</a></li>
+    <li><a href="#export"><svg><use href="#ic-export"/></svg>Export</a></li>
+    <li><a href="#figma"><svg class="brandmark"><use href="#ic-figma"/></svg>Figma &amp; paste</a></li>
+    <li><a href="#collab"><svg><use href="#ic-comment"/></svg>Collaboration</a></li>
+    <li><a href="#mcp"><svg><use href="#ic-mcp"/></svg>MCP &amp; agents</a></li>
+  </ol>
+</aside>
+
+<main>
+
+<!-- 01 CANVAS ------------------------------------------------- -->
+<section class="artboard" id="canvas">
+  <p class="ab-label"><span class="num" aria-hidden="true">01</span> canvas</p>
+  <div class="ab-frame">
+    <div class="ab-head">
+      <span class="icon"><svg><use href="#ic-canvas"/></svg></span>
+      <div>
+        <h2 class="ab-title">Canvas &amp; navigation</h2>
+        <p class="sub">Getting around without reaching for the toolbar.</p>
+      </div>
+    </div>
+
+    <div class="ledger">
+      <div class="row"><span class="keys"><kbd>Space</kbd><span class="plus">or</span><kbd>H</kbd></span><span class="desc">Pan the canvas &mdash; hold Space, or switch to the pan tool with H</span></div>
+      <div class="row"><span class="keys"><kbd>Z</kbd></span><span class="desc">Zoom tool</span></div>
+      <div class="row"><span class="keys"><kbd>Shift</kbd><kbd>1</kbd><span class="plus">/</span><kbd>Shift</kbd><kbd>2</kbd></span><span class="desc">Zoom to fit everything on screen, or zoom the selection to fill it</span></div>
+      <div class="row"><span class="keys"><kbd>&#8984;</kbd><kbd>0</kbd></span><span class="desc">Zoom to 100%</span></div>
+      <div class="row"><span class="keys"><kbd>Shift</kbd><span class="plus">+</span><kbd>scroll</kbd></span><span class="desc">Scroll the canvas horizontally</span></div>
+      <div class="row"><span class="keys"><kbd>&larr;</kbd><kbd>&rarr;</kbd><kbd>&uarr;</kbd><kbd>&darr;</kbd></span><span class="desc">Pan with arrow keys, with nothing selected</span></div>
+      <div class="row"><span class="keys"><kbd>&#8984;</kbd><kbd>Enter</kbd></span><span class="desc">Full-page screenshot of the current frame</span></div>
+      <div class="row"><span class="keys"><kbd>&#8984;</kbd><kbd>.</kbd></span><span class="desc">Show or hide the entire UI. Press again to bring it back</span></div>
+      <div class="row"><span class="keys"><kbd>&#8997;</kbd><kbd>L</kbd></span><span class="desc">Collapse all layers in the layer tree</span></div>
+    </div>
+
+    <h3>canvas behaviour</h3>
+    <ul class="tips">
+      <li><b>Pixel grid at 600%+</b><span class="m">Zoom past 600% to get a pixel grid for precision work. Snapping rounds to whole pixels.</span></li>
+      <li><b>Hide the UI</b><span class="m">There's a button as well as the shortcut. Good for reviewing work or presenting. <kbd>Shift</kbd><kbd>.</kbd> minimises the UI instead of hiding it outright.</span></li>
+      <li><b>Resizable panels</b><span class="m">The left sidebar and page list both resize. Pages support drag-and-drop reordering.</span></li>
+      <li><b>Desktop tabs</b><span class="m">Paper Desktop supports tabs, so you can keep multiple files open like a browser.</span></li>
+    </ul>
+  </div>
+</section>
+
+<!-- 02 SELECTION ---------------------------------------------- -->
+<section class="artboard" id="selection">
+  <p class="ab-label"><span class="num" aria-hidden="true">02</span> selection</p>
+  <div class="ab-frame">
+    <div class="ab-head">
+      <span class="icon"><svg><use href="#ic-select"/></svg></span>
+      <div>
+        <h2 class="ab-title">Selection &amp; layers</h2>
+        <p class="sub">Paper distinguishes shallow selection (top-level) from deep selection (inside groups). <kbd>&#8984;</kbd> is the way in.</p>
+      </div>
+    </div>
+
+    <div class="ledger">
+      <div class="row"><span class="keys"><kbd>&#8984;</kbd><span class="plus">+</span><kbd>click</kbd></span><span class="desc"><b>Deep select</b> &mdash; grab a layer inside its parent directly</span></div>
+      <div class="row"><span class="keys"><kbd>&#8984;</kbd><span class="plus">+</span><kbd>right-click</kbd></span><span class="desc">List every layer under the cursor, then pick the one you want</span></div>
+      <div class="row"><span class="keys"><kbd>Enter</kbd></span><span class="desc">Step <b>into</b> the selected element &mdash; selects its children. On text it edits the text; on a vector path it enters edit mode</span></div>
+      <div class="row"><span class="keys"><kbd>Shift</kbd><kbd>Enter</kbd></span><span class="desc">Step <b>back up</b> the tree &mdash; selects the parent. <kbd>Esc</kbd> and <kbd>\</kbd> do the same; from the top level Esc clears the selection</span></div>
+
+    </div>
+
+    <h3>selecting faster</h3>
+    <ul class="tips">
+      <li class="third"><b>Marquee to refine</b><span class="m">Drag a rectangular selection over an existing one to refine it instead of starting over.</span></li>
+      <li class="third"><b>Selection brush</b><span class="m">Brush across elements to select everything the stroke touches &mdash; faster than marquee for scattered layers.</span></li>
+      <li class="third"><b>Recolor in bulk</b><span class="m">The Selection colors panel changes every selected element's colors at once. Also how you recolor pasted SVGs.</span></li>
+      <li class="wide"><b>The dashboard is a real file manager</b><span class="m">Multi-select, duplication, search, and folders with subfolders for team files.</span></li>
+    </ul>
+  </div>
+</section>
+
+<!-- 03 EDITING ------------------------------------------------ -->
+<section class="artboard" id="editing">
+  <p class="ab-label"><span class="num" aria-hidden="true">03</span> transform</p>
+  <div class="ab-frame">
+    <div class="ab-head">
+      <span class="icon"><svg><use href="#ic-resize"/></svg></span>
+      <div>
+        <h2 class="ab-title">Move, resize &amp; duplicate</h2>
+        <p class="sub">The modifier keys you hold <em>during</em> a drag are where most of Paper's speed lives.</p>
+      </div>
+    </div>
+
+    <div class="ledger">
+      <div class="row"><span class="keys"><kbd>&#8997;</kbd><span class="plus">+</span><kbd>drag</kbd></span><span class="desc">Duplicate while dragging &mdash; alt-drag also supports compound rotation</span></div>
+      <div class="row"><span class="keys"><kbd>&#8997;</kbd><span class="plus">+</span><kbd>resize</kbd></span><span class="desc">Resize from center, both sides at once</span></div>
+      <div class="row"><span class="keys"><kbd>Shift</kbd><span class="plus">+</span><kbd>resize</kbd></span><span class="desc">Snap the resize &mdash; constrain proportions and steps</span></div>
+      <div class="row"><span class="keys"><kbd>&#8984;</kbd><span class="plus">+</span><kbd>resize</kbd></span><span class="desc">Resize the parent while children stay put</span></div>
+      <div class="row"><span class="keys"><kbd>&#8984;</kbd><span class="plus">+</span><kbd>arrows</kbd></span><span class="desc">Resize the selection from the keyboard</span></div>
+      <div class="row"><span class="keys"><kbd>&#8984;</kbd><span class="plus">+</span><kbd>resize image</kbd></span><span class="desc"><b>Crop</b> instead of scale</span></div>
+      <div class="row"><span class="keys"><kbd>0</kbd><span class="plus">&ndash;</span><kbd>9</kbd></span><span class="desc">Set opacity on the selection. Type two digits in a row for precision &mdash; <b>5</b> is 50%, <b>05</b> is 5%</span></div>
+    </div>
+
+    <h3>layout &amp; flex</h3>
+    <ul class="tips">
+      <li><b>Gap and padding handles on canvas</b><span class="m">Flex containers show drag handles for gap and padding directly on the canvas &mdash; no panel needed. Negative gap is supported for overlapping layouts.</span></li>
+      <li><b>Constraints panel</b><span class="m">Controls how children behave when the parent resizes: pin edges, center, or scale.</span></li>
+      <li><b>Escape flex when you need to</b><span class="m">Any element inside a flex container can be set to "ignore flex layout" or absolute positioning to break out of flow.</span></li>
+      <li><b>Wrapping containers</b><span class="m">Flex containers wrap with automatic line breaks &mdash; useful for tag lists and galleries.</span></li>
+    </ul>
+  </div>
+</section>
+
+<!-- 04 TYPOGRAPHY — the featured section ----------------------- -->
+<div class="startbar">
+  <p class="flag">high leverage</p>
+  <div>
+    <p><strong>Paper's typography hotkeys all live on <kbd>,</kbd> and <kbd>.</kbd></strong> &mdash; the modifier picks which property you're nudging. Learn that one pattern and you control size, weight, tracking, and leading without ever opening a panel.</p>
+    <p>It's the single highest-leverage habit in the app.</p>
+  </div>
+</div>
+
+<section class="artboard featured" id="type">
+  <p class="ab-label"><span class="num" aria-hidden="true">04</span> typography</p>
+  <div class="ab-frame">
+    <div class="ab-head">
+      <span class="icon"><svg><use href="#ic-type"/></svg></span>
+      <div>
+        <h2 class="ab-title">Typography</h2>
+        <p class="sub">One system, four properties. <kbd>,</kbd> decreases and <kbd>.</kbd> increases &mdash; the modifier stack decides <em>what</em> you're changing.</p>
+      </div>
+    </div>
+
+    <div class="keymap">
+      <div class="keymap-grid">
+        <div class="km-row head">
+          <span>property</span><span>hold</span><span>decrease</span><span>increase</span>
+        </div>
+        <div class="km-row">
+          <span class="km-prop">Font size</span>
+          <span class="km-mods"><kbd>Shift</kbd><kbd>&#8984;</kbd></span>
+          <span class="km-cap hot">,</span><span class="km-cap hot">.</span>
+        </div>
+        <div class="km-row">
+          <span class="km-prop">Font weight</span>
+          <span class="km-mods"><kbd>&#8997;</kbd><kbd>&#8984;</kbd></span>
+          <span class="km-cap hot">,</span><span class="km-cap hot">.</span>
+        </div>
+        <div class="km-row">
+          <span class="km-prop">Letter spacing</span>
+          <span class="km-mods"><kbd>&#8997;</kbd></span>
+          <span class="km-cap hot">,</span><span class="km-cap hot">.</span>
+        </div>
+        <div class="km-row">
+          <span class="km-prop">Line height</span>
+          <span class="km-mods"><kbd>Shift</kbd><kbd>&#8997;</kbd></span>
+          <span class="km-cap hot">,</span><span class="km-cap hot">.</span>
+        </div>
+      </div>
+      <p class="km-note"><svg><use href="#ic-bulb"/></svg><span>Bold and italic sit outside the system on the usual keys: <kbd>&#8984;</kbd><kbd>B</kbd> and <kbd>&#8984;</kbd><kbd>I</kbd>.</span></p>
+    </div>
+
+    <h3>type features</h3>
+    <ul class="tips">
+      <li><b>Variable fonts, full control</b><span class="m">Set custom axis values on any variable font, including optical size. OpenType features &mdash; ligatures, alternates &mdash; are supported too.</span></li>
+      <li><b>Text gradients</b><span class="m">Apply a gradient to text straight from the Fill panel. Multi-fill text survives export.</span></li>
+      <li><b>Formatting panel</b><span class="m">Casing, wrapping, and truncation live in a dedicated panel. Line height has an "auto" value.</span></li>
+      <li><b>Text stroke</b><span class="m">There's a dedicated Text Stroke panel for outlined type.</span></li>
+      <li class="wide"><b>It types like a native app</b><span class="m">macOS text replacements, emoji, diacritics, and system-standard line and word navigation all work. Hidden truncated text reveals itself while you're editing.</span></li>
+    </ul>
+  </div>
+</section>
+
+<!-- 05 VECTOR ------------------------------------------------- -->
+<section class="artboard" id="vector">
+  <p class="ab-label"><span class="num" aria-hidden="true">05</span> vector</p>
+  <div class="ab-frame">
+    <div class="ab-head">
+      <span class="icon"><svg><use href="#ic-pen"/></svg></span>
+      <div>
+        <h2 class="ab-title">Vector &amp; pen</h2>
+        <p class="sub">Paper's vector editing works on real SVG paths &mdash; pasted, generated, or drawn.</p>
+      </div>
+    </div>
+
+    <div class="ledger">
+      <div class="row"><span class="keys"><kbd>P</kbd></span><span class="desc"><b>Pen tool</b> &mdash; draw new segments or extend existing paths</span></div>
+      <div class="row"><span class="keys"><kbd>M</kbd></span><span class="desc"><b>Move tool</b> &mdash; adjust anchor and control points</span></div>
+      <div class="row"><span class="keys"><kbd>Enter</kbd><span class="plus">or</span><kbd>double-click</kbd></span><span class="desc">Enter path editing mode on a path</span></div>
+      <div class="row"><span class="keys"><kbd>Esc</kbd></span><span class="desc">Exit path editing &mdash; double-clicking empty space does the same</span></div>
+      <div class="row"><span class="keys"><kbd>&#8984;</kbd><kbd>Shift</kbd><kbd>'</kbd></span><span class="desc">Toggle pixel snapping &mdash; points align to the nearest half-pixel</span></div>
+    </div>
+
+    <ul class="tips">
+      <li><b>Pen anywhere</b><span class="m">Click the pen tool outside an existing SVG and Paper auto-creates a new SVG container for the path.</span></li>
+      <li><b>Recolor SVGs fast</b><span class="m">Select a pasted SVG and use the Selection colors panel to edit its colors without digging into the tree.</span></li>
+      <li class="wide"><b><svg><use href="#ic-warn"/></svg>Not here yet</b><span class="m">Boolean operations, shape-to-path conversion, and better snapping are near-term on the roadmap. Vector networks and a shape builder are further out.</span></li>
+    </ul>
+  </div>
+</section>
+
+<!-- 06 AI ----------------------------------------------------- -->
+<section class="artboard" id="ai">
+  <p class="ab-label"><span class="num" aria-hidden="true">06</span> generation</p>
+  <div class="ab-frame">
+    <div class="ab-head">
+      <span class="icon"><svg><use href="#ic-ai"/></svg></span>
+      <div>
+        <h2 class="ab-title">AI generation &amp; shaders</h2>
+        <p class="sub">Image generation is a first-class canvas tool, and shaders are Paper's signature trick &mdash; live, parametric, exportable as video.</p>
+      </div>
+    </div>
+
+    <div class="ledger">
+      <div class="row"><span class="keys"><kbd>Shift</kbd><kbd>&#8984;</kbd><kbd>I</kbd></span><span class="desc"><b>Generate a raster image</b> &mdash; GPT Image 2, Nano Banana 2/Pro, Flux 2, Seedream 4.5, OpenAI Image Edit</span></div>
+      <div class="row"><span class="keys"><kbd>Shift</kbd><kbd>&#8984;</kbd><kbd>J</kbd></span><span class="desc"><b>Generate an SVG</b> (Quiver) &mdash; the surrounding frame's context can inform the result</span></div>
+      <div class="row"><span class="keys"><kbd>Shift</kbd><kbd>&#8984;</kbd><kbd>K</kbd></span><span class="desc">Upload images</span></div>
+    </div>
+
+    <h3>working with generated art</h3>
+    <ul class="tips">
+      <li><b>AI edits keep aspect ratio</b><span class="m">Editing an image with AI preserves its aspect ratio instead of distorting the frame.</span></li>
+      <li><b>Shaders are parametric</b><span class="m">Every shader exposes editable parameters, and the eyedropper pulls reference colors straight into shader settings.</span></li>
+      <li><b>Shaders export as video</b><span class="m">Export any frame, animated shaders included, as MP4 with a duration setting (Pro) from a dedicated Video panel.</span></li>
+      <li><b>HEIC just works</b><span class="m">HEIC and HEIF photos straight off an iPhone drop onto the canvas without conversion.</span></li>
+    </ul>
+
+    <h3>shader library</h3>
+    <ul class="swatches">
+      <li><i style="background:linear-gradient(135deg,#7B9BFF,#E86FB0 55%,#FFD98A)"></i>Mesh Gradient</li>
+      <li><i style="background:linear-gradient(135deg,#6E7BD8,#C77DBE);filter:contrast(1.1)"></i>Grain Gradient</li>
+      <li><i style="background:linear-gradient(145deg,#E8E8EC,#7A7F8C 45%,#F2F2F4 70%,#4A4E58)"></i>Liquid Metal</li>
+      <li><i style="background:radial-gradient(circle at 30% 30%,#00C2D1 22%,transparent 23%),radial-gradient(circle at 70% 65%,#E8407A 22%,transparent 23%),#F4E04D"></i>Halftone CMYK</li>
+      <li><i style="background:radial-gradient(circle,#EFEFE4 30%,transparent 31%) 0 0/7px 7px,#1A1A1A"></i>Halftone Dots</li>
+      <li><i style="background:repeating-linear-gradient(90deg,rgba(255,255,255,.55) 0 2px,rgba(150,180,210,.25) 2px 5px),#3E5568"></i>Fluted Glass</li>
+      <li><i style="background:#DAD6C8;box-shadow:inset 0 0 8px rgba(0,0,0,.28)"></i>Paper Texture</li>
+      <li><i style="background:repeating-conic-gradient(#EFEFE4 0 25%,#2A2A2A 0 50%) 0 0/5px 5px"></i>Image Dithering</li>
+      <li><i style="background:#1A1A1A;box-shadow:inset 0 0 0 2px #86B9FF,0 0 7px rgba(134,185,255,.75)"></i>Pulsing Border</li>
+      <li><i style="background:radial-gradient(ellipse at 35% 65%,#9B7BD8,#3B2E55 70%)"></i>Gem Smoke</li>
+      <li><i style="background:conic-gradient(from 0deg,#FF9A6B,#FFD98A,#7BD8C0,#7B9BFF,#FF9A6B)"></i>Swirl</li>
+      <li><i style="background:linear-gradient(180deg,#3FA9D8,#1E5F8C);box-shadow:inset 0 3px 5px rgba(255,255,255,.4)"></i>Water</li>
+      <li><i style="background:linear-gradient(120deg,#2B3A9B,#28C08A 40%,#F4E04D 68%,#E8402B)"></i>Heatmap</li>
+      <li><i style="background:radial-gradient(circle at 35% 40%,#8BE86F 30%,transparent 31%),radial-gradient(circle at 62% 62%,#8BE86F 26%,transparent 27%),#22301C"></i>Gooey</li>
+    </ul>
+  </div>
+</section>
+
+<!-- 07 COLOR -------------------------------------------------- -->
+<section class="artboard" id="color">
+  <p class="ab-label"><span class="num" aria-hidden="true">07</span> color</p>
+  <div class="ab-frame">
+    <div class="ab-head">
+      <span class="icon"><svg><use href="#ic-color"/></svg></span>
+      <div>
+        <h2 class="ab-title">Color, fills &amp; tokens</h2>
+        <p class="sub">The color picker is OKLCH-native, and tokens are the bridge between your canvas and your codebase.</p>
+      </div>
+    </div>
+
+    <div class="ledger">
+      <div class="row"><span class="keys"><kbd>I</kbd></span><span class="desc">Eyedropper / color picker</span></div>
+      <div class="row"><span class="keys"><kbd>Shift</kbd><span class="plus">+</span><kbd>eyedrop</kbd></span><span class="desc">Pick a color into a gradient stop</span></div>
+    </div>
+
+    <h3>fills</h3>
+    <ul class="tips">
+      <li class="third"><b>Gradients on canvas</b><span class="m">Edit position, angle, and stops directly on the canvas. The Fill panel adds a numeric angle field and snap points.</span></li>
+      <li class="third"><b>Stack your fills</b><span class="m">Image fills compose with other fills &mdash; layer a gradient over an image in one element. Drag to reorder fills and shadows.</span></li>
+      <li class="third"><b>Filters &amp; backdrop</b><span class="m">Blur, saturation, grayscale, brightness, sepia, invert, hue rotation &mdash; plus backdrop filters for frosted glass.</span></li>
+    </ul>
+
+    <h3>tokens &amp; themes</h3>
+    <ul class="tips">
+      <li><b>Ten token types</b><span class="m">Color, radius, spacing, container, breakpoint, font family, font weight, font size, line height, letter spacing. Create them in the Theme tab.</span></li>
+      <li><b>Apply from any property</b><span class="m">Use the property's dropdown &mdash; for colors, the four-circle icon opens the token list. Detach with the adjacent button or Backspace.</span></li>
+      <li><b><svg><use href="#ic-warn"/></svg>Copied themes don't stay synced</b><span class="m"><kbd>&#8984;A</kbd> in the Theme tab, copy, paste into another file &mdash; or File &rsaquo; Theme &rsaquo; Copy/Paste theme. The copy is a snapshot, not a link.</span></li>
+      <li><b>Tokens from your codebase</b><span class="m">Via MCP, an agent can generate tokens from your CSS variables or from an existing canvas frame. Tokens flow back out through code export as CSS variables.</span></li>
+    </ul>
+  </div>
+</section>
+
+<!-- 08 EXPORT ------------------------------------------------- -->
+<section class="artboard" id="export">
+  <p class="ab-label"><span class="num" aria-hidden="true">08</span> export</p>
+  <div class="ab-frame">
+    <div class="ab-head">
+      <span class="icon"><svg><use href="#ic-export"/></svg></span>
+      <div>
+        <h2 class="ab-title">Export &amp; handoff</h2>
+        <p class="sub">Paper is web-native under the hood, so code export is real CSS &mdash; not an approximation of it.</p>
+      </div>
+    </div>
+
+    <div class="ledger">
+      <div class="row"><span class="keys"><kbd>&#8997;</kbd><kbd>R</kbd></span><span class="desc">Copy selection as <b>React + CSS</b></span></div>
+      <div class="row"><span class="keys"><kbd>&#8997;</kbd><kbd>T</kbd></span><span class="desc">Copy selection as <b>Tailwind</b></span></div>
+      <div class="row"><span class="keys"><kbd>&#8984;</kbd><kbd>Enter</kbd></span><span class="desc">Full-page screenshot</span></div>
+    </div>
+
+    <h3>output formats</h3>
+    <div class="ledger">
+      <div class="row"><span class="fmt">PNG / WEBP / AVIF</span><span class="desc">Raster, with size and scale presets</span></div>
+      <div class="row"><span class="fmt">SVG</span><span class="desc">Vector, with token support intact</span></div>
+      <div class="row"><span class="fmt">PDF</span><span class="desc">Single frame or multiple frames in one document</span></div>
+      <div class="row"><span class="fmt">MP4</span><span class="desc">Video from any frame, with duration control &mdash; <b>Pro</b></span></div>
+      <div class="row"><span class="fmt">REACT / TAILWIND</span><span class="desc">Code export that can reference your theme's CSS variables, so handoff speaks your design system's vocabulary</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- 09 FIGMA -------------------------------------------------- -->
+<section class="artboard" id="figma">
+  <p class="ab-label"><span class="num" aria-hidden="true">09</span> migration</p>
+  <div class="ab-frame">
+    <div class="ab-head">
+      <span class="icon brand"><svg><use href="#ic-figma"/></svg></span>
+      <div>
+        <h2 class="ab-title">Figma migration &amp; pasting</h2>
+        <p class="sub">Copy in Figma, paste in Paper. Layers arrive editable &mdash; with a short list of conversions to watch for.</p>
+      </div>
+    </div>
+
+    <div class="ledger">
+      <div class="row"><span class="keys"><kbd>&#8984;</kbd><kbd>V</kbd></span><span class="desc">Paste &mdash; Figma layers, SVG, HTML, images, text</span></div>
+      <div class="row"><span class="keys"><kbd>Shift</kbd><kbd>&#8984;</kbd><kbd>R</kbd></span><span class="desc">Paste to <b>replace</b> the selected element &mdash; plain <kbd>&#8984;R</kbd> renames the layer instead</span></div>
+    </div>
+
+    <h3>what survives the paste</h3>
+    <div class="split">
+      <section class="ok">
+        <h4><svg><use href="#ic-check"/></svg>TRANSFERS CLEANLY</h4>
+        <ul>
+          <li>Auto layout</li>
+          <li>Drop shadows</li>
+          <li>Layer and background blurs</li>
+          <li>Strokes</li>
+          <li>Basic gradients</li>
+        </ul>
+      </section>
+      <section class="no">
+        <h4><svg><use href="#ic-x"/></svg>DOESN'T TRANSFER</h4>
+        <ul>
+          <li>Components and variables &mdash; they detach on paste</li>
+          <li>Rich text with mixed styles</li>
+          <li>Gradient strokes and diamond gradients</li>
+          <li>Noise, texture, and glass effects</li>
+          <li>Repeat patterns</li>
+          <li><b>Masks arrive hidden</b> &mdash; they're there, but you have to unhide them in the layer tree</li>
+          <li><b>Truncated text switches to height-fit</b> &mdash; so fixed-height text blocks will grow</li>
+        </ul>
+      </section>
+    </div>
+
+    <ul class="tips">
+      <li><b><svg><use href="#ic-warn"/></svg>Images need the browser extension</b><span class="m">Figma image fills require Paper's browser extension connected to a Figma account that can open the source file. Without it the paste succeeds but the images are missing.</span></li>
+      <li><b>HTML pastes as layers</b><span class="m">Paste HTML with inline styles and it becomes editable layers. Paper Snapshot goes further: copy an entire webpage as editable layers.</span></li>
+      <li class="wide"><b><svg><use href="#ic-warn"/></svg>Snapshotting localhost needs CORS</b><span class="m">Pointing Snapshot at a local dev server requires CORS configured on it &mdash; the docs have per-server guides.</span></li>
+    </ul>
+  </div>
+</section>
+
+<!-- 10 COLLAB ------------------------------------------------- -->
+<section class="artboard" id="collab">
+  <p class="ab-label"><span class="num" aria-hidden="true">10</span> collaboration</p>
+  <div class="ab-frame">
+    <div class="ab-head">
+      <span class="icon"><svg><use href="#ic-comment"/></svg></span>
+      <div>
+        <h2 class="ab-title">Collaboration &amp; comments</h2>
+        <p class="sub">Multiplayer is on by default, and the free tier is unusually generous about who you can bring in.</p>
+      </div>
+    </div>
+
+    <div class="ledger">
+      <div class="row"><span class="keys"><kbd>C</kbd></span><span class="desc"><b>Comment tool</b> &mdash; threads with resolve, search, filter, and sort</span></div>
+    </div>
+
+    <ul class="tips">
+      <li class="third"><b>Follow a teammate</b><span class="m">Click a collaborator's cursor to follow their view. Right-click for cursor chat on the canvas.</span></li>
+      <li class="third"><b>Free seats are generous</b><span class="m">Free teams invite editors at no cost, and viewer roles with folder or file-level access are free too. View-only links work outside the team, anonymous visitors included.</span></li>
+      <li class="third"><b>Agents show presence</b><span class="m">When an AI agent works in your file over MCP, it appears with a presence indicator like any other collaborator.</span></li>
+    </ul>
+  </div>
+</section>
+
+<!-- 11 MCP ---------------------------------------------------- -->
+<section class="artboard" id="mcp">
+  <p class="ab-label"><span class="num" aria-hidden="true">11</span> agents</p>
+  <div class="ab-frame">
+    <div class="ab-head">
+      <span class="icon"><svg><use href="#ic-mcp"/></svg></span>
+      <div>
+        <h2 class="ab-title">MCP &amp; agents</h2>
+        <p class="sub">Paper Desktop runs a local MCP server, so agents like Claude can read and edit the file you have open.</p>
+      </div>
+    </div>
+
+    <h3>setup</h3>
+    <div class="term">
+      <header>
+        <i></i><i></i><i></i><span>claude code</span>
+        <button class="copy" type="button" data-copy="claude mcp add paper --transport http http://127.0.0.1:29979/mcp --scope user">copy</button>
+      </header>
+      <div class="body"><pre><span class="c"># Keep Paper Desktop open with a file loaded.</span>
+<span class="c"># The server starts automatically:</span>
+http://127.0.0.1:29979/mcp
+
+<span class="c"># Claude Code</span>
+<span class="p">$</span> claude mcp add paper --transport http \
+      http://127.0.0.1:29979/mcp --scope user
+
+<span class="c"># Claude Desktop</span>
+<span class="c"># Add the marketplace paper-design/agent-plugins,</span>
+<span class="c"># then install the plugin.</span></pre></div>
+    </div>
+
+    <h3>living with it</h3>
+    <ul class="tips">
+      <li><b>What agents can do</b><span class="m">Read selection and file info, take screenshots, export JSX/PNG/SVG/video, create artboards, edit text and styles, and move, duplicate, or delete elements.</span></li>
+      <li><b>Workflow ideas</b><span class="m">Pull design-system colors from Figma via dual MCPs, fill placeholders with real Notion content, or convert canvas designs into React and Tailwind pages.</span></li>
+      <li><b><svg><use href="#ic-warn"/></svg>Wrong file getting edited?</b><span class="m">The MCP server always targets the <em>currently active</em> file. Ask the agent to call <button class="cmd" type="button" data-copy="get_basic_info">get_basic_info</button> to confirm which one that is.</span></li>
+      <li><b><svg><use href="#ic-warn"/></svg>Connection stale?</b><span class="m">Restart the agent session first, then Paper Desktop. Behind a proxy or VPN, allowlist <button class="cmd" type="button" data-copy="*.paper.design">*.paper.design</button>.</span></li>
+    </ul>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <p><svg class="mark" aria-hidden="true"><use href="#ic-paper"/></svg>Compiled from the <a href="https://paper.design/build-log">Paper build log</a> and <a href="https://paper.design/docs">docs</a> &mdash; tokens, vector editing, paste, MCP, and support &mdash; September 2026. Shortcuts shown for macOS. Styled after paper.design; Matter and Paper Mono are commercial faces, so this page uses Inter and Geist Mono as stand-ins.</p>
+  <p class="fine">The Paper and Figma logos are trademarks of their respective owners and appear here only to identify the products described. This is an independent guide, not affiliated with or endorsed by either company.</p>
+  <p class="byline">Made with <svg class="heart" aria-hidden="true"><use href="#ic-heart"/></svg><span class="sr">love</span> by <a href="https://x.com/sethjenks" rel="me noopener">Seth Jenks</a></p>
+</footer>
+
+</div>
+
+<script>
+// Layer-rail scrollspy. Marks the section nearest the top of the viewport.
+(function () {
+  var links = Array.prototype.slice.call(document.querySelectorAll('.rail a'));
+  if (!links.length || !('IntersectionObserver' in window)) return;
+  var byId = {};
+  links.forEach(function (a) { byId[a.getAttribute('href').slice(1)] = a; });
+
+  var visible = {};
+  var io = new IntersectionObserver(function (entries) {
+    entries.forEach(function (e) { visible[e.target.id] = e.isIntersecting; });
+    var current = null;
+    Object.keys(byId).forEach(function (id) { if (!current && visible[id]) current = id; });
+    links.forEach(function (a) {
+      a.setAttribute('aria-current', a.getAttribute('href') === '#' + current ? 'true' : 'false');
+    });
+  }, { rootMargin: '-80px 0px -70% 0px', threshold: 0 });
+
+  document.querySelectorAll('.artboard').forEach(function (s) { io.observe(s); });
+})();
+
+// Serialise the quick card as real SVG — <rect> and <text>, not a raster
+// or a foreignObject — so it lands in Figma or Paper as editable layers.
+// Read from the live DOM so the SVG can't drift from what's on screen.
+function buildCardSVG() {
+  var MONO = 'Geist Mono, ui-monospace, monospace';      // for the attribute
+  var SANS = 'Inter, system-ui, sans-serif';
+  var MONO_CSS = '"Geist Mono", ui-monospace, monospace'; // for measureText
+  var SANS_CSS = '"Inter", system-ui, sans-serif';
+  var ctx = document.createElement('canvas').getContext('2d');
+  function w(text, font) { ctx.font = font; return ctx.measureText(text).width; }
+  var capFont = '400 12px ' + MONO_CSS, lblFont = '400 13px ' + SANS_CSS;
+  var esc = function (t) {
+    return t.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+  };
+
+  var PADX = 18, HEAD = 44, ROW = 46, COLS = 3, CAP_H = 21, FOOT = 28;
+
+  var cells = [].slice.call(document.querySelectorAll('.qc-grid > div')).map(function (d) {
+    var parts = [].slice.call(d.querySelector('.k').children).map(function (e) {
+      var t = e.textContent.trim();
+      return { t: t, cap: e.tagName === 'KBD', w: e.tagName === 'KBD'
+        ? Math.max(22, w(t, capFont) + 16) : w(t, capFont) };
+    });
+    return { parts: parts, label: d.querySelector('.d').textContent.trim() };
+  });
+
+  // widest cell decides the column width, so the three columns line up
+  var colW = 0;
+  cells.forEach(function (c) {
+    var kw = c.parts.reduce(function (a, p) { return a + p.w + 5; }, 0) - 5;
+    c.keysW = kw;
+    colW = Math.max(colW, PADX * 2 + kw + 14 + w(c.label, lblFont));
+  });
+  var rows = Math.ceil(cells.length / COLS);
+  colW = Math.ceil(colW);
+  var GRID_H = rows * ROW + (rows - 1);
+  var W = colW * COLS + (COLS - 1), H = HEAD + GRID_H + FOOT;
+
+  var o = ['<svg xmlns="http://www.w3.org/2000/svg" width="' + W + '" height="' + H +
+           '" viewBox="0 0 ' + W + ' ' + H + '" fill="none">'];
+  o.push('<rect x=".5" y=".5" width="' + (W - 1) + '" height="' + (H - 1) +
+         '" rx="8" fill="#1E1E1E" stroke="#333333"/>');
+  o.push('<text x="' + PADX + '" y="27" font-family=' + '"' + MONO + '"' +
+         ' font-size="11" letter-spacing="0.9" fill="#EFEFE4">THE TWELVE</text>');
+  o.push('<text x="' + (PADX + 88) + '" y="27" font-family=' + '"' + MONO + '"' +
+         ' font-size="11" letter-spacing="0.7" fill="#878787">the shortcuts worth memorising</text>');
+  o.push('<rect x="1" y="' + HEAD + '" width="' + (W - 2) + '" height="1" fill="#2A2A2A"/>');
+
+  cells.forEach(function (c, i) {
+    var col = i % COLS, row = Math.floor(i / COLS);
+    var x0 = col * (colW + 1), y0 = HEAD + 1 + row * (ROW + 1);
+    if (col) o.push('<rect x="' + (x0 - 1) + '" y="' + y0 + '" width="1" height="' + ROW + '" fill="#2A2A2A"/>');
+    if (row) o.push('<rect x="' + x0 + '" y="' + (y0 - 1) + '" width="' + colW + '" height="1" fill="#2A2A2A"/>');
+    var x = x0 + PADX, midY = y0 + ROW / 2;
+    c.parts.forEach(function (p) {
+      if (p.cap) {
+        o.push('<rect x="' + x.toFixed(1) + '" y="' + (midY - CAP_H / 2).toFixed(1) +
+               '" width="' + p.w.toFixed(1) + '" height="' + CAP_H +
+               '" rx="4" fill="#262626" stroke="#3A3A3A"/>');
+        o.push('<text x="' + (x + p.w / 2).toFixed(1) + '" y="' + (midY + 4).toFixed(1) +
+               '" font-family=' + '"' + MONO + '"' + ' font-size="12" fill="#EFEFE4" ' +
+               'text-anchor="middle">' + esc(p.t) + '</text>');
+      } else {
+        o.push('<text x="' + (x + p.w / 2).toFixed(1) + '" y="' + (midY + 4).toFixed(1) +
+               '" font-family=' + '"' + MONO + '"' + ' font-size="12" fill="#6E6E6E" ' +
+               'text-anchor="middle">' + esc(p.t) + '</text>');
+      }
+      x += p.w + 5;
+    });
+    o.push('<text x="' + (x0 + PADX + c.keysW + 14).toFixed(1) + '" y="' + (midY + 4.5).toFixed(1) +
+           '" font-family=' + '"' + SANS + '"' + ' font-size="13" fill="#9E9E9E">' +
+           esc(c.label) + '</text>');
+  });
+
+  o.push('<rect x="1" y="' + (HEAD + GRID_H) + '" width="' + (W - 2) + '" height="1" fill="#2A2A2A"/>');
+  o.push('<text x="' + PADX + '" y="' + (H - 10) + '" font-family=' + '"' + MONO + '"' +
+         ' font-size="9" letter-spacing="0.6" fill="#6E6E6E">paper.tips</text>');
+  o.push('</svg>');
+  return o.join('\n');
+}
+
+// Copy-to-clipboard for the setup command and the inline commands.
+// navigator.clipboard rejects when the document isn't focused, so always
+// fall back to execCommand and always show the outcome — a click that
+// silently does nothing is worse than no button at all.
+document.addEventListener('click', function (e) {
+  var el = e.target.closest('[data-copy],[data-copy-svg]');
+  if (!el) return;
+  var text = el.hasAttribute('data-copy-svg') ? buildCardSVG() : el.dataset.copy;
+  var isButton = el.classList.contains('copy');
+  var before = el.textContent;
+
+  function flash(ok) {
+    el.dataset.done = ok ? '1' : '0';
+    if (isButton) el.textContent = ok ? 'copied' : 'press ⌘C';
+    setTimeout(function () {
+      el.removeAttribute('data-done');
+      if (isButton) el.textContent = before;
+    }, 1600);
+  }
+
+  function fallback() {
+    var ta = document.createElement('textarea');
+    ta.value = text;
+    ta.setAttribute('readonly', '');
+    ta.style.cssText = 'position:fixed;top:0;left:-9999px';
+    document.body.appendChild(ta);
+    ta.select();
+    var ok = false;
+    try { ok = document.execCommand('copy'); } catch (err) { ok = false; }
+    ta.remove();
+    flash(ok);
+  }
+
+  if (navigator.clipboard && navigator.clipboard.writeText) {
+    navigator.clipboard.writeText(text).then(function () { flash(true); }, fallback);
+  } else {
+    fallback();
+  }
+});
+</script>
+</body>
+</html>
