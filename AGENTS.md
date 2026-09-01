@@ -1,21 +1,22 @@
 # Paper.tips
 
-An unofficial field guide to [Paper](https://paper.design) — every shortcut worth knowing, plus the tips and gotchas the shortcut list leaves out. One static HTML file, styled after paper.design itself and laid out like a Paper canvas. Destined for the **paper.tips** domain (owned, not yet deployed).
+An unofficial field guide to [Paper](https://paper.design) — every shortcut worth knowing, plus the tips and gotchas the shortcut list leaves out. A statically rendered Next.js page, styled after paper.design itself and laid out like a Paper canvas. Destined for the **paper.tips** domain (owned, not yet deployed).
 
 Made by Seth Jenks ([@sethjenks](https://x.com/sethjenks)). Not affiliated with or endorsed by Paper or Figma.
 
 ## Read this before editing
 
-This project looks like "just an HTML file" but carries a measured design contract and a fact-checking discipline. Changes that break either will be noticed.
+This project looks like "just a static page" but carries a measured design contract and a fact-checking discipline. Changes that break either will be noticed.
 
 ### Architecture
 
-- **`index.html` is the entire site.** No build step, no dependencies, no framework. Inline CSS and vanilla JS. Google Fonts (Inter + Geist Mono) is the only external request.
-- Preview: `python3 -m http.server` from this folder. Nothing else to run.
+- **The site is a Next.js App Router page.** `app/page.tsx` holds the full guide markup as one Server Component; `components/IconSprite.tsx` holds the inline SVG symbols; `components/GuideEffects.tsx` is the only client island.
+- **`app/globals.css` is the complete stylesheet.** Keep its source order intact. Inter and Geist Mono are self-hosted through `next/font`; the rendered page makes no external font request.
+- Install with `npm install`, preview with `npm run dev`, and verify a production build with `npm run build`.
 
 ### The design contract (do not drift)
 
-Every value below was **sampled from the live paper.design site or computed against WCAG**, not invented. They live as CSS custom properties in `:root` — always style through the tokens, never with literals.
+Every value below was **sampled from the live paper.design site or computed against WCAG**, not invented. They live as CSS custom properties in `app/globals.css` under `:root` — always style through the tokens, never with literals.
 
 | Constraint | Value | Why |
 |---|---|---|
@@ -58,11 +59,13 @@ Check at 1400px, 900px, and 390px widths; also 360px (single-column nav) and 375
 - **"high leverage" band** (`.startbar`) — sits directly above `#type` as its lead-in
 - **Footer** — attribution, trademark notice, byline centred in symmetric 64px gaps
 
-### The JS (all vanilla, ~150 lines)
+### The client JS (one React client island)
+
+`components/GuideEffects.tsx` owns all browser-only behavior. Keep the rest of the page server-rendered:
 
 1. **Scrollspy** — IntersectionObserver marking the rail's current section
-2. **Copy handlers** — `[data-copy]` (terminal command, inline `.cmd` buttons) and `[data-copy-svg]`; clipboard API with `execCommand` fallback and a visible "press ⌘C" failure state (never fail silently)
-3. **`buildCardSVG()`** — serialises the quick card from the live DOM into pure `<rect>`/`<text>` SVG (no foreignObject, no raster) so it pastes into Figma/Paper as editable layers. Font-family attributes must NOT contain escaped quotes; the credit line has its own reserved band below the grid.
+2. **Copy handlers** — delegated handling for `[data-copy]` (terminal command, inline `.cmd` buttons) and `[data-copy-svg]`; clipboard API with `execCommand` fallback and a visible "press ⌘C" failure state (never fail silently)
+3. **`buildCardSVG()`** — serialises the quick card from the live DOM into pure `<rect>`/`<text>` SVG (no foreignObject, no raster) so it pastes into Figma/Paper as editable layers. It is exposed as `window.buildCardSVG` for the verification gate. Font-family attributes must NOT contain escaped quotes; the credit line has its own reserved band below the grid.
 
 ### Brand marks
 

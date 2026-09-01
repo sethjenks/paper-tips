@@ -1,0 +1,579 @@
+/* ============================================================
+   Paper Field Guide
+   Palette + type metrics sampled from paper.design (Sept 2026).
+   Matter -> Inter, Paper Mono -> Geist Mono (their commercial
+   faces; Inter is Paper's own declared fallback).
+   Single-theme by intent: Paper's identity is dark-only, so every
+   color is painted explicitly rather than inherited from the host.
+   ============================================================ */
+:root{
+  /* --- ground: three surfaces, not six --------------------- */
+  --sunk:#131313;    /* recessed: key map, terminal            */
+  --bg:#181818;      /* page ground                            */
+  --panel:#1E1E1E;   /* raised: cards, ledger rows             */
+
+  /* --- ink: three text tiers, all >= 4.5:1 on every surface  */
+  --ink:#EFEFE4;     /* 14.4:1 on panel                        */
+  --muted:#9E9E9E;   /*  6.2:1 on panel — secondary body       */
+  --label:#878787;   /*  4.6:1 on panel — small mono labels    */
+
+  /* --- decoration only: never carries text ----------------- */
+  --faint:#6E6E6E;   /* section numbers, separators            */
+  --line:#2A2A2A;    /* hairlines between rows                 */
+  --line-2:#333333;  /* artboard frame AND its corner ticks —
+                        one family, so the frame reads as
+                        structure and the ticks as punctuation */
+
+  /* --- accent: Paper periwinkle, used sparingly ------------- */
+  --accent:#86B9FF;
+  --accent-dim:rgba(134,185,255,.16);
+
+  --kbd-bg:rgba(255,255,255,.05);
+  --kbd-line:rgba(255,255,255,.10);
+
+  /* --- type scale: 7 steps, each with one job -------------- */
+  --t-label:11px;    /* mono uppercase labels                  */
+  --t-mono:12.5px;   /* keycaps, code                          */
+  --t-sm:14px;       /* tip cards, rail, footer                */
+  --t-body:16px;     /* body, ledger descriptions              */
+  --t-lead:19px;     /* lede, start-here                       */
+  --t-title:25px;    /* section titles                         */
+  --t-display:64px;  /* masthead                               */
+
+  /* --- weights: 3, not 7 ----------------------------------- */
+  --w-display:360;
+  --w-body:400;
+  --w-strong:550;
+
+  /* --- radii: 3, not 7 ------------------------------------- */
+  --r-sm:4px;        /* keycaps, chips                         */
+  --r-md:8px;        /* panels, cards, frames                  */
+  --r-pill:999px;
+
+  --mono:var(--font-geist-mono),SFMono-Regular,Menlo,ui-monospace,monospace;
+  --sans:var(--font-inter),-apple-system,system-ui,"Segoe UI",sans-serif;
+
+  --gut:clamp(20px,4vw,40px);
+  --tail:64px;   /* air above the byline, matched by .shell padding-bottom */
+  --col:1180px;
+}
+
+*{box-sizing:border-box}
+b,strong{font-weight:var(--w-strong)}
+html{scroll-behavior:smooth; scroll-padding-top:96px; -webkit-text-size-adjust:100%}
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  *,*::before,*::after{animation-duration:.001ms !important; transition-duration:.001ms !important}
+}
+
+body{
+  margin:0;
+  background-color:var(--bg);
+  /* Paper's own 120px canvas grid (layout/grid.svg): solid horizontal
+     rule, dashed vertical rule, 0.5px, crossing at the tile centre. */
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cline x1='60.25' y1='0' x2='60.25' y2='120' stroke='%23EFEFE4' stroke-opacity='.07' stroke-width='.5' stroke-dasharray='7.56 7.56'/%3E%3Cline x1='0' y1='60.25' x2='120' y2='60.25' stroke='%23EFEFE4' stroke-opacity='.055' stroke-width='.5'/%3E%3C/svg%3E");
+  background-size:120px 120px;
+  background-position:center 0;
+  color:var(--ink);
+  font-family:var(--sans);
+  font-size:var(--t-body); font-weight:var(--w-body);
+  line-height:1.62; letter-spacing:.011em;
+  -webkit-font-smoothing:antialiased; text-rendering:optimizeLegibility;
+}
+
+/* ---------- ruler strip (paper.design layout/ruler-y.svg, in CSS) ---------- */
+.ruler{
+  position:sticky; top:0; z-index:40;
+  height:28px;
+  background:rgba(24,24,24,.86);
+  backdrop-filter:blur(10px); -webkit-backdrop-filter:blur(10px);
+  border-bottom:1px solid var(--line);
+  background-image:
+    repeating-linear-gradient(to right, var(--faint) 0 1px, transparent 1px 10px);
+  background-size:100% 7px;
+  background-repeat:no-repeat;
+  background-position:0 100%;
+}
+.ruler::after{
+  content:""; position:absolute; inset:auto 0 0 0; height:14px;
+  background-image:repeating-linear-gradient(to right, var(--line-2) 0 1px, transparent 1px 60px);
+  background-position:0 100%; background-repeat:repeat-x;
+}
+
+/* ---------- shell ---------- */
+.shell{
+  max-width:var(--col); margin:0 auto; padding:0 var(--gut) var(--tail);
+  display:grid; grid-template-columns:1fr; gap:0;
+}
+@media (min-width:1080px){
+  .shell{grid-template-columns:186px minmax(0,1fr); column-gap:56px}
+  /* these sit above the rail, so they span the full width */
+  .masthead,.quickcard{grid-column:1 / -1}
+  /* the footer sits beside the rail, and it's content rather than chrome —
+     align it with main instead of starting at the rail's left edge */
+  footer{grid-column:2}
+}
+
+/* ---------- masthead ---------- */
+.masthead{padding:72px 0 34px}
+.eyebrow{
+  font-family:var(--mono); font-size:var(--t-label); font-weight:var(--w-body);
+  letter-spacing:.08em; color:var(--label); margin:0 0 20px;
+  display:flex; flex-wrap:wrap; gap:0 10px; align-items:center;
+}
+.eyebrow .dot{color:var(--faint)}
+h1{
+  font-weight:var(--w-display); font-size:clamp(40px,6.4vw,var(--t-display));
+  line-height:1.0; letter-spacing:-.02em; margin:0 0 22px;
+  text-wrap:balance; max-width:14ch;
+}
+h1 span{color:var(--muted)}
+.lede{
+  max-width:60ch; color:var(--muted); margin:0;
+  font-size:var(--t-lead); line-height:1.58; letter-spacing:.006em;
+}
+.lede strong{color:var(--ink); font-weight:var(--w-strong)}
+
+/* ---------- "start here" band ---------- */
+.startbar{
+  margin:52px 0 0; padding:24px 26px;
+  border:1px solid var(--line-2); border-radius:var(--r-md);
+  background:linear-gradient(90deg, var(--accent-dim), transparent 46%), var(--panel);
+  display:grid; gap:14px 26px; align-items:start;
+}
+@media (min-width:760px){ .startbar{grid-template-columns:auto minmax(0,1fr)} }
+.startbar .flag{
+  font-family:var(--mono); font-size:var(--t-label); letter-spacing:.08em;
+  color:var(--accent); white-space:nowrap; padding-top:5px;
+}
+.startbar p{margin:0; font-size:var(--t-lead); line-height:1.5; max-width:66ch}
+.startbar p strong{font-weight:var(--w-strong); color:var(--ink)}
+.startbar p + p{margin-top:10px; color:var(--muted); font-size:var(--t-body)}
+/* it now leads directly into the featured artboard, so close the gap
+   that .featured's own 76px top padding would otherwise leave */
+.startbar + .artboard.featured{padding-top:22px}
+
+/* ---------- quick card: the one-screen lookup ---------- */
+.quickcard{
+  margin:40px 0 0; border:1px solid var(--line-2); border-radius:var(--r-md);
+  background:var(--panel); overflow:hidden;
+}
+.quickcard > header{
+  display:flex; flex-wrap:wrap; gap:4px 12px; align-items:baseline;
+  padding:14px 20px; border-bottom:1px solid var(--line);
+}
+.quickcard > header h2{
+  margin:0; font-family:var(--mono); font-size:var(--t-label);
+  font-weight:var(--w-body); letter-spacing:.08em; color:var(--ink);
+}
+.quickcard > header span{
+  font-family:var(--mono); font-size:var(--t-label);
+  letter-spacing:.06em; color:var(--label);
+}
+.qc-grid{
+  display:grid; grid-template-columns:repeat(3,1fr);
+  gap:1px; background:var(--line);
+}
+@media (max-width:860px){ .qc-grid{grid-template-columns:repeat(2,1fr)} }
+@media (max-width:520px){ .qc-grid{grid-template-columns:1fr} }
+.qc-grid div{
+  background:var(--panel); padding:11px 20px;
+  display:flex; flex-wrap:wrap; gap:4px 12px;
+  /* baseline keeps the keycap and its label sitting on one baseline;
+     align-content centres that line block in a cell stretched by the
+     tallest cell in the row */
+  align-items:baseline; align-content:center;
+}
+.qc-grid .k{display:flex; gap:4px; align-items:center; flex:none}
+.qc-grid .k .plus{color:var(--label); font-size:var(--t-mono)}
+.qc-grid .d{color:var(--muted); font-size:var(--t-sm); line-height:1.45}
+
+/* ---------- layer-tree rail ---------- */
+.rail{display:none}
+@media (min-width:1080px){
+  .rail{
+    display:block; position:sticky; top:60px; align-self:start;
+    padding:52px 0 0; max-height:calc(100vh - 80px); overflow-y:auto;
+  }
+}
+.rail h2{
+  font-family:var(--mono); font-size:var(--t-label); font-weight:var(--w-body);
+  letter-spacing:.09em; color:var(--label); margin:0 0 12px; padding-left:14px;
+}
+.rail h2 .n{color:var(--label)}
+.rail ol{list-style:none; margin:0; padding:0}
+.rail a{
+  display:flex; align-items:center; gap:9px;
+  padding:5.5px 10px 5.5px 14px; border-left:1px solid var(--line);
+  color:var(--muted); text-decoration:none; font-size:var(--t-sm);
+  letter-spacing:.005em;
+  transition:color .14s, border-color .14s, background-color .14s;
+}
+.rail a svg{width:14px; height:14px; flex:none; opacity:.6; transition:opacity .14s}
+.rail a:hover{color:var(--ink); border-left-color:var(--line-2); background:rgba(255,255,255,.02)}
+.rail a:hover svg{opacity:1}
+.rail a[aria-current="true"]{color:var(--ink); border-left-color:var(--accent)}
+.rail a[aria-current="true"] svg{opacity:1; color:var(--accent)}
+
+/* brand marks — third-party logos, nominative use. They keep their own
+   colour, so they sit outside the monochrome icon system. */
+.eyebrow .mark{width:13px; height:13px; color:var(--accent); flex:none; margin-right:-4px}
+footer .mark{width:17px; height:17px; color:var(--accent); vertical-align:-3px; margin-right:7px}
+.ab-head .icon.brand{background:var(--sunk); padding:6px}
+.ab-head .icon.brand svg{width:100%; height:100%}
+/* full-colour logo in the rail would break a 11-item monochrome list, so
+   the rail mark is dimmed to sit with its neighbours and lights up on hover */
+.rail a .brandmark{filter:grayscale(1); opacity:.55}
+.rail a:hover .brandmark,.rail a[aria-current="true"] .brandmark{filter:none; opacity:1}
+
+/* mobile chip nav */
+/* mobile contents. Not a pile of chips: the same icons as the desktop
+   layer rail, in the panel language the quick card already uses, with the
+   section number right-aligned like page numbers in a book's contents. */
+.pagenav{
+  margin:30px 0 0; border:1px solid var(--line-2); border-radius:var(--r-md);
+  background:var(--panel); overflow:hidden;
+}
+@media (min-width:1080px){.pagenav{display:none}}
+.pagenav > header{
+  display:flex; flex-wrap:wrap; gap:4px 12px; align-items:baseline;
+  padding:13px 18px; border-bottom:1px solid var(--line);
+}
+.pagenav > header h2{
+  margin:0; font-family:var(--mono); font-size:var(--t-label);
+  font-weight:var(--w-body); letter-spacing:.08em; color:var(--ink);
+}
+.pagenav > header span{
+  font-family:var(--mono); font-size:var(--t-label);
+  letter-spacing:.06em; color:var(--label);
+}
+.pagenav ol{
+  list-style:none; margin:0; padding:0;
+  display:grid; grid-template-columns:1fr 1fr; gap:1px; background:var(--line);
+}
+/* Breakpoints are the measured thresholds, not round numbers. The widest
+   label is "Color & tokens" at 99px; a two-column cell needs 186px to hold
+   it with the number and 161px without. */
+@media (min-width:375px) and (max-width:413px){
+  .pagenav a .n{display:none}      /* two columns still fit, the number doesn't */
+}
+@media (max-width:374px){
+  .pagenav ol{grid-template-columns:1fr}   /* neither fits — go single file */
+}
+/* 11 items in two columns leaves a hole in the last slot, where the grid's
+   gap colour shows through as a phantom cell — let the last one span. */
+.pagenav li:last-child{grid-column:1 / -1}
+.pagenav a{
+  display:flex; align-items:center; gap:11px;
+  background:var(--panel); padding:12px 18px;
+  color:var(--muted); text-decoration:none; font-size:var(--t-sm);
+  transition:color .14s, background-color .14s;
+}
+.pagenav a svg{width:15px; height:15px; flex:none; opacity:.6; transition:opacity .14s}
+.pagenav a .lbl{flex:1 1 auto; min-width:0}
+.pagenav a .n{
+  font-family:var(--mono); font-size:var(--t-label); color:var(--faint);
+  font-variant-numeric:tabular-nums; flex:none;
+}
+.pagenav a:hover,.pagenav a:focus-visible{color:var(--ink); background:rgba(255,255,255,.03)}
+.pagenav a:hover svg{opacity:1}
+/* full-colour logo would break a monochrome list, same as in the rail */
+.pagenav a .brandmark{filter:grayscale(1); opacity:.55}
+.pagenav a:hover .brandmark{filter:none; opacity:1}
+
+/* ---------- artboards ---------- */
+main{min-width:0}
+.artboard{padding:52px 0 4px}
+.artboard + .artboard{margin-top:10px}
+.ab-label{
+  font-family:var(--mono); font-size:var(--t-label); letter-spacing:.07em;
+  color:var(--label); margin:0 0 9px;
+  display:flex; align-items:center; gap:8px;
+}
+.ab-label .num{color:var(--faint); font-variant-numeric:tabular-nums}
+.ab-frame{
+  border:1px solid var(--line-2); border-radius:var(--r-md);
+  padding:clamp(20px,3.4vw,34px);
+  background:linear-gradient(180deg, rgba(255,255,255,.012), transparent 220px);
+  position:relative;
+}
+/* registration ticks — same colour family as the frame they punctuate */
+.ab-frame::before,.ab-frame::after{
+  content:""; position:absolute; width:9px; height:9px; pointer-events:none;
+}
+.ab-frame::before{top:-1px; left:-1px; border-top:1px solid var(--line-2); border-left:1px solid var(--line-2); border-top-left-radius:var(--r-md)}
+.ab-frame::after{bottom:-1px; right:-1px; border-bottom:1px solid var(--line-2); border-right:1px solid var(--line-2); border-bottom-right-radius:var(--r-md)}
+
+/* the section the page's own thesis points at. Emphasis comes from the
+   accent label, the filled ground and extra air — deliberately NOT from a
+   wider frame, so every artboard shares one left and right edge. */
+.artboard.featured{padding:76px 0 28px}
+.artboard.featured .ab-label{color:var(--accent)}
+.artboard.featured .ab-label .num{color:var(--accent); opacity:.55}
+.artboard.featured .ab-frame{
+  background:var(--panel); border-color:#3C3C3C;
+  padding:clamp(24px,4vw,44px);
+}
+
+.ab-head{display:flex; gap:14px; align-items:flex-start; margin:0 0 6px}
+.ab-head .icon{
+  width:34px; height:34px; flex:none; border-radius:var(--r-sm);
+  border:1px solid var(--line-2); background:var(--sunk);
+  display:grid; place-items:center; color:var(--ink); margin-top:1px;
+}
+.ab-head .icon svg{width:18px; height:18px}
+h2.ab-title{
+  font-weight:var(--w-strong); font-size:var(--t-title); line-height:1.24;
+  letter-spacing:-.004em; margin:0; text-wrap:balance;
+}
+.sub{color:var(--muted); margin:8px 0 26px; max-width:66ch; font-size:var(--t-body)}
+
+h3{
+  font-family:var(--mono); font-weight:var(--w-body); font-size:var(--t-label);
+  letter-spacing:.08em; color:var(--label); margin:34px 0 14px;
+  padding-bottom:8px; border-bottom:1px solid var(--line);
+}
+
+/* ---------- keycaps ---------- */
+kbd{
+  display:inline-block; font-family:var(--mono);
+  font-size:var(--t-mono); font-weight:var(--w-body); line-height:1.55;
+  padding:2px 8px; border-radius:var(--r-sm);
+  background:var(--kbd-bg); border:1px solid var(--kbd-line);
+  color:var(--ink); white-space:nowrap;
+}
+
+/* ---------- shortcut ledger — also carries the export formats ---------- */
+.ledger{
+  margin:0; display:grid; gap:1px; background:var(--line);
+  border:1px solid var(--line); border-radius:var(--r-md); overflow:hidden;
+}
+.ledger .row{
+  display:grid; grid-template-columns:196px minmax(0,1fr);
+  gap:6px 24px; background:var(--panel); padding:11px 16px;
+  /* centre, not baseline: rows whose description wraps to two lines were
+     leaving the keycaps pinned to the first line */
+  align-items:center;
+}
+@media (max-width:600px){ .ledger .row{grid-template-columns:1fr; gap:7px} }
+.ledger .keys{display:flex; flex-wrap:wrap; gap:5px; align-items:center}
+.ledger .keys .plus{color:var(--label); font-size:var(--t-mono)}
+/* mono label in the same slot as the keys, for non-shortcut rows */
+.ledger .fmt{
+  font-family:var(--mono); font-size:var(--t-mono); letter-spacing:.05em;
+  color:var(--ink); align-self:center;
+}
+.ledger .desc{color:var(--muted); font-size:var(--t-body); line-height:1.5}
+.ledger .desc b{color:var(--ink); font-weight:var(--w-strong)}
+
+/* ---------- tip cards, asymmetric ---------- */
+.tips{
+  display:grid; grid-template-columns:repeat(6,1fr); gap:12px;
+  margin:26px 0 0; padding:0; list-style:none;
+}
+.tips li{
+  grid-column:span 3;
+  background:var(--panel); border:1px solid var(--line); border-radius:var(--r-md);
+  padding:16px 18px 17px; font-size:var(--t-sm); line-height:1.55;
+}
+.tips li.wide{grid-column:span 6}
+.tips li.third{grid-column:span 2}
+@media (max-width:820px){
+  .tips{grid-template-columns:1fr}
+  .tips li,.tips li.wide,.tips li.third{grid-column:auto}
+}
+.tips li b{
+  display:flex; align-items:center; gap:8px;
+  font-weight:var(--w-strong); margin-bottom:6px; letter-spacing:.003em; color:var(--ink);
+}
+/* the warning triangle is now the ONLY icon in this slot, so it means something */
+.tips li b svg{width:14px; height:14px; flex:none; color:var(--muted)}
+.tips li .m{color:var(--muted); display:block}
+
+/* ---------- key map (typography centrepiece) ---------- */
+.keymap{
+  border:1px solid var(--line-2); border-radius:var(--r-md); background:var(--sunk);
+  padding:clamp(18px,3vw,28px); overflow-x:auto;
+}
+.keymap-grid{display:grid; gap:1px; min-width:430px; background:var(--line)}
+.km-row{
+  display:grid; grid-template-columns:minmax(120px,1.1fr) minmax(112px,auto) 76px 76px;
+  background:var(--bg); align-items:center; gap:18px; padding:12px 16px;
+}
+.km-row.head{background:var(--sunk); padding-bottom:10px}
+.km-row.head span{
+  font-family:var(--mono); font-size:var(--t-label); letter-spacing:.09em;
+  color:var(--label); text-align:center;
+}
+.km-row.head span:first-child,.km-row.head span:nth-child(2){text-align:left}
+.km-prop{font-size:var(--t-body)}
+.km-mods{display:flex; gap:5px; flex-wrap:wrap}
+.km-cap{
+  display:grid; place-items:center; height:42px; border-radius:var(--r-sm);
+  border:1px solid var(--kbd-line); background:var(--kbd-bg);
+  font-family:var(--mono); font-size:var(--t-lead); line-height:1; color:var(--ink);
+  padding-bottom:5px; box-shadow:inset 0 -2px 0 rgba(0,0,0,.35);
+}
+.km-cap.hot{border-color:rgba(134,185,255,.45); color:var(--accent); background:var(--accent-dim)}
+.km-note{
+  margin:16px 0 0; font-size:var(--t-sm); color:var(--muted);
+  display:flex; gap:8px; align-items:flex-start;
+}
+.km-note svg{width:15px; height:15px; flex:none; margin-top:2px; color:var(--faint)}
+
+/* ---------- transfer split (figma) ---------- */
+.split{display:grid; gap:12px; margin:26px 0 0}
+@media (min-width:760px){.split{grid-template-columns:1fr 1fr}}
+.split section{
+  border:1px solid var(--line); border-radius:var(--r-md);
+  background:var(--panel); padding:16px 18px 18px;
+}
+.split h4{
+  margin:0 0 12px; font-family:var(--mono); font-size:var(--t-label);
+  font-weight:var(--w-body); letter-spacing:.08em;
+  display:flex; align-items:center; gap:8px; color:var(--ink);
+}
+.split h4 svg{width:14px; height:14px}
+.split section.ok h4 svg{color:var(--accent)}
+.split section.no h4 svg{color:var(--muted)}
+.split ul{margin:0; padding:0; list-style:none; display:grid; gap:8px}
+.split li{
+  font-size:var(--t-sm); color:var(--muted); line-height:1.5;
+  padding-left:16px; position:relative;
+}
+.split li::before{
+  content:""; position:absolute; left:0; top:9px;
+  width:5px; height:5px; border-radius:1px; background:var(--line-2);
+}
+.split section.ok li::before{background:rgba(134,185,255,.5)}
+.split li b{color:var(--ink); font-weight:var(--w-strong)}
+
+/* ---------- shader swatches ---------- */
+.swatches{
+  display:grid; grid-template-columns:repeat(auto-fill,minmax(172px,1fr));
+  gap:8px; margin:0; padding:0; list-style:none;
+}
+.swatches li{
+  display:flex; align-items:center; gap:10px;
+  border:1px solid var(--line); border-radius:var(--r-sm); background:var(--panel);
+  padding:8px 12px; font-size:var(--t-sm); color:var(--muted);
+}
+.swatches i{
+  width:22px; height:22px; border-radius:var(--r-sm); flex:none;
+  border:1px solid rgba(255,255,255,.09);
+}
+
+/* ---------- terminal ---------- */
+.term{
+  border:1px solid var(--line-2); border-radius:var(--r-md); background:var(--sunk);
+  overflow:hidden; margin:26px 0 0;
+}
+.term > header{
+  display:flex; align-items:center; gap:7px; padding:9px 14px;
+  border-bottom:1px solid var(--line); background:var(--panel);
+}
+.term > header i{width:9px; height:9px; border-radius:50%; background:var(--line-2)}
+.term > header span{
+  font-family:var(--mono); font-size:var(--t-label); color:var(--label);
+  letter-spacing:.06em; margin-left:6px;
+}
+.term .body{padding:16px 18px; overflow-x:auto}
+.term pre{
+  margin:0; font-family:var(--mono); font-size:var(--t-mono); line-height:1.85;
+  color:var(--ink); white-space:pre;
+}
+.term .c{color:var(--label)}
+.term .p{color:var(--accent)}
+
+/* ---------- copy affordances ---------- */
+.copy{
+  margin-left:auto; font-family:var(--mono); font-size:var(--t-label);
+  letter-spacing:.06em; color:var(--label);
+  background:transparent; border:1px solid var(--line-2);
+  border-radius:var(--r-sm); padding:3px 10px; cursor:pointer;
+  transition:color .14s, border-color .14s;
+}
+.copy:hover{color:var(--ink); border-color:var(--muted)}
+.copy[data-done="1"]{color:var(--accent); border-color:rgba(134,185,255,.45)}
+.copy[data-done="0"],.cmd[data-done="0"]{color:var(--ink); border-color:var(--muted)}
+/* inline command that copies itself — a button dressed as <code> */
+.cmd{
+  font-family:var(--mono); font-size:var(--t-mono); line-height:inherit;
+  background:rgba(255,255,255,.05); border:1px solid transparent;
+  border-radius:var(--r-sm); padding:1px 5px; color:var(--ink);
+  cursor:pointer; transition:border-color .14s, background-color .14s;
+}
+.cmd:hover{border-color:var(--line-2); background:rgba(255,255,255,.08)}
+.cmd[data-done="1"]{color:var(--accent)}
+
+code{
+  font-family:var(--mono); font-size:var(--t-mono);
+  background:rgba(255,255,255,.05); border-radius:var(--r-sm); padding:2px 5px; color:var(--ink);
+}
+
+/* ---------- footer ---------- */
+/* no grid-column here: this rule sits after the 1080px block, so setting
+   one would override the desktop placement on cascade order. In the
+   single-column mobile grid the default placement is already full width. */
+footer{
+  margin-top:64px; padding-top:28px;
+  border-top:1px solid var(--line);
+  color:var(--label); font-size:var(--t-sm); line-height:1.6;
+}
+
+footer p{margin:0}
+footer p + p{margin-top:14px}
+/* class beats "footer p + p", so this margin wins regardless of order.
+   --tail is the gap above; .shell reuses it below, so the byline sits
+   centred between the last copy and the bottom of the page. */
+.byline{
+  margin-top:var(--tail);
+  color:var(--muted); font-size:var(--t-body);
+}
+.byline a{color:var(--ink); text-decoration-color:var(--label)}
+.byline .heart{
+  width:14px; height:14px; color:var(--accent);
+  vertical-align:-2px; margin:0 1px;
+}
+/* visually hidden, still read aloud — the heart carries the word "love" */
+.sr{position:absolute; width:1px; height:1px; overflow:hidden; clip:rect(0 0 0 0); white-space:nowrap}
+.fine{font-size:var(--t-mono); line-height:1.65}
+
+a{color:var(--ink); text-decoration:underline; text-underline-offset:3px; text-decoration-color:var(--faint); text-decoration-thickness:1px}
+a:hover{text-decoration-color:var(--accent)}
+.rail a,.pagenav a{text-decoration:none}
+a:focus-visible,.rail a:focus-visible,.copy:focus-visible,.cmd:focus-visible{
+  outline:2px solid var(--accent); outline-offset:3px; border-radius:var(--r-sm);
+}
+
+/* ---------- print: just the quick card, one page ---------- */
+@media print{
+  @page{margin:14mm}
+  body{
+    background:#fff; background-image:none; color:#111;
+    font-size:11pt; line-height:1.4;
+  }
+  .ruler,.rail,.pagenav,main,footer,.startbar,.eyebrow{display:none !important}
+  .shell{display:block; max-width:none; padding:0}
+  .masthead{padding:0 0 10mm}
+  h1{font-size:22pt; color:#111; margin:0 0 3mm}
+  h1 span{color:#767676}
+  .lede{
+    font-size:10pt; color:#444; max-width:none; margin:0;
+  }
+  .lede::after{content:" · Printed reference: the 12 shortcuts worth memorising."}
+  .quickcard{
+    margin:0; border:1px solid #bbb; border-radius:0;
+    background:#fff; break-inside:avoid;
+  }
+  .quickcard > header{border-bottom:1px solid #bbb; padding:3mm 4mm}
+  .quickcard > header h2,.quickcard > header span{color:#111}
+  .qc-grid{background:#bbb; grid-template-columns:repeat(2,1fr) !important}
+  .qc-grid div{background:#fff; padding:2.5mm 4mm}
+  .qc-grid .d{color:#333; font-size:9.5pt}
+  kbd{
+    background:#f2f2f2; border:1px solid #bbb; color:#111;
+    font-size:9pt; padding:1px 5px;
+  }
+  .qc-grid .k .plus{color:#888}
+}
