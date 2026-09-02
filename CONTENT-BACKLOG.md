@@ -6,7 +6,13 @@ GitHub issues on this repo are the preferred backlog. This file is the fallback:
 
 **Do not ship any of these onto `app/page.tsx` until they are verified.** AGENTS.md: never invent a shortcut; confirm against [paper.design/docs/support](https://paper.design/docs/support), the [build log](https://paper.design/build-log), other docs, and the live product.
 
-Already on the live guide (skip / don't duplicate): Paper Snapshot as editable layers; HTML pastes as layers; Snapshot of localhost needs CORS; MCP setup (Desktop local server at `127.0.0.1:29979/mcp`, Claude Code / Claude Desktop); what agents can do; wrong-file (MCP targets the active file); stale-connection restart order; Figma paste transfer list; Figma images need the browser extension; tokens from codebase via MCP; code export as React/Tailwind.
+Already on the live guide (skip / don't duplicate): Paper Snapshot as editable layers; Snapshot is a human-run browser extension (Shift+⌘+P); HTML pastes as layers; Snapshot of localhost needs CORS; MCP setup (Desktop local server at `127.0.0.1:29979/mcp`, Cursor, Claude Code / Claude Desktop, Codex, plus links to other official clients); `get_guide`; what agents can do; wrong-file (MCP targets the active file); stale-connection restart order; Figma paste transfer list; Figma images need the browser extension; tokens from codebase via MCP; code export as React/Tailwind.
+
+Shipped September 2, 2026:
+
+- Guide: verified portions of items 1, 3, and 5.
+- Field notes: items 2 and 4, plus the layout-judgment / code↔pixels commentary from item 6.
+- Still open: Storybook endorsement, Connect Agent naming, concurrent multi-client behavior, cross-page limitations, missing-UI examples, and item 7 research.
 
 Quick fact-check while filing (September 2026) — not a full verification pass:
 
@@ -16,7 +22,9 @@ Quick fact-check while filing (September 2026) — not a full verification pass:
 
 ---
 
-## 1. Snapshot is a browser extension — don't ask the agent to do it
+## 1. Shipped to guide — Snapshot is a browser extension
+
+**Status:** The verified extension workflow is live in `#figma`. Storybook remains unverified and was not shipped.
 
 **Suggested section:** Figma & paste (`#figma`) / Snapshot tips.
 
@@ -41,7 +49,9 @@ Quick fact-check while filing (September 2026) — not a full verification pass:
 
 ---
 
-## 2. Paste the Paper page link and the brand site, plan first, then scrape copy
+## 2. Shipped as field note — Plan first, then bring in real copy
+
+**Status:** Published at `/notes/plan-first-then-bring-in-real-copy` as Seth's attributed workflow, not a shortcut.
 
 **Suggested section:** MCP & agents (`#mcp`), as a workflow tip.
 
@@ -63,7 +73,9 @@ Quick fact-check while filing (September 2026) — not a full verification pass:
 
 ---
 
-## 3. Keep Connect Agent up and point Cursor, Claude Code, and Codex at the same canvas
+## 3. Partially shipped to guide — Cursor, Codex, and other clients
+
+**Status:** Official Cursor and Codex setup is live in `#mcp`, with a link to the official Copilot, Antigravity, and OpenCode instructions. Connect Agent naming and concurrent-write claims remain unverified.
 
 **Suggested section:** MCP & agents (`#mcp`) — setup / living with it.
 
@@ -86,7 +98,9 @@ Quick fact-check while filing (September 2026) — not a full verification pass:
 
 ---
 
-## 4. Go Figma → Paper → the agent, not Figma-to-code
+## 4. Shipped as field note — Put Paper in the middle of the handoff
+
+**Status:** Published at `/notes/put-paper-in-the-middle`, aligned with the official token-sync and design-to-code recipes. The unverified Claude Design product reference was omitted.
 
 **Suggested section:** MCP & agents (`#mcp`), with a pointer from Figma & paste (`#figma`).
 
@@ -109,7 +123,9 @@ Quick fact-check while filing (September 2026) — not a full verification pass:
 
 ---
 
-## 5. Ask the agent to call get_guide()
+## 5. Shipped to guide — Ask the agent to call get_guide
+
+**Status:** The official tool description and `figma-import` example are live in `#mcp`; no broader topic list is claimed.
 
 **Suggested section:** MCP & agents (`#mcp`), next to the existing `get_basic_info` tip.
 
@@ -131,7 +147,9 @@ Quick fact-check while filing (September 2026) — not a full verification pass:
 
 ---
 
-## 6. Agents are same-page; missing UI is still CSS; use Paper for layout judgment
+## 6. Partially shipped as field note — Use Paper for layout judgment
+
+**Status:** The attributed layout loop and code↔pixels mental model are published at `/notes/use-the-canvas-for-layout-judgment`. Same-page limitations, restart-order changes, and missing-UI examples remain unverified and did not ship.
 
 **Suggested section:** MCP & agents (`#mcp`) gotchas, plus a one-line mental model in the section lede if it earns the accent.
 
@@ -157,7 +175,7 @@ Quick fact-check while filing (September 2026) — not a full verification pass:
 
 ---
 
-## 7. Research source — TK Kong, “AI-Native Design with Paper”
+## 7. Still open — TK Kong, “AI-Native Design with Paper”
 
 **Suggested section:** none. This is a source to mine later, not a tip to copy onto the page.
 

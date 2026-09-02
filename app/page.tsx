@@ -1,12 +1,11 @@
 import { GuideEffects } from "../components/GuideEffects";
-import { IconSprite } from "../components/IconSprite";
+import { SiteChrome } from "../components/SiteChrome";
+import { SiteFooter } from "../components/SiteFooter";
 
 export default function Home() {
   return (
     <>
-      <IconSprite />
-      
-      <div className="ruler" aria-hidden="true"></div>
+      <SiteChrome active="guide" />
       
       <div className="shell">
       
@@ -442,6 +441,7 @@ export default function Home() {
           <ul className="tips">
             <li><b><svg><use href="#ic-warn"/></svg>Images need the browser extension</b><span className="m">Figma image fills require Paper's browser extension connected to a Figma account that can open the source file. Without it the paste succeeds but the images are missing.</span></li>
             <li><b>HTML pastes as layers</b><span className="m">Paste HTML with inline styles and it becomes editable layers. Paper Snapshot goes further: copy an entire webpage as editable layers.</span></li>
+            <li className="wide"><b>Snapshot is a browser extension you run</b><span className="m">It is not an agent tool. Turn on Paper Snapshot with <kbd>Shift</kbd><kbd>&#8984;</kbd><kbd>P</kbd>, choose an element, then paste the editable layers into Paper with <kbd>&#8984;</kbd><kbd>V</kbd>.</span></li>
             <li className="wide"><b><svg><use href="#ic-warn"/></svg>Snapshotting localhost needs CORS</b><span className="m">Pointing Snapshot at a local dev server requires CORS configured on it &mdash; the docs have per-server guides.</span></li>
           </ul>
         </div>
@@ -502,6 +502,13 @@ export default function Home() {
       <span className="c"># Add the marketplace paper-design/agent-plugins,</span>
       <span className="c"># then install the plugin.</span></pre></div>
           </div>
+
+          <h3>other clients</h3>
+          <ul className="tips">
+            <li><b>Cursor plugin</b><span className="m">Run <button className="cmd" type="button" data-copy="/add-plugin paper-desktop">/add-plugin paper-desktop</button> in the agent panel, or install Paper from the Cursor Marketplace.</span></li>
+            <li><b>Codex</b><span className="m">In Settings &rsaquo; MCP Servers, choose Streamable HTTP, name it <code>paper</code>, and use <code>http://127.0.0.1:29979/mcp</code>.</span></li>
+            <li className="wide"><b>Other MCP hosts</b><span className="m">Paper&apos;s <a href="https://paper.design/docs/mcp">MCP docs</a> also include official setup for Copilot, Antigravity, and OpenCode using the same local server.</span></li>
+          </ul>
       
           <h3>living with it</h3>
           <ul className="tips">
@@ -509,17 +516,14 @@ export default function Home() {
             <li><b>Workflow ideas</b><span className="m">Pull design-system colors from Figma via dual MCPs, fill placeholders with real Notion content, or convert canvas designs into React and Tailwind pages.</span></li>
             <li><b><svg><use href="#ic-warn"/></svg>Wrong file getting edited?</b><span className="m">The MCP server always targets the <em>currently active</em> file. Ask the agent to call <button className="cmd" type="button" data-copy="get_basic_info">get_basic_info</button> to confirm which one that is.</span></li>
             <li><b><svg><use href="#ic-warn"/></svg>Connection stale?</b><span className="m">Restart the agent session first, then Paper Desktop. Behind a proxy or VPN, allowlist <button className="cmd" type="button" data-copy="*.paper.design">*.paper.design</button>.</span></li>
+            <li className="wide"><b>Ask for the guide when the task is unfamiliar</b><span className="m">Paper exposes <button className="cmd" type="button" data-copy="get_guide">get_guide</button> for guided workflows. The official example is <code>figma-import</code>; ask the agent to call it instead of guessing the steps.</span></li>
           </ul>
         </div>
       </section>
       
       </main>
       
-      <footer>
-        <p><svg className="mark" aria-hidden="true"><use href="#ic-paper"/></svg>Compiled from the <a href="https://paper.design/build-log">Paper build log</a> and <a href="https://paper.design/docs">docs</a> &mdash; tokens, vector editing, paste, MCP, and support &mdash; September 2026. Shortcuts shown for macOS. Styled after paper.design; Matter and Paper Mono are commercial faces, so this page uses Inter and Geist Mono as stand-ins.</p>
-        <p className="fine">The Paper and Figma logos are trademarks of their respective owners and appear here only to identify the products described. This is an independent guide, not affiliated with or endorsed by either company.</p>
-        <p className="byline">Made with <svg className="heart" aria-hidden="true"><use href="#ic-heart"/></svg><span className="sr">love</span> by <a href="https://x.com/sethjenks" rel="me noopener">Seth Jenks</a></p>
-      </footer>
+      <SiteFooter />
       
       </div>
       <GuideEffects />

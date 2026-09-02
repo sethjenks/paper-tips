@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import { Geist_Mono, Inter } from "next/font/google";
 import type { ReactNode } from "react";
 
+import { IconSprite } from "../components/IconSprite";
+
 import "./globals.css";
 
 const inter = Inter({
@@ -19,7 +21,10 @@ const description =
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://paper.tips"),
-  title: "Paper.tips",
+  title: {
+    default: "Paper.tips",
+    template: "%s · Paper.tips",
+  },
   description,
   openGraph: {
     title: "Paper.tips",
@@ -42,8 +47,15 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: Readonly<{ children: ReactNode }>) {
   return (
-    <html lang="en" className={`${inter.variable} ${geistMono.variable}`}>
-      <body>{children}</body>
+    <html
+      lang="en"
+      className={`${inter.variable} ${geistMono.variable}`}
+      data-scroll-behavior="smooth"
+    >
+      <body>
+        <IconSprite />
+        {children}
+      </body>
     </html>
   );
 }
