@@ -12,13 +12,12 @@ export default function Home() {
       
       <header className="masthead">
         <p className="eyebrow">
-          <span>an unofficial field guide to</span>
+          <span>An unofficial field guide to</span>
           <svg className="mark" aria-hidden="true"><use href="#ic-paper"/></svg><span>paper.design</span><span className="dot" aria-hidden="true">/</span>
-          <span>macos</span><span className="dot" aria-hidden="true">/</span>
           <span>compiled september 2026</span>
         </p>
         <h1>Paper <span>Tips</span></h1>
-        <p className="lede"><strong>Get fast in Paper.</strong> Every shortcut worth knowing, plus the tips and gotchas the shortcut list leaves out.</p>
+        <p className="lede"><strong>Get fast in Paper.</strong> Every shortcut worth knowing, plus how to put agents to work.</p>
       
       </header>
       
@@ -26,22 +25,22 @@ export default function Home() {
       <section className="quickcard" aria-labelledby="qc-title">
         <header>
           <h2 id="qc-title">THE TWELVE</h2>
-          <span>the shortcuts worth memorising</span>
+          <span>get up and running quickly</span>
           <button className="copy" type="button" data-copy-svg="">copy as svg</button>
         </header>
         <div className="qc-grid">
-          <div><span className="k"><kbd>Space</kbd></span><span className="d">Pan the canvas</span></div>
-          <div><span className="k"><kbd>&#8984;</kbd><span className="plus">+</span><kbd>click</kbd></span><span className="d">Deep select, inside groups</span></div>
-          <div><span className="k"><kbd>&#8997;</kbd><span className="plus">+</span><kbd>drag</kbd></span><span className="d">Duplicate while dragging</span></div>
-          <div><span className="k"><kbd>&#8997;</kbd><span className="plus">+</span><kbd>resize</kbd></span><span className="d">Resize from centre</span></div>
-          <div><span className="k"><kbd>&#8984;</kbd><span className="plus">+</span><kbd>resize</kbd></span><span className="d">Crop an image, not scale it</span></div>
-          <div><span className="k"><kbd>&#8984;</kbd><kbd>Enter</kbd></span><span className="d">Screenshot the frame</span></div>
           <div><span className="k"><kbd>&#8679;</kbd><kbd>&#8984;</kbd><kbd>,</kbd><span className="plus">/</span><kbd>.</kbd></span><span className="d">Font size, down / up</span></div>
           <div><span className="k"><kbd>&#8997;</kbd><kbd>&#8984;</kbd><kbd>,</kbd><span className="plus">/</span><kbd>.</kbd></span><span className="d">Font weight, down / up</span></div>
           <div><span className="k"><kbd>&#8997;</kbd><kbd>,</kbd><span className="plus">/</span><kbd>.</kbd></span><span className="d">Letter spacing, down / up</span></div>
-          <div><span className="k"><kbd>I</kbd></span><span className="d">Eyedropper</span></div>
+          <div><span className="k"><kbd>&#8679;</kbd><kbd>&#8997;</kbd><kbd>,</kbd><span className="plus">/</span><kbd>.</kbd></span><span className="d">Line height, down / up</span></div>
+          <div><span className="k"><kbd>&#8679;</kbd><kbd>&#8984;</kbd><kbd>I</kbd></span><span className="d">Generate an image</span></div>
+          <div><span className="k"><kbd>&#8679;</kbd><kbd>&#8984;</kbd><kbd>J</kbd></span><span className="d">Generate an SVG</span></div>
+          <div><span className="k"><kbd>S</kbd></span><span className="d">Shaders menu</span></div>
           <div><span className="k"><kbd>&#8997;</kbd><kbd>R</kbd><span className="plus">/</span><kbd>&#8997;</kbd><kbd>T</kbd></span><span className="d">Copy as React / Tailwind</span></div>
-          <div><span className="k"><kbd>C</kbd></span><span className="d">Comment tool</span></div>
+          <div><span className="k"><kbd>&#8984;</kbd><kbd>Enter</kbd></span><span className="d">Screenshot the frame</span></div>
+          <div><span className="k"><kbd>&#8984;</kbd><span className="plus">+</span><kbd>resize</kbd></span><span className="d">Crop an image, not scale it</span></div>
+          <div><span className="k"><kbd>&#8679;</kbd><kbd>&#8984;</kbd><kbd>R</kbd></span><span className="d">Paste to replace</span></div>
+          <div><span className="k"><kbd>C</kbd></span><span className="d">Comments for agents</span></div>
         </div>
       </section>
       

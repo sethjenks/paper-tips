@@ -27,6 +27,12 @@ export const metadata: Metadata = {
     url: "/",
     siteName: "Paper.tips",
     type: "website",
+    locale: "en_US",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Paper.tips",
+    description,
   },
   robots: {
     index: true,
