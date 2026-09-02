@@ -561,7 +561,7 @@ a:focus-visible,.rail a:focus-visible,.copy:focus-visible,.cmd:focus-visible{
   .lede{
     font-size:10pt; color:#444; max-width:none; margin:0;
   }
-  .lede::after{content:" · Printed reference: the 12 shortcuts worth memorising."}
+  .lede::after{content:" · Printed reference: 12 shortcuts to get up and running quickly."}
   .quickcard{
     margin:0; border:1px solid #bbb; border-radius:0;
     background:#fff; break-inside:avoid;

@@ -101,7 +101,7 @@ function buildCardSVG() {
     `<text x="${paddingX}" y="27" font-family="${mono}" font-size="11" letter-spacing="0.9" fill="#EFEFE4">THE TWELVE</text>`,
   );
   output.push(
-    `<text x="${paddingX + 88}" y="27" font-family="${mono}" font-size="11" letter-spacing="0.7" fill="#878787">the shortcuts worth memorising</text>`,
+    `<text x="${paddingX + 88}" y="27" font-family="${mono}" font-size="11" letter-spacing="0.7" fill="#878787">get up and running quickly</text>`,
   );
   output.push(
     `<rect x="1" y="${headerHeight}" width="${width - 2}" height="1" fill="#2A2A2A"/>`,
