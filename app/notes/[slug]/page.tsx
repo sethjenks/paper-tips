@@ -3,13 +3,71 @@ import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 
+import { CommandKeyDemo } from "../../../components/CommandKeyDemo";
 import { NoteEffects } from "../../../components/NoteEffects";
 import { SiteChrome } from "../../../components/SiteChrome";
 import { SiteFooter } from "../../../components/SiteFooter";
-import { getAllNotes, getNote } from "../../../lib/notes";
+import {
+  getAllNotes,
+  getNote,
+  getNoteBlocks,
+  noteImageSizes,
+  studyImageSrcSet,
+  type NoteBlock,
+} from "../../../lib/notes";
 
 interface NotePageProps {
   params: Promise<{ slug: string }>;
+}
+
+function NoteBodyImage({
+  src,
+  alt,
+  variant,
+}: {
+  src: string;
+  alt: string;
+  variant: "study" | "default";
+}) {
+  if (variant === "study") {
+    return (
+      <figure className="note-study">
+        <img
+          src={src}
+          srcSet={studyImageSrcSet(src)}
+          sizes={noteImageSizes}
+          alt={alt}
+          width={1600}
+          height={1200}
+          loading="lazy"
+          decoding="async"
+        />
+      </figure>
+    );
+  }
+
+  return (
+    <figure className="note-figure">
+      <div className="note-figure-frame">
+        <Image src={src} alt={alt} fill quality={90} sizes={noteImageSizes} />
+      </div>
+    </figure>
+  );
+}
+
+function renderNoteBlock(block: NoteBlock, index: number) {
+  switch (block.kind) {
+    case "html":
+      return <div key={index} className="note-html" dangerouslySetInnerHTML={{ __html: block.html }} />;
+    case "cmd-key":
+      return <CommandKeyDemo key={index} />;
+    case "image":
+      return <NoteBodyImage key={index} src={block.src} alt={block.alt} variant={block.variant} />;
+    default: {
+      const exhaustive: never = block;
+      return exhaustive;
+    }
+  }
 }
 
 export function generateStaticParams() {
@@ -92,26 +150,47 @@ export default async function NotePage({ params }: NotePageProps) {
               <div className="note-meta">
                 <span>Field note {String(position).padStart(2, "0")}</span>
                 <i aria-hidden="true"></i>
-                <time dateTime={note.date}>{note.date}</time>
+                <a href="https://x.com/sethjenks" rel="me noopener">
+                  By Seth Jenks
+                </a>
+                <time className="sr" dateTime={note.date}>
+                  {note.date}
+                </time>
               </div>
-              <h1 className="note-title">{note.title}.</h1>
+              <h1 className="note-title">
+                {/[.!?]$/.test(note.title) ? note.title : `${note.title}.`}
+              </h1>
               <p className="note-summary">{note.summary}</p>
             </header>
 
             <figure className="note-hero">
-              <Image
-                src={note.image}
-                alt={note.imageAlt}
-                fill
-                loading="eager"
-                sizes="(max-width: 600px) calc(100vw - 90px), 1006px"
-              />
+              <div className="note-hero-frame">
+                <Image
+                  src={note.image}
+                  alt={note.imageAlt}
+                  fill
+                  loading="eager"
+                  quality={90}
+                  sizes={noteImageSizes}
+                />
+              </div>
+              {note.imageCredit ? (
+                <figcaption>
+                  Original by{" "}
+                  {note.imageCreditHref ? (
+                    <a href={note.imageCreditHref} rel="noopener noreferrer">
+                      {note.imageCredit}
+                    </a>
+                  ) : (
+                    note.imageCredit
+                  )}
+                </figcaption>
+              ) : null}
             </figure>
 
-            <div
-              className="note-body"
-              dangerouslySetInnerHTML={{ __html: note.html }}
-            />
+            <div className="note-body">
+              {getNoteBlocks(note.html).map((block, index) => renderNoteBlock(block, index))}
+            </div>
 
             <nav className="note-links" aria-label="Field note navigation">
               <Link className="note-back" href="/notes">
@@ -119,7 +198,9 @@ export default async function NotePage({ params }: NotePageProps) {
               </Link>
               <span className="note-related">
                 <span className="note-related-label">Related on the guide</span>
-                <Link href="/#mcp">MCP &amp; agents →</Link>
+                <Link href={note.guideHref ?? "/#mcp"}>
+                  {note.guideLabel ?? "MCP & agents"} →
+                </Link>
               </span>
             </nav>
           </article>

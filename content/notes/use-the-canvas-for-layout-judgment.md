@@ -1,6 +1,7 @@
 ---
 title: Use the canvas for layout judgment
 date: 2026-08-31
+draft: true
 summary: Describe, render, inspect hierarchy, and re-prompt. Paper closes the gap between what code says and what the page feels like.
 image: /images/notes/layout-judgment.webp
 imageAlt: An editorial layout on a Paper canvas with alignment guides and selected blocks.

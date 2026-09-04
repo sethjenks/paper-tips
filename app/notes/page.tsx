@@ -49,6 +49,7 @@ export default function NotesPage() {
                     alt={note.imageAlt}
                     fill
                     preload={index === 0}
+                    quality={90}
                     sizes="(max-width: 600px) calc(100vw - 40px), (max-width: 900px) 45vw, 30vw"
                   />
                 </span>

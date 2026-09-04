@@ -1,6 +1,7 @@
 ---
 title: Plan first, then bring in the real words
 date: 2026-09-02
+draft: true
 summary: Give the agent the Paper page and the brand site, agree on the work, then replace placeholders with actual language.
 image: /images/notes/plan-and-copy.webp
 imageAlt: A dark Paper canvas connecting a source window to an editorial layout.

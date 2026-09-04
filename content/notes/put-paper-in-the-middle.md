@@ -1,6 +1,7 @@
 ---
 title: Put Paper in the middle of the handoff
 date: 2026-09-01
+draft: true
 summary: Bring an existing design into Paper, make the decisions on the canvas, then let the agent read the structure you approved.
 image: /images/notes/paper-handoff.webp
 imageAlt: Three connected stages showing a design, a Paper canvas, and code.
