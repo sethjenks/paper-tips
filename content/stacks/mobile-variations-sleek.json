@@ -1,0 +1,47 @@
+{
+  "$schema": "./schema/stack.schema.json",
+  "id": "mobile-variations-sleek",
+  "title": "Mobile variations with Sleek",
+  "outcome": "Generate mobile design variations in Claude Code, then refine them in Paper.",
+  "summary": "Mattia's mobile-app workflow: Claude Code + Sleek Skill + Paper MCP, with Paper as the refinement surface.",
+  "blocks": [
+    {
+      "ref": "claude-code",
+      "role": "Generates the mobile design variations."
+    },
+    {
+      "ref": "sleek-skill",
+      "role": "Skill used inside Claude Code for those variations."
+    },
+    {
+      "ref": "paper-mcp",
+      "role": "Bridges the generated work onto the canvas."
+    },
+    {
+      "ref": "paper",
+      "role": "Where the variations get refined."
+    }
+  ],
+  "source": {
+    "platform": "x",
+    "url": "https://x.com/mattiapomelli/status/2054839448429646200",
+    "author": {
+      "handle": "mattiapomelli",
+      "name": "Mattia",
+      "profile_url": "https://x.com/mattiapomelli"
+    },
+    "posted_at": "2026-05-14T08:21:16.000Z",
+    "quote": "My new design workflow for mobile apps: Claude Code + Sleek Skill + Paper MCP. Generate design variations from Claude Code. Refine them in @paper.",
+    "metrics": {
+      "impressions": 3647,
+      "likes": 33,
+      "bookmarks": 46,
+      "replies": 6,
+      "reposts": 1,
+      "captured": "2026-09-08"
+    }
+  },
+  "tags": ["mobile"],
+  "paper_related": true,
+  "status": "verified"
+}

@@ -10,9 +10,10 @@ This project looks like "just a static page" but carries a measured design contr
 
 ### Architecture
 
-- **The site uses the Next.js App Router.** `app/page.tsx` holds the full guide markup as one Server Component. `app/notes/page.tsx` and `app/notes/[slug]/page.tsx` render the field-note index and statically generated posts.
+- **The site uses the Next.js App Router.** `app/page.tsx` holds the full guide markup as one Server Component. `app/notes/page.tsx` and `app/notes/[slug]/page.tsx` render the field-note index and statically generated posts. `app/stacks/page.tsx` and `app/stacks/[id]/page.tsx` render the builder-stack index and statically generated recipes.
 - **Notes are markdown-backed.** Files live in `content/notes`; `lib/notes.ts` is the only data interface routes should import. It parses frontmatter and markdown today so that a CMS can replace the filesystem later without changing the route contract.
-- **Shared chrome stays shared.** `components/SiteChrome.tsx` owns the ruler and Guide / Notes navigation; `components/SiteFooter.tsx` owns both footer variants. `components/IconSprite.tsx` is mounted once from the root layout. `components/GuideEffects.tsx` remains the only client island and only renders on the guide.
+- **Stacks are a JSON catalog.** Files live in `content/blocks` and `content/stacks`; `lib/stacks.ts` is the only data interface routes should import. Schemas live in `content/stacks/schema`. This is not Markdown-primary and has no database.
+- **Shared chrome stays shared.** `components/SiteChrome.tsx` owns the ruler and Guide / Notes / Stacks navigation; `components/SiteFooter.tsx` owns the footer variants. `components/IconSprite.tsx` is mounted once from the root layout. `components/GuideEffects.tsx` remains the only client island and only renders on the guide.
 - **`app/globals.css` is the complete stylesheet.** Keep its source order intact. Inter and Geist Mono are self-hosted through `next/font`; the rendered page makes no external font request.
 - Install with `npm install`, preview with `npm run dev`, and verify a production build with `npm run build`.
 
@@ -48,7 +49,7 @@ Check at 1400px, 900px, and 390px widths; also 360px (single-column nav) and 375
 ### Content rules (this is a reference; facts are load-bearing)
 
 - **Never invent a shortcut.** The canonical source is the shortcut list on [paper.design/docs/support](https://paper.design/docs/support); secondary sources are the [build log](https://paper.design/build-log) and other docs pages. Verify against the live source before adding — user-suggested shortcuts get verified too (this process has caught three errors already: zoom presets, opacity keys, paste-to-replace).
-- **The guide and field notes have different contracts.** The guide is the verified reference. Notes are dated workflows or commentary and may cite community sources, but they must clearly attribute personal experience and still must not invent shortcuts or present community advice as official Paper guidance.
+- **The guide, field notes, and stacks have different contracts.** The guide is the verified reference. Notes are dated workflows or commentary and may cite community sources, but they must clearly attribute personal experience and still must not invent shortcuts or present community advice as official Paper guidance. Stacks are a community-cited catalog of outcome→tool recipes. Every stack must cite a real `source.url` (X status). Never invent stacks, shortcuts, or fake tweet URLs. Label `inferred` / `proposed` when the recipe is reconstructed; keep `verified` quiet in the UI.
 - Note frontmatter requires `title`, ISO `date`, `summary`, `image`, and `imageAlt`; `source` is optional. Keep posts short, answer-first, and link back to the relevant guide section when one exists.
 - Reusable prompts in notes use a fenced `prompt` block. Add an optional label after the language, such as `prompt Plan before editing`; the rendered card supplies the copy button.
 - Shortcuts are macOS notation: `⌘ ⌥ ⇧` via HTML entities (`&#8984;` `&#8997;` `&#8679;`).
@@ -57,7 +58,7 @@ Check at 1400px, 900px, and 390px widths; also 360px (single-column nav) and 375
 ### Page anatomy
 
 - **Ruler** — sticky top strip mimicking Paper's canvas ruler
-- **Site navigation** — shared Guide / Notes navigation directly below the ruler; `aria-current="page"` marks the active surface
+- **Site navigation** — shared Guide / Notes / Stacks navigation directly below the ruler; `aria-current="page"` marks the active surface
 - **Masthead** — `Paper.tips` wordmark + lede; the eyebrow credits paper.design with its logo
 - **The Twelve** (`.quickcard`) — one-screen grid of the 12 core shortcuts; header has "copy as svg", and `@media print` renders *only* this card as a one-pager
 - **Contents** (`.pagenav`, mobile-only ≤1079px) / **Layers rail** (`.rail`, desktop) — same 11 sections, same icons; scrollspy sets `aria-current`
@@ -65,6 +66,7 @@ Check at 1400px, 900px, and 390px widths; also 360px (single-column nav) and 375
 - **"high leverage" band** (`.startbar`) — sits directly above `#type` as its lead-in
 - **Footer** — attribution, trademark notice, byline centred in symmetric 64px gaps
 - **Field notes** — `.reading-shell` is deliberately single-column and must not inherit the guide's 186px layers-rail grid. The notes index is an image-led dated list; each post is a `.note-frame` with a hero image and registration ticks. Supporting markdown images sit beside the tutorial step they explain. Print renders a field-note article, while the guide still prints only The Twelve.
+- **Builder stacks** — same `.reading-shell` single column as Notes, never the guide layers rail. The index is a list of chip-row cards (`paper-dock-hero` pinned first); each detail page is a `.stack-frame` with roles, quote, metrics, and outbound block links. Print renders a stack article; the guide still prints only The Twelve.
 
 ### The client JS (one React client island)
 

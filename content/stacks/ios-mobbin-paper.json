@@ -1,0 +1,52 @@
+{
+  "$schema": "./schema/stack.schema.json",
+  "id": "ios-mobbin-paper",
+  "title": "iOS with Mobbin + Paper",
+  "outcome": "Design a first iOS app with Claude Code, Mobbin MCP, and Paper MCP.",
+  "summary": "Sanket's recipe for designing an iOS app: Claude Code + Fable + Mobbin MCP + Paper MCP, with Paper as the canvas.",
+  "blocks": [
+    {
+      "ref": "claude-code",
+      "role": "The agent designing the iOS app."
+    },
+    {
+      "ref": "fable",
+      "role": "Model cited as Fable 5 in the source post.",
+      "optional": true
+    },
+    {
+      "ref": "mobbin-mcp",
+      "role": "Mobile UI references for the agent."
+    },
+    {
+      "ref": "paper-mcp",
+      "role": "Writes the design onto the canvas."
+    },
+    {
+      "ref": "paper",
+      "role": "Canvas for the iOS screens."
+    }
+  ],
+  "source": {
+    "platform": "x",
+    "url": "https://x.com/tinkerersanky/status/2075643874949685601",
+    "author": {
+      "handle": "tinkerersanky",
+      "name": "Sanket",
+      "profile_url": "https://x.com/tinkerersanky"
+    },
+    "posted_at": "2026-07-10T18:10:38.000Z",
+    "quote": "Claude Code + Fable 5 + @mobbin MCP + @paper MCP is DESIGNING my first iOS app.",
+    "metrics": {
+      "impressions": 6224,
+      "likes": 52,
+      "bookmarks": 75,
+      "replies": 4,
+      "reposts": 4,
+      "captured": "2026-09-08"
+    }
+  },
+  "tags": ["ios", "mobile"],
+  "paper_related": true,
+  "status": "verified"
+}

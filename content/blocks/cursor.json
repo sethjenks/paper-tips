@@ -1,0 +1,11 @@
+{
+  "$schema": "../stacks/schema/block.schema.json",
+  "id": "cursor",
+  "name": "Cursor",
+  "kind": "agent",
+  "summary": "AI code editor used as an agent IDE or a VS Code-style inspector.",
+  "links": {
+    "home": "https://cursor.com",
+    "docs": "https://cursor.com/docs"
+  }
+}

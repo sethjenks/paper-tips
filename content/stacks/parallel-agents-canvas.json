@@ -1,0 +1,55 @@
+{
+  "$schema": "./schema/stack.schema.json",
+  "id": "parallel-agents-canvas",
+  "title": "Parallel agents on a canvas",
+  "outcome": "Claude Code in Ghostty, Conductor for parallel agents, Obsidian for plans, Paper MCP for canvas design, Cursor to read the codebase.",
+  "summary": "Gobind Bakhshi's reply listing the tools in his parallel-agent loop, with Paper MCP as the design canvas.",
+  "blocks": [
+    {
+      "ref": "claude-code",
+      "role": "Primary agent, run in Ghostty."
+    },
+    {
+      "ref": "ghostty",
+      "role": "Terminal that hosts Claude Code."
+    },
+    {
+      "ref": "conductor",
+      "role": "Runs parallel agents."
+    },
+    {
+      "ref": "obsidian",
+      "role": "Review and edit plans."
+    },
+    {
+      "ref": "paper-mcp",
+      "role": "AI-driven design work on a canvas."
+    },
+    {
+      "ref": "cursor",
+      "role": "VS Code-style IDE for picking a codebase apart."
+    }
+  ],
+  "source": {
+    "platform": "x",
+    "url": "https://x.com/GobindBakhshi/status/2045611098288816295",
+    "author": {
+      "handle": "GobindBakhshi",
+      "name": "Gobind Bakhshi",
+      "profile_url": "https://x.com/GobindBakhshi"
+    },
+    "posted_at": "2026-04-18T21:11:06.000Z",
+    "quote": "claude code max (in Ghostty bc it rocks) — conductor to run parallel agents — obsidian to review and edit plans — Paper MCP for AI driven design work in a canvas — cursor for when I want a VS code style ide to pick apart a codebase",
+    "metrics": {
+      "impressions": 687,
+      "likes": 2,
+      "bookmarks": 6,
+      "replies": 0,
+      "reposts": 0,
+      "captured": "2026-09-08"
+    }
+  },
+  "tags": ["parallel-agents"],
+  "paper_related": true,
+  "status": "verified"
+}

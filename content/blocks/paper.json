@@ -1,0 +1,11 @@
+{
+  "$schema": "../stacks/schema/block.schema.json",
+  "id": "paper",
+  "name": "Paper",
+  "kind": "app",
+  "summary": "Infinite canvas for design, cited as the visual loop in these recipes.",
+  "links": {
+    "home": "https://paper.design",
+    "docs": "https://paper.design/docs"
+  }
+}

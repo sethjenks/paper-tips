@@ -1,0 +1,59 @@
+{
+  "$schema": "./schema/stack.schema.json",
+  "id": "designer-toolkit-split",
+  "title": "Designer toolkit, split",
+  "outcome": "Build with Claude Code, Codex, and Framer; refine in Figma / Paper; bridge both ways with Figma MCP and Paper MCP.",
+  "summary": "Akhil Krishnan's 2026 designer toolkit, split into building, design, and the MCP bridge.",
+  "blocks": [
+    {
+      "ref": "claude-code",
+      "role": "Prototypes, features, ideation, development."
+    },
+    {
+      "ref": "codex",
+      "role": "Iteration on existing codebases."
+    },
+    {
+      "ref": "framer",
+      "role": "Quick no-code landing pages."
+    },
+    {
+      "ref": "figma",
+      "role": "Refinement and collaboration."
+    },
+    {
+      "ref": "paper",
+      "role": "Refinement and collaboration, alongside Figma."
+    },
+    {
+      "ref": "figma-mcp",
+      "role": "Design ↔ code bridge / vibe designing."
+    },
+    {
+      "ref": "paper-mcp",
+      "role": "Design ↔ code bridge / vibe designing."
+    }
+  ],
+  "source": {
+    "platform": "x",
+    "url": "https://x.com/akhilllkrishnan/status/2044272003431985489",
+    "author": {
+      "handle": "akhilllkrishnan",
+      "name": "Akhil Krishnan",
+      "profile_url": "https://x.com/akhilllkrishnan"
+    },
+    "posted_at": "2026-04-15T04:30:01.000Z",
+    "quote": "AI tools I actually use as a designer in 2026: Claude Code, Codex, Framer for building; Figma / Paper for refinement; Figma MCP / Paper MCP as the design ↔ code bridge.",
+    "metrics": {
+      "impressions": 93,
+      "likes": 0,
+      "bookmarks": 1,
+      "replies": 0,
+      "reposts": 0,
+      "captured": "2026-09-08"
+    }
+  },
+  "tags": ["toolkit"],
+  "paper_related": true,
+  "status": "verified"
+}

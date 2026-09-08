@@ -1,0 +1,8 @@
+{
+  "$schema": "../stacks/schema/block.schema.json",
+  "id": "image-model",
+  "name": "Image model",
+  "kind": "model",
+  "summary": "Image generation model cited as image-2 for brand assets. No official public URL in the source.",
+  "links": {}
+}

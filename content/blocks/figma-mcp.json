@@ -1,0 +1,11 @@
+{
+  "$schema": "../stacks/schema/block.schema.json",
+  "id": "figma-mcp",
+  "name": "Figma MCP",
+  "kind": "mcp",
+  "summary": "Official Figma MCP server for a design-to-code bridge.",
+  "links": {
+    "home": "https://developers.figma.com/docs/figma-mcp-server/",
+    "mcp": "https://developers.figma.com/docs/figma-mcp-server/"
+  }
+}

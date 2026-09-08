@@ -1,0 +1,10 @@
+{
+  "$schema": "../stacks/schema/block.schema.json",
+  "id": "ghostty",
+  "name": "Ghostty",
+  "kind": "app",
+  "summary": "Terminal emulator cited as the host for Claude Code.",
+  "links": {
+    "home": "https://ghostty.org"
+  }
+}

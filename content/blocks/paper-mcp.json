@@ -1,0 +1,11 @@
+{
+  "$schema": "../stacks/schema/block.schema.json",
+  "id": "paper-mcp",
+  "name": "Paper MCP",
+  "kind": "mcp",
+  "summary": "Official Paper MCP server that lets agents read and write the canvas.",
+  "links": {
+    "docs": "https://paper.design/docs/mcp",
+    "mcp": "https://paper.design/docs/mcp"
+  }
+}

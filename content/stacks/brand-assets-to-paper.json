@@ -1,0 +1,54 @@
+{
+  "$schema": "./schema/stack.schema.json",
+  "id": "brand-assets-to-paper",
+  "title": "Brand assets to Paper",
+  "outcome": "Generate brand assets with an image model, then design in Paper MCP, powered by Codex, Claude Code, or Conductor.",
+  "summary": "Rowan's short recipe for becoming an AI-empowered design engineer with committable Paper files.",
+  "blocks": [
+    {
+      "ref": "image-model",
+      "role": "Generates brand assets and identity (cited as image-2)."
+    },
+    {
+      "ref": "paper-mcp",
+      "role": "The design IDE for those assets."
+    },
+    {
+      "ref": "codex",
+      "role": "One of the agents cited to power the loop.",
+      "optional": true
+    },
+    {
+      "ref": "claude-code",
+      "role": "One of the agents cited to power the loop.",
+      "optional": true
+    },
+    {
+      "ref": "conductor",
+      "role": "One of the agents cited to power the loop.",
+      "optional": true
+    }
+  ],
+  "source": {
+    "platform": "x",
+    "url": "https://x.com/rowanopoly/status/2050699150639911403",
+    "author": {
+      "handle": "rowanopoly",
+      "name": "rowan",
+      "profile_url": "https://x.com/rowanopoly"
+    },
+    "posted_at": "2026-05-02T22:09:12.000Z",
+    "quote": "image-2 for generating brand assets and identity. paper mcp for the design ide. codex, claude code, or conductor ai to power it all.",
+    "metrics": {
+      "impressions": 89,
+      "likes": 0,
+      "bookmarks": 0,
+      "replies": 0,
+      "reposts": 0,
+      "captured": "2026-09-08"
+    }
+  },
+  "tags": ["brand"],
+  "paper_related": true,
+  "status": "verified"
+}

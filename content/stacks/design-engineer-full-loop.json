@@ -1,0 +1,67 @@
+{
+  "$schema": "./schema/stack.schema.json",
+  "id": "design-engineer-full-loop",
+  "title": "Design-engineer full loop",
+  "outcome": "Design in Figma + Paper, build with Claude Code + Cursor in CMUX, ship in Xcode, with Paper / Mobbin / XcodeBuild MCPs.",
+  "summary": "Cecilia Kim's exact setup after moving from software engineering into freelance design.",
+  "blocks": [
+    {
+      "ref": "figma",
+      "role": "Design, paired with Paper."
+    },
+    {
+      "ref": "paper",
+      "role": "Design, paired with Figma."
+    },
+    {
+      "ref": "claude-code",
+      "role": "Build agent."
+    },
+    {
+      "ref": "cursor",
+      "role": "Build agent, alongside Claude Code."
+    },
+    {
+      "ref": "cmux",
+      "role": "Runs multiple build agents at once."
+    },
+    {
+      "ref": "xcode",
+      "role": "Ship step for the iOS build."
+    },
+    {
+      "ref": "paper-mcp",
+      "role": "MCP into the Paper canvas."
+    },
+    {
+      "ref": "mobbin-mcp",
+      "role": "MCP for mobile UI references."
+    },
+    {
+      "ref": "xcodebuildmcp",
+      "role": "MCP for building and running in Xcode."
+    }
+  ],
+  "source": {
+    "platform": "x",
+    "url": "https://x.com/ceciliakdesign/status/2089829521662910872",
+    "author": {
+      "handle": "ceciliakdesign",
+      "name": "Cecilia Kim",
+      "profile_url": "https://x.com/ceciliakdesign"
+    },
+    "posted_at": "2026-08-18T21:39:19.000Z",
+    "quote": "Design: Figma + Paper. Build: Claude Code + Cursor, with multiple agents running in CMUX. Ship: Xcode. MCPs: Paper MCP, Mobbin MCP, XcodeBuildMCP.",
+    "metrics": {
+      "impressions": 3604,
+      "likes": 91,
+      "bookmarks": 78,
+      "replies": 5,
+      "reposts": 6,
+      "captured": "2026-09-08"
+    }
+  },
+  "tags": ["design-engineer", "ios"],
+  "paper_related": true,
+  "status": "verified"
+}

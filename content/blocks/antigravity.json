@@ -1,0 +1,10 @@
+{
+  "$schema": "../stacks/schema/block.schema.json",
+  "id": "antigravity",
+  "name": "Antigravity",
+  "kind": "other",
+  "summary": "Cited with Paper MCP for design exploration before a live prototype.",
+  "links": {
+    "home": "https://antigravity.google"
+  }
+}

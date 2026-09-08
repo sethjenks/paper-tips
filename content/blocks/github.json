@@ -1,0 +1,10 @@
+{
+  "$schema": "../stacks/schema/block.schema.json",
+  "id": "github",
+  "name": "GitHub",
+  "kind": "host",
+  "summary": "Git host and collaboration service for prototypes connected to a repo.",
+  "links": {
+    "home": "https://github.com"
+  }
+}

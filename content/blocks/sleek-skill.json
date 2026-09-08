@@ -1,0 +1,8 @@
+{
+  "$schema": "../stacks/schema/block.schema.json",
+  "id": "sleek-skill",
+  "name": "Sleek Skill",
+  "kind": "skill",
+  "summary": "Claude Code skill cited for generating mobile design variations. No official public URL in the source.",
+  "links": {}
+}
