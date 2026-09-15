@@ -1,0 +1,51 @@
+{
+  "$schema": "./schema/stack.schema.json",
+  "id": "design-explore-to-prototype",
+  "title": "Design explore to prototype",
+  "outcome": "From a design canvas to a live demo: explore in Paper MCP + Antigravity, then prototype with Paper + Claude Code + GitHub.",
+  "summary": "Alex K's Paper Challenge workflow splits exploration from the live prototype, with Paper in both halves.",
+  "blocks": [
+    {
+      "ref": "paper-mcp",
+      "role": "Design exploration on the canvas from the agent."
+    },
+    {
+      "ref": "antigravity",
+      "role": "Paired with Paper MCP for design exploration."
+    },
+    {
+      "ref": "paper",
+      "role": "Canvas for the live prototype."
+    },
+    {
+      "ref": "claude-code",
+      "role": "Builds the live prototype."
+    },
+    {
+      "ref": "github",
+      "role": "Hosts the live prototype."
+    }
+  ],
+  "source": {
+    "platform": "x",
+    "url": "https://x.com/uialexk/status/2044815096942129163",
+    "author": {
+      "handle": "uialexk",
+      "name": "Alex K",
+      "profile_url": "https://x.com/uialexk"
+    },
+    "posted_at": "2026-04-16T16:28:04.000Z",
+    "quote": "My workflow to go from a design canvas to live demo: Paper MCP + Antigravity for design exploration and Paper + Claude Code + Github for live prototype!",
+    "metrics": {
+      "impressions": 11558,
+      "likes": 90,
+      "bookmarks": 70,
+      "replies": 10,
+      "reposts": 7,
+      "captured": "2026-09-15"
+    }
+  },
+  "tags": ["exploration", "prototype"],
+  "paper_related": true,
+  "status": "verified"
+}

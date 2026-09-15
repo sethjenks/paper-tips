@@ -1,0 +1,8 @@
+{
+  "$schema": "../stacks/schema/block.schema.json",
+  "id": "fable",
+  "name": "Fable",
+  "kind": "model",
+  "summary": "Model cited in an iOS recipe as Fable 5. No official public URL in the source.",
+  "links": {}
+}

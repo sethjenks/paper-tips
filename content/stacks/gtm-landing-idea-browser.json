@@ -1,0 +1,48 @@
+{
+  "$schema": "./schema/stack.schema.json",
+  "id": "gtm-landing-idea-browser",
+  "title": "GTM landing with Idea Browser",
+  "outcome": "Pull ICP and offer context through Idea Browser MCP, then design the landing page in Paper with Claude Code.",
+  "summary": "Reconstructed from a broader GTM automation post. The source also mentions analytics and ads tools that are not in this catalog.",
+  "blocks": [
+    {
+      "ref": "idea-browser-mcp",
+      "role": "Pulls ICP, positioning, and offer context into the terminal."
+    },
+    {
+      "ref": "claude-code",
+      "role": "Runs the GTM loop around that context."
+    },
+    {
+      "ref": "paper",
+      "role": "Designs the landing page visually, connected to the codebase."
+    },
+    {
+      "ref": "github",
+      "role": "The connected codebase implied by 'no Figma-to-dev handoff'.",
+      "optional": true
+    }
+  ],
+  "source": {
+    "platform": "x",
+    "url": "https://x.com/startupideaspod/status/2044085401883947051",
+    "author": {
+      "handle": "startupideaspod",
+      "name": "The Startup Ideas Podcast",
+      "profile_url": "https://x.com/startupideaspod"
+    },
+    "posted_at": "2026-04-14T16:08:31.000Z",
+    "quote": "Claude Code + Idea Browser MCP: pull your full project context straight into the terminal. Paper: design the landing page visually. Connected to the codebase. No Figma. No dev handoff.",
+    "metrics": {
+      "impressions": 6442,
+      "likes": 45,
+      "bookmarks": 59,
+      "replies": 6,
+      "reposts": 6,
+      "captured": "2026-09-15"
+    }
+  },
+  "tags": ["gtm", "landing"],
+  "paper_related": true,
+  "status": "inferred"
+}

@@ -1,0 +1,10 @@
+{
+  "$schema": "../stacks/schema/block.schema.json",
+  "id": "cmux",
+  "name": "CMUX",
+  "kind": "app",
+  "summary": "Multi-agent workspace cited for running several coding agents at once.",
+  "links": {
+    "home": "https://github.com/manaflow-ai/cmux"
+  }
+}

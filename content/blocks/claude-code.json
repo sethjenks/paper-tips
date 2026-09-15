@@ -1,0 +1,11 @@
+{
+  "$schema": "../stacks/schema/block.schema.json",
+  "id": "claude-code",
+  "name": "Claude Code",
+  "kind": "agent",
+  "summary": "Anthropic's agentic coding CLI, used here to generate, refine, and ship.",
+  "links": {
+    "home": "https://www.anthropic.com/claude-code",
+    "docs": "https://code.claude.com/docs/en/overview"
+  }
+}

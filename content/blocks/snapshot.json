@@ -1,0 +1,11 @@
+{
+  "$schema": "../stacks/schema/block.schema.json",
+  "id": "snapshot",
+  "name": "Paper Snapshot",
+  "kind": "other",
+  "summary": "Browser extension that copies live web components into Paper as editable layers.",
+  "links": {
+    "docs": "https://paper.design/snapshot-extension",
+    "home": "https://paper.design/downloads"
+  }
+}

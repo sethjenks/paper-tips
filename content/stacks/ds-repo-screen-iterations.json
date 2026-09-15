@@ -1,0 +1,44 @@
+{
+  "$schema": "./schema/stack.schema.json",
+  "id": "ds-repo-screen-iterations",
+  "title": "DS repo to Paper iterations",
+  "outcome": "Hook Codex to a design-system repo and generate a dozen high-fidelity screen iterations on Paper.",
+  "summary": "Kevin's high-fidelity loop: the design-system repo gives Codex context immediately, then Paper is where the screen variants land for evaluation.",
+  "blocks": [
+    {
+      "ref": "codex",
+      "role": "Reads the design-system repo and builds the screen iterations."
+    },
+    {
+      "ref": "paper",
+      "role": "Canvas for the dozen screen variants."
+    },
+    {
+      "ref": "paper-mcp",
+      "role": "The usual path for an agent writing screens onto Paper.",
+      "optional": true
+    }
+  ],
+  "source": {
+    "platform": "x",
+    "url": "https://x.com/kvncnls/status/2092346506221146121",
+    "author": {
+      "handle": "kvncnls",
+      "name": "Kevin",
+      "profile_url": "https://x.com/kvncnls"
+    },
+    "posted_at": "2026-08-25T20:20:55.000Z",
+    "quote": "I can hook up Codex with my design system repo and ask it to build a dozen iterations of a screen on @paper.",
+    "metrics": {
+      "impressions": 87,
+      "likes": 2,
+      "bookmarks": 0,
+      "replies": 2,
+      "reposts": 0,
+      "captured": "2026-09-15"
+    }
+  },
+  "tags": ["design-system", "iteration"],
+  "paper_related": true,
+  "status": "verified"
+}

@@ -1,0 +1,10 @@
+{
+  "$schema": "../stacks/schema/block.schema.json",
+  "id": "xcode",
+  "name": "Xcode",
+  "kind": "app",
+  "summary": "Apple's IDE, cited as the ship step for iOS work.",
+  "links": {
+    "home": "https://developer.apple.com/xcode/"
+  }
+}

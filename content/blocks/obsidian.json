@@ -1,0 +1,10 @@
+{
+  "$schema": "../stacks/schema/block.schema.json",
+  "id": "obsidian",
+  "name": "Obsidian",
+  "kind": "app",
+  "summary": "Local-first notes app, cited for reviewing and editing agent plans.",
+  "links": {
+    "home": "https://obsidian.md"
+  }
+}

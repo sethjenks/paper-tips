@@ -1,7 +1,7 @@
 import Link from "next/link";
 
 interface SiteChromeProps {
-  active: "guide" | "notes";
+  active: "guide" | "notes" | "stacks";
 }
 
 export function SiteChrome({ active }: SiteChromeProps) {
@@ -18,6 +18,9 @@ export function SiteChrome({ active }: SiteChromeProps) {
           </Link>
           <Link href="/notes" aria-current={active === "notes" ? "page" : undefined}>
             Notes
+          </Link>
+          <Link href="/stacks" aria-current={active === "stacks" ? "page" : undefined}>
+            Stacks
           </Link>
         </div>
       </nav>

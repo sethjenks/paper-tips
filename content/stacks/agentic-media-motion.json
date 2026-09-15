@@ -1,0 +1,43 @@
+{
+  "$schema": "./schema/stack.schema.json",
+  "id": "agentic-media-motion",
+  "title": "Agentic media and motion",
+  "outcome": "Claude Code creates videos through Paper MCP on the Paper canvas.",
+  "summary": "Jay's short report that Claude Code + Paper MCP is already producing video.",
+  "blocks": [
+    {
+      "ref": "claude-code",
+      "role": "Creates the videos."
+    },
+    {
+      "ref": "paper-mcp",
+      "role": "The MCP path Claude Code uses to work in Paper."
+    },
+    {
+      "ref": "paper",
+      "role": "Canvas the motion lands on."
+    }
+  ],
+  "source": {
+    "platform": "x",
+    "url": "https://x.com/jelanifuel/status/2088063916270395577",
+    "author": {
+      "handle": "jelanifuel",
+      "name": "Jay",
+      "profile_url": "https://x.com/jelanifuel"
+    },
+    "posted_at": "2026-08-14T00:43:26.000Z",
+    "quote": "super impressed with claude code creating videos with paper mcp. holy hell. agentic media is here.",
+    "metrics": {
+      "impressions": 324,
+      "likes": 1,
+      "bookmarks": 1,
+      "replies": 0,
+      "reposts": 0,
+      "captured": "2026-09-15"
+    }
+  },
+  "tags": ["motion", "media"],
+  "paper_related": true,
+  "status": "verified"
+}

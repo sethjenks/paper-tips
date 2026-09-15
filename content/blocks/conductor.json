@@ -1,0 +1,10 @@
+{
+  "$schema": "../stacks/schema/block.schema.json",
+  "id": "conductor",
+  "name": "Conductor",
+  "kind": "agent",
+  "summary": "Parallel-agent runner cited for spinning up more than one coding agent.",
+  "links": {
+    "home": "https://conductor.build"
+  }
+}

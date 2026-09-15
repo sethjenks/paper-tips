@@ -1,0 +1,10 @@
+{
+  "$schema": "../stacks/schema/block.schema.json",
+  "id": "figma",
+  "name": "Figma",
+  "kind": "app",
+  "summary": "Collaborative interface design tool, paired with Paper in a few recipes.",
+  "links": {
+    "home": "https://www.figma.com"
+  }
+}

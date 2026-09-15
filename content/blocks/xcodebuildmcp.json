@@ -1,0 +1,11 @@
+{
+  "$schema": "../stacks/schema/block.schema.json",
+  "id": "xcodebuildmcp",
+  "name": "XcodeBuildMCP",
+  "kind": "mcp",
+  "summary": "MCP server for building and running Xcode projects from an agent.",
+  "links": {
+    "home": "https://www.xcodebuildmcp.com",
+    "github": "https://github.com/getsentry/XcodeBuildMCP"
+  }
+}

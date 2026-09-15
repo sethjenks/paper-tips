@@ -1,0 +1,11 @@
+{
+  "$schema": "../stacks/schema/block.schema.json",
+  "id": "codex",
+  "name": "Codex",
+  "kind": "agent",
+  "summary": "OpenAI's coding agent, cited for iteration on existing codebases.",
+  "links": {
+    "home": "https://openai.com/codex/",
+    "docs": "https://developers.openai.com/codex/"
+  }
+}

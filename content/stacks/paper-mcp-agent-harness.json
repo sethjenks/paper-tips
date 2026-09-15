@@ -1,0 +1,48 @@
+{
+  "$schema": "./schema/stack.schema.json",
+  "id": "paper-mcp-agent-harness",
+  "title": "Paper MCP with agent harnesses",
+  "outcome": "Drive Paper through MCP from Claude Code or Codex.",
+  "summary": "JC's short report that Paper MCP holds up with agent harnesses — Claude Code or Codex.",
+  "blocks": [
+    {
+      "ref": "paper-mcp",
+      "role": "The MCP path the harness uses."
+    },
+    {
+      "ref": "paper",
+      "role": "Canvas the harness writes to."
+    },
+    {
+      "ref": "claude-code",
+      "role": "One of the agent harnesses cited."
+    },
+    {
+      "ref": "codex",
+      "role": "The other agent harness cited.",
+      "optional": true
+    }
+  ],
+  "source": {
+    "platform": "x",
+    "url": "https://x.com/jc__gr/status/2090654471365833199",
+    "author": {
+      "handle": "jc__gr",
+      "name": "JC",
+      "profile_url": "https://x.com/jc__gr"
+    },
+    "posted_at": "2026-08-21T04:17:23.000Z",
+    "quote": "i'm surprised at how good @paper mcp works with agent harnesses like Claude Code or Codex",
+    "metrics": {
+      "impressions": 318,
+      "likes": 7,
+      "bookmarks": 0,
+      "replies": 1,
+      "reposts": 0,
+      "captured": "2026-09-15"
+    }
+  },
+  "tags": ["mcp", "harness"],
+  "paper_related": true,
+  "status": "verified"
+}

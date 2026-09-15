@@ -1,0 +1,11 @@
+{
+  "$schema": "../stacks/schema/block.schema.json",
+  "id": "opencode",
+  "name": "Opencode",
+  "kind": "agent",
+  "summary": "Open-source coding agent cited as a host for custom design skills.",
+  "links": {
+    "home": "https://opencode.ai",
+    "github": "https://github.com/anomalyco/opencode"
+  }
+}

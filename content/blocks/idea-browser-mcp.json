@@ -1,0 +1,10 @@
+{
+  "$schema": "../stacks/schema/block.schema.json",
+  "id": "idea-browser-mcp",
+  "name": "Idea Browser MCP",
+  "kind": "mcp",
+  "summary": "MCP cited for pulling ICP, positioning, and offer context into the terminal.",
+  "links": {
+    "home": "https://www.ideabrowser.com"
+  }
+}

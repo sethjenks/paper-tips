@@ -1,0 +1,43 @@
+{
+  "$schema": "./schema/stack.schema.json",
+  "id": "tokens-first-polish",
+  "title": "Tokens-first polish",
+  "outcome": "Load Tailwind colors as Paper tokens, mock up in Paper, then ask Claude for a design-polish pass.",
+  "summary": "Jarek's experiment for closing the gap between AI implementation and pixel-perfect mockups.",
+  "blocks": [
+    {
+      "ref": "paper",
+      "role": "Holds the Tailwind tokens and the pixel-perfect mockups."
+    },
+    {
+      "ref": "paper-mcp",
+      "role": "Connects Claude Code to the Paper file."
+    },
+    {
+      "ref": "claude-code",
+      "role": "Adds Tailwind colors as tokens, then runs the polish pass against Paper."
+    }
+  ],
+  "source": {
+    "platform": "x",
+    "url": "https://x.com/jarekceborski/status/2095059044025123246",
+    "author": {
+      "handle": "jarekceborski",
+      "name": "Jarek",
+      "profile_url": "https://x.com/jarekceborski"
+    },
+    "posted_at": "2026-09-02T07:59:35.000Z",
+    "quote": "Install the @paper app. Connect Paper MCP to Claude Code. Claude, add Tailwind colors as tokens to Paper.",
+    "metrics": {
+      "impressions": 13882,
+      "likes": 156,
+      "bookmarks": 261,
+      "replies": 15,
+      "reposts": 6,
+      "captured": "2026-09-15"
+    }
+  },
+  "tags": ["tokens", "polish"],
+  "paper_related": true,
+  "status": "verified"
+}

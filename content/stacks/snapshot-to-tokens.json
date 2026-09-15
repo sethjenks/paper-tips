@@ -1,0 +1,51 @@
+{
+  "$schema": "./schema/stack.schema.json",
+  "id": "snapshot-to-tokens",
+  "title": "Snapshot to tokens",
+  "outcome": "Snapshot live components into a blank Paper file, then ask Claude Code via MCP to list tokens.",
+  "summary": "Charles Postiaux's design-system recipe: copy shadcn components with Paper Snapshot, paste them as reference, connect Claude Code, and extract tokens.",
+  "blocks": [
+    {
+      "ref": "shadcn",
+      "role": "Live custom components to copy from."
+    },
+    {
+      "ref": "snapshot",
+      "role": "Browser extension that copies those components as editable layers."
+    },
+    {
+      "ref": "paper",
+      "role": "Blank project the Snapshot paste lands in as reference."
+    },
+    {
+      "ref": "paper-mcp",
+      "role": "Connects Claude Code to the Paper file."
+    },
+    {
+      "ref": "claude-code",
+      "role": "Lists tokens from the pasted reference."
+    }
+  ],
+  "source": {
+    "platform": "x",
+    "url": "https://x.com/PostiauxCharles/status/2091853953851867281",
+    "author": {
+      "handle": "PostiauxCharles",
+      "name": "Charles Postiaux",
+      "profile_url": "https://x.com/PostiauxCharles"
+    },
+    "posted_at": "2026-08-24T11:43:42.000Z",
+    "quote": "Copy them with the Paper Snapshot extension. Paste them into a blank Paper project as reference. Connect Claude Code to Paper via MCP. Ask Claude to list tokens.",
+    "metrics": {
+      "impressions": 19297,
+      "likes": 284,
+      "bookmarks": 495,
+      "replies": 14,
+      "reposts": 20,
+      "captured": "2026-09-15"
+    }
+  },
+  "tags": ["snapshot", "tokens", "design-system"],
+  "paper_related": true,
+  "status": "verified"
+}

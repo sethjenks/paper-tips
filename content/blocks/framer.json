@@ -1,0 +1,10 @@
+{
+  "$schema": "../stacks/schema/block.schema.json",
+  "id": "framer",
+  "name": "Framer",
+  "kind": "app",
+  "summary": "Site design and publishing tool, cited for quick no-code landing pages.",
+  "links": {
+    "home": "https://www.framer.com"
+  }
+}

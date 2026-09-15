@@ -1,0 +1,10 @@
+{
+  "$schema": "../stacks/schema/block.schema.json",
+  "id": "agent-ide",
+  "name": "Agent IDE",
+  "kind": "agent",
+  "summary": "Placeholder for the dock agent in Paper's social-proof screenshot. Links to Cursor until a dedicated URL exists.",
+  "links": {
+    "home": "https://cursor.com"
+  }
+}

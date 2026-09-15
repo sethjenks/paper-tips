@@ -1,0 +1,12 @@
+{
+  "$schema": "../stacks/schema/block.schema.json",
+  "id": "mobbin-mcp",
+  "name": "Mobbin MCP",
+  "kind": "mcp",
+  "summary": "Mobbin MCP for pulling mobile UI references into an agent session.",
+  "links": {
+    "home": "https://mobbin.com/mcp",
+    "docs": "https://docs.mobbin.com/mcp/clients/claude-code-cli",
+    "mcp": "https://mobbin.com/mcp"
+  }
+}

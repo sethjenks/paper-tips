@@ -1,0 +1,49 @@
+{
+  "$schema": "./schema/stack.schema.json",
+  "id": "paper-dock-hero",
+  "title": "The new builder stack (dock)",
+  "outcome": "Social-proof dock: agent IDE + Paper",
+  "summary": "Paper's own screenshot of the dock pairing — an agent IDE sitting next to Paper — posted as the stack they keep seeing.",
+  "blocks": [
+    {
+      "ref": "agent-ide",
+      "role": "The dock agent in the screenshot; a generic stand-in for whichever IDE is parked next to Paper."
+    },
+    {
+      "ref": "paper",
+      "role": "The canvas in the dock, the other half of the pairing Paper is pointing at."
+    },
+    {
+      "ref": "cursor",
+      "role": "One of the agent IDEs people put in that dock slot.",
+      "optional": true
+    },
+    {
+      "ref": "claude-code",
+      "role": "The other common agent in that dock slot.",
+      "optional": true
+    }
+  ],
+  "source": {
+    "platform": "x",
+    "url": "https://x.com/paper/status/2095906118505844945",
+    "author": {
+      "handle": "paper",
+      "name": "Paper",
+      "profile_url": "https://x.com/paper"
+    },
+    "posted_at": "2026-09-04T16:05:33.000Z",
+    "quote": "The new builder stack, seeing this a lot!",
+    "metrics": {
+      "impressions": 32234,
+      "likes": 426,
+      "bookmarks": 169,
+      "replies": 15,
+      "reposts": 6,
+      "captured": "2026-09-15"
+    }
+  },
+  "tags": ["dock", "social-proof"],
+  "paper_related": true,
+  "status": "verified"
+}
