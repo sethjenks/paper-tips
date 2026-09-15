@@ -1,0 +1,43 @@
+{
+  "$schema": "./schema/stack.schema.json",
+  "id": "paper-design-dual-agents",
+  "title": "Design in Paper, build with both",
+  "outcome": "Design in Paper, then build with Claude Code and Codex.",
+  "summary": "Rio's short credit: Paper for design, Claude Code and Codex for the build.",
+  "blocks": [
+    {
+      "ref": "paper",
+      "role": "Where the design happens."
+    },
+    {
+      "ref": "claude-code",
+      "role": "One of the two build agents."
+    },
+    {
+      "ref": "codex",
+      "role": "The other build agent."
+    }
+  ],
+  "source": {
+    "platform": "x",
+    "url": "https://x.com/riothedesignr/status/2090281303660794183",
+    "author": {
+      "handle": "riothedesignr",
+      "name": "Rio",
+      "profile_url": "https://x.com/riothedesignr"
+    },
+    "posted_at": "2026-08-20T03:34:32.000Z",
+    "quote": "I used @paper to design, and built with Claude code and Codex.",
+    "metrics": {
+      "impressions": 51,
+      "likes": 1,
+      "bookmarks": 0,
+      "replies": 0,
+      "reposts": 0,
+      "captured": "2026-09-15"
+    }
+  },
+  "tags": ["design", "build"],
+  "paper_related": true,
+  "status": "verified"
+}

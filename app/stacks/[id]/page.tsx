@@ -12,6 +12,7 @@ import {
   formatStackDate,
   getAllStacks,
   getResolvedStack,
+  stackAuthorHref,
   stackHandle,
   stackStatusLabel,
   type ResolvedStack,
@@ -202,7 +203,7 @@ export default async function StackPage({ params }: StackPageProps) {
             <section className="stack-citation" aria-labelledby="stack-citation-title">
               <h2 id="stack-citation-title">Cited from</h2>
               <p>
-                <a href={stack.source.url} rel="noopener noreferrer">
+                <a href={stackAuthorHref(stack)} target="_blank" rel="noopener noreferrer">
                   {stackHandle(stack)}
                 </a>
                 {stack.source.author.name ? <span> · {stack.source.author.name}</span> : null}
@@ -214,7 +215,7 @@ export default async function StackPage({ params }: StackPageProps) {
                 ) : null}
               </p>
               <p>
-                <a href={stack.source.url} rel="noopener noreferrer">
+                <a href={stack.source.url} target="_blank" rel="noopener noreferrer">
                   {stack.source.url}
                 </a>
               </p>

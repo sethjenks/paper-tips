@@ -35,7 +35,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     })),
     {
       url: `${baseUrl}/stacks`,
-      lastModified: new Date(latestStack ?? "2026-09-08"),
+      lastModified: new Date(latestStack ?? "2026-09-15"),
       changeFrequency: "weekly",
       priority: 0.8,
     },

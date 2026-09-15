@@ -5,7 +5,9 @@ import { SiteChrome } from "../../components/SiteChrome";
 import { SiteFooter } from "../../components/SiteFooter";
 import { StackChips } from "../../components/StackChips";
 import {
+  formatMetricCount,
   getResolvedStacks,
+  stackAuthorHref,
   stackHandle,
   stackStatusLabel,
 } from "../../lib/stacks";
@@ -67,14 +69,28 @@ export default function StacksPage() {
                       <Link href={`/stacks/${stack.id}`}>{stack.title}</Link>
                     </h2>
                     <p>{stack.outcome}</p>
+                    {featured && stack.source.quote ? (
+                      <blockquote className="stack-card-quote">
+                        <p>{stack.source.quote}</p>
+                      </blockquote>
+                    ) : null}
+                    {featured && stack.source.metrics?.impressions !== undefined ? (
+                      <p className="stack-metrics">
+                        {formatMetricCount(stack.source.metrics.impressions)} impressions
+                        {stack.source.metrics.likes !== undefined ? (
+                          <> · {formatMetricCount(stack.source.metrics.likes)} likes</>
+                        ) : null}
+                      </p>
+                    ) : null}
                   </header>
                   <StackChips blocks={stack.blocks} />
                   <footer className="stack-card-source">
-                    <a href={stack.source.url} rel="noopener noreferrer">
+                    <a href={stackAuthorHref(stack)} target="_blank" rel="noopener noreferrer">
                       {stackHandle(stack)}
+                      {stack.source.author.name ? ` · ${stack.source.author.name}` : ""}
                     </a>
                     <span aria-hidden="true">·</span>
-                    <a href={stack.source.url} rel="noopener noreferrer">
+                    <a href={stack.source.url} target="_blank" rel="noopener noreferrer">
                       Original post
                     </a>
                   </footer>

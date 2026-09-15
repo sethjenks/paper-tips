@@ -1,0 +1,43 @@
+{
+  "$schema": "./schema/stack.schema.json",
+  "id": "design-first-exploration",
+  "title": "Design-first exploration",
+  "outcome": "Use Paper MCP with Claude Code to design first and decide what's worth building.",
+  "summary": "Dhruval's experiment for appgrowkit: explore ideas on the canvas before committing to a build.",
+  "blocks": [
+    {
+      "ref": "paper-mcp",
+      "role": "The MCP path Claude Code uses to design on the canvas."
+    },
+    {
+      "ref": "claude-code",
+      "role": "Explores the idea in Paper before deciding what to build."
+    },
+    {
+      "ref": "paper",
+      "role": "Canvas for the design-first sketches."
+    }
+  ],
+  "source": {
+    "platform": "x",
+    "url": "https://x.com/dhruvalgolakiya/status/2076285936003055725",
+    "author": {
+      "handle": "dhruvalgolakiya",
+      "name": "Dhruval",
+      "profile_url": "https://x.com/dhruvalgolakiya"
+    },
+    "posted_at": "2026-07-12T12:41:57.000Z",
+    "quote": "using @paper mcp with claude code to design first and figure out what's worth building",
+    "metrics": {
+      "impressions": 2216,
+      "likes": 18,
+      "bookmarks": 3,
+      "replies": 4,
+      "reposts": 2,
+      "captured": "2026-09-15"
+    }
+  },
+  "tags": ["exploration", "design-first"],
+  "paper_related": true,
+  "status": "verified"
+}

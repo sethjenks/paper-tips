@@ -784,10 +784,19 @@ code{
 }
 .stack-card h2 a{color:var(--ink); text-decoration:none}
 .stack-card h2 a:hover{color:var(--accent)}
-.stack-card-copy > p{
+.stack-card-copy > p:not(.stack-metrics){
   margin:0; max-width:68ch; color:var(--muted);
   font-size:var(--t-body); line-height:1.56;
 }
+.stack-card-quote{
+  margin:4px 0 0; padding:0 0 0 14px;
+  border-left:1px solid var(--accent); color:var(--muted);
+}
+.stack-card-quote p{
+  margin:0; max-width:62ch; color:var(--muted);
+  font-size:var(--t-sm); line-height:1.5;
+}
+.stack-card-copy > .stack-metrics{margin-top:2px}
 .stack-chips{
   display:flex; flex-wrap:wrap; gap:8px;
   margin:0; padding:0; list-style:none;

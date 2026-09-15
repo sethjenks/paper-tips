@@ -1,0 +1,8 @@
+{
+  "$schema": "../stacks/schema/block.schema.json",
+  "id": "design-skill",
+  "name": "Design skill",
+  "kind": "skill",
+  "summary": "A custom agent skill for design work. No official public URL in the source.",
+  "links": {}
+}

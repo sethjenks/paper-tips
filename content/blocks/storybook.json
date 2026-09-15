@@ -1,0 +1,11 @@
+{
+  "$schema": "../stacks/schema/block.schema.json",
+  "id": "storybook",
+  "name": "Storybook",
+  "kind": "app",
+  "summary": "Component workshop that makes a library usable by other engineers and agents.",
+  "links": {
+    "home": "https://storybook.js.org",
+    "docs": "https://storybook.js.org/docs/ai/mcp/overview"
+  }
+}

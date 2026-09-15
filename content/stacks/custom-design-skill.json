@@ -1,0 +1,53 @@
+{
+  "$schema": "./schema/stack.schema.json",
+  "id": "custom-design-skill",
+  "title": "Custom design skill + agents",
+  "outcome": "Pair Paper with a custom design skill in Opencode, Claude Code, or Codex.",
+  "summary": "Mark's setup: a written design skill, then Opencode (or Claude Code / Codex) against Paper.",
+  "blocks": [
+    {
+      "ref": "paper",
+      "role": "The canvas the skill and agents work against."
+    },
+    {
+      "ref": "design-skill",
+      "role": "The custom skill Mark wrote."
+    },
+    {
+      "ref": "opencode",
+      "role": "The agent host cited first."
+    },
+    {
+      "ref": "claude-code",
+      "role": "Cited as an alternative host for the same skill.",
+      "optional": true
+    },
+    {
+      "ref": "codex",
+      "role": "Cited as an alternative host for the same skill.",
+      "optional": true
+    }
+  ],
+  "source": {
+    "platform": "x",
+    "url": "https://x.com/markproxa/status/2092016074103390649",
+    "author": {
+      "handle": "markproxa",
+      "name": "Mark",
+      "profile_url": "https://x.com/markproxa"
+    },
+    "posted_at": "2026-08-24T22:27:54.000Z",
+    "quote": "I wrote a design skill and just use Opencode (or Claude Code / Codex). It's amazing.",
+    "metrics": {
+      "impressions": 187,
+      "likes": 0,
+      "bookmarks": 0,
+      "replies": 0,
+      "reposts": 0,
+      "captured": "2026-09-15"
+    }
+  },
+  "tags": ["skill", "opencode"],
+  "paper_related": true,
+  "status": "verified"
+}

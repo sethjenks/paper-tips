@@ -414,6 +414,10 @@ export function stackHandle(stack: Stack): string {
   return `@${stack.source.author.handle}`;
 }
 
+export function stackAuthorHref(stack: Stack): string {
+  return stack.source.author.profile_url ?? stack.source.url;
+}
+
 export function stackStatusLabel(status: StackStatus): string | null {
   switch (status) {
     case "verified":

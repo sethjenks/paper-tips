@@ -1,0 +1,10 @@
+{
+  "$schema": "../stacks/schema/block.schema.json",
+  "id": "shadcn",
+  "name": "shadcn/ui",
+  "kind": "app",
+  "summary": "Open component library used as a live reference to Snapshot into Paper.",
+  "links": {
+    "home": "https://ui.shadcn.com"
+  }
+}

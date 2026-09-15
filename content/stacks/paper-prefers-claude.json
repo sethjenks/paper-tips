@@ -1,0 +1,44 @@
+{
+  "$schema": "./schema/stack.schema.json",
+  "id": "paper-prefers-claude",
+  "title": "Paper with Claude Code",
+  "outcome": "Use Paper regularly with Claude Code, more often than Codex or manual work.",
+  "summary": "Natalia's report that agents move faster in Paper than in Figma, and that Claude Code is the usual pairing.",
+  "blocks": [
+    {
+      "ref": "paper",
+      "role": "The canvas used regularly."
+    },
+    {
+      "ref": "claude-code",
+      "role": "The preferred agent."
+    },
+    {
+      "ref": "codex",
+      "role": "Cited as the less-used alternative.",
+      "optional": true
+    }
+  ],
+  "source": {
+    "platform": "x",
+    "url": "https://x.com/n_bukhtiyarova/status/2094446591629226433",
+    "author": {
+      "handle": "n_bukhtiyarova",
+      "name": "Natalia",
+      "profile_url": "https://x.com/n_bukhtiyarova"
+    },
+    "posted_at": "2026-08-31T15:25:55.000Z",
+    "quote": "I use it regularly, more often with Claude Code than with Codex or manual work.",
+    "metrics": {
+      "impressions": 67,
+      "likes": 4,
+      "bookmarks": 0,
+      "replies": 1,
+      "reposts": 0,
+      "captured": "2026-09-15"
+    }
+  },
+  "tags": ["claude-code"],
+  "paper_related": true,
+  "status": "verified"
+}

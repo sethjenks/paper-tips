@@ -1,0 +1,53 @@
+{
+  "$schema": "./schema/stack.schema.json",
+  "id": "figma-to-paper-to-agent",
+  "title": "Figma to Paper to agent",
+  "outcome": "Move a design from Figma into Paper, then to Codex or Claude Code via MCP.",
+  "summary": "Ash Designs' three-step handoff: Figma → Paper, then Paper → Codex or Claude Code through MCP.",
+  "blocks": [
+    {
+      "ref": "figma",
+      "role": "Starting design surface."
+    },
+    {
+      "ref": "paper",
+      "role": "The middle canvas the Figma work lands in."
+    },
+    {
+      "ref": "paper-mcp",
+      "role": "Bridges Paper to the coding agent."
+    },
+    {
+      "ref": "codex",
+      "role": "One of the two agents cited for the build step.",
+      "optional": true
+    },
+    {
+      "ref": "claude-code",
+      "role": "The other agent cited for the build step.",
+      "optional": true
+    }
+  ],
+  "source": {
+    "platform": "x",
+    "url": "https://x.com/dezign_ash/status/2092523293316407736",
+    "author": {
+      "handle": "dezign_ash",
+      "name": "Ash Designs",
+      "profile_url": "https://x.com/dezign_ash"
+    },
+    "posted_at": "2026-08-26T08:03:24.000Z",
+    "quote": "Figma to @paper and then, paper to Codex or Claude code via mcp",
+    "metrics": {
+      "impressions": 246,
+      "likes": 2,
+      "bookmarks": 0,
+      "replies": 1,
+      "reposts": 0,
+      "captured": "2026-09-15"
+    }
+  },
+  "tags": ["figma", "handoff"],
+  "paper_related": true,
+  "status": "verified"
+}

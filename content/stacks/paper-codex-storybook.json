@@ -1,0 +1,47 @@
+{
+  "$schema": "./schema/stack.schema.json",
+  "id": "paper-codex-storybook",
+  "title": "Paper + Codex + Storybook",
+  "outcome": "Design in Paper, keep the component library in sync via MCP, and ship Storybook components agents can reuse.",
+  "summary": "Marvin Kennis's production loop: Paper + Codex closes the design-to-production gap, with Storybook as the shared component surface. A follow-up notes Paper Desktop + MCP + Codex as the setup.",
+  "blocks": [
+    {
+      "ref": "paper",
+      "role": "Where the design happens."
+    },
+    {
+      "ref": "paper-mcp",
+      "role": "Keeps Paper in sync with the component library."
+    },
+    {
+      "ref": "codex",
+      "role": "The agent driving the loop."
+    },
+    {
+      "ref": "storybook",
+      "role": "Makes the components usable by other engineers and agents."
+    }
+  ],
+  "source": {
+    "platform": "x",
+    "url": "https://x.com/marvinkennis/status/2094542243789185234",
+    "author": {
+      "handle": "marvinkennis",
+      "name": "Marvin Kennis",
+      "profile_url": "https://x.com/marvinkennis"
+    },
+    "posted_at": "2026-08-31T21:46:00.000Z",
+    "quote": "Design in Paper. MCP to keep it in sync with our component library. Storybook components now usable by other engineers + agents.",
+    "metrics": {
+      "impressions": 14897,
+      "likes": 204,
+      "bookmarks": 244,
+      "replies": 10,
+      "reposts": 6,
+      "captured": "2026-09-15"
+    }
+  },
+  "tags": ["storybook", "production"],
+  "paper_related": true,
+  "status": "verified"
+}
