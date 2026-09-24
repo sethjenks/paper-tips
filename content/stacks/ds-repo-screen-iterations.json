@@ -1,7 +1,8 @@
 {
   "$schema": "./schema/stack.schema.json",
   "id": "ds-repo-screen-iterations",
-  "title": "DS repo to Paper iterations",
+  "title": "A dozen screens from the design-system repo",
+  "stack_name": "XP stack",
   "outcome": "Hook Codex to a design-system repo and generate a dozen high-fidelity screen iterations on Paper.",
   "summary": "Kevin's high-fidelity loop: the design-system repo gives Codex context immediately, then Paper is where the screen variants land for evaluation.",
   "blocks": [

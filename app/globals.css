@@ -812,6 +812,10 @@ a.stack-chip:hover{border-color:var(--accent); color:var(--accent)}
   color:var(--label); border-color:var(--line); background:transparent;
 }
 a.stack-chip-optional:hover{color:var(--ink); border-color:var(--line-2)}
+.stack-chip-name{
+  font-family:var(--mono); font-weight:var(--w-strong);
+  letter-spacing:.04em;
+}
 .stack-card-source{
   display:flex; flex-wrap:wrap; align-items:center; gap:8px;
   color:var(--label); font-size:var(--t-sm);
@@ -861,6 +865,31 @@ a.stack-chip-optional:hover{color:var(--ink); border-color:var(--line-2)}
   margin:0; color:var(--muted);
   font-size:var(--t-body); line-height:1.62;
 }
+.stack-hero{width:100%; margin:0 0 28px}
+.stack-hero-frame,.stack-card-media-frame{
+  overflow:hidden;
+  border:1px solid var(--line); border-radius:var(--r-md);
+  background:var(--sunk);
+}
+.stack-hero-portrait .stack-hero-frame,
+.stack-card-media-portrait .stack-card-media-frame{
+  width:fit-content; max-width:100%; margin-inline:auto;
+}
+.stack-hero img,.stack-card-media img{
+  display:block; width:100%; height:auto;
+}
+.stack-hero img{max-height:560px; object-fit:contain}
+.stack-hero-portrait img,.stack-card-media-portrait img{
+  width:auto; max-width:100%; margin-inline:auto;
+}
+.stack-hero figcaption{
+  margin:12px 0 0;
+  color:var(--label);
+  font-size:var(--t-sm); line-height:1.5;
+}
+.stack-card-media{margin:0}
+.stack-card-media-frame{border-radius:var(--r-sm)}
+.stack-card-media img{max-height:168px}
 .stack-quote{
   margin:32px 0 0; padding:4px 0 4px 24px;
   border-left:1px solid var(--accent); color:var(--muted);
@@ -938,6 +967,9 @@ a.stack-chip-optional:hover{color:var(--ink); border-color:var(--line-2)}
   .stack-header{gap:16px}
   .stack-meta{gap:10px}
   .stack-meta i{width:16px}
+  .stack-hero{margin-bottom:20px}
+  .stack-hero img{max-height:360px}
+  .stack-card-media img{max-height:140px}
   .stack-roles{margin-top:32px}
   .stack-links{margin-top:32px; flex-direction:column; align-items:flex-start; gap:16px}
   .stack-related{flex-direction:column; align-items:flex-start; gap:4px}
@@ -1032,6 +1064,8 @@ a:focus-visible,.rail a:focus-visible,.copy:focus-visible,.cmd:focus-visible,.st
   .stack-frame::before,.stack-frame::after{display:none}
   .stack-title{max-width:none; color:#111; font-size:22pt}
   .stack-outcome,.stack-summary,.stack-quote,.stack-roles li > p{color:#444}
+  .stack-hero figcaption{color:#767676}
+  .stack-hero-frame,.stack-card-media-frame{border-color:#bbb; background:#fff}
   .stack-card{border-color:#bbb; background:#fff}
   .stack-card-featured{background:#fff}
   .stack-chip{border-color:#bbb; background:#f2f2f2; color:#111}

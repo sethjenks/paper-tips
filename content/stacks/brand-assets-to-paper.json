@@ -1,7 +1,7 @@
 {
   "$schema": "./schema/stack.schema.json",
   "id": "brand-assets-to-paper",
-  "title": "Brand assets to Paper",
+  "title": "Brand assets in, Paper as the design IDE",
   "outcome": "Generate brand assets with an image model, then design in Paper MCP, powered by Codex, Claude Code, or Conductor.",
   "summary": "Rowan's short recipe for becoming an AI-empowered design engineer with committable Paper files.",
   "blocks": [

@@ -5,6 +5,7 @@ import { notFound } from "next/navigation";
 import { SiteChrome } from "../../../components/SiteChrome";
 import { SiteFooter } from "../../../components/SiteFooter";
 import { StackChips } from "../../../components/StackChips";
+import { StackMedia } from "../../../components/StackMedia";
 import {
   blockKindLabel,
   blockOutboundLinks,
@@ -58,6 +59,9 @@ export async function generateMetadata({ params }: StackPageProps): Promise<Meta
       description: stack.outcome,
       url: `/stacks/${stack.id}`,
       type: "article",
+      ...(stack.image
+        ? { images: [{ url: stack.image.src, alt: stack.image.alt }] }
+        : {}),
     },
   };
 }
@@ -102,6 +106,7 @@ export default async function StackPage({ params }: StackPageProps) {
     "@type": "CreativeWork",
     name: stack.title,
     description: stack.outcome,
+    ...(stack.image ? { image: `https://paper.tips${stack.image.src}` } : {}),
     citation: stack.source.url,
     datePublished: stack.source.posted_at,
     author: {
@@ -154,7 +159,9 @@ export default async function StackPage({ params }: StackPageProps) {
               {stack.summary ? <p className="stack-summary">{stack.summary}</p> : null}
             </header>
 
-            <StackChips blocks={stack.blocks} />
+            {stack.image ? <StackMedia image={stack.image} preload /> : null}
+
+            <StackChips blocks={stack.blocks} stackName={stack.stack_name} />
 
             {stack.source.quote ? (
               <blockquote className="stack-quote">
@@ -216,7 +223,7 @@ export default async function StackPage({ params }: StackPageProps) {
               </p>
               <p>
                 <a href={stack.source.url} target="_blank" rel="noopener noreferrer">
-                  {stack.source.url}
+                  Original post on X
                 </a>
               </p>
               <StackMetricsRow stack={stack} />

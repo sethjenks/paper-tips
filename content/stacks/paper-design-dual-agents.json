@@ -2,6 +2,7 @@
   "$schema": "./schema/stack.schema.json",
   "id": "paper-design-dual-agents",
   "title": "Design in Paper, build with both",
+  "stack_name": "PCX stack",
   "outcome": "Design in Paper, then build with Claude Code and Codex.",
   "summary": "Rio's short credit: Paper for design, Claude Code and Codex for the build.",
   "blocks": [

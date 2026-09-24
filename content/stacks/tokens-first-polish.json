@@ -1,7 +1,7 @@
 {
   "$schema": "./schema/stack.schema.json",
   "id": "tokens-first-polish",
-  "title": "Tokens-first polish",
+  "title": "Tokens in Paper, then a polish pass",
   "outcome": "Load Tailwind colors as Paper tokens, mock up in Paper, then ask Claude for a design-polish pass.",
   "summary": "Jarek's experiment for closing the gap between AI implementation and pixel-perfect mockups.",
   "blocks": [
@@ -36,6 +36,14 @@
       "reposts": 6,
       "captured": "2026-09-15"
     }
+  },
+  "image": {
+    "src": "/images/stacks/tokens-first-polish.webp",
+    "alt": "A Paper comments mockup with threaded notes, a comments sidebar, and a 1501 by 834 artboard.",
+    "width": 2298,
+    "height": 1346,
+    "credit": "@jarekceborski",
+    "creditHref": "https://x.com/jarekceborski/status/2095059044025123246"
   },
   "tags": ["tokens", "polish"],
   "paper_related": true,

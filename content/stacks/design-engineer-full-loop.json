@@ -1,7 +1,8 @@
 {
   "$schema": "./schema/stack.schema.json",
   "id": "design-engineer-full-loop",
-  "title": "Design-engineer full loop",
+  "title": "Design, build, and ship in one loop",
+  "stack_name": "FPCX stack",
   "outcome": "Design in Figma + Paper, build with Claude Code + Cursor in CMUX, ship in Xcode, with Paper / Mobbin / XcodeBuild MCPs.",
   "summary": "Cecilia Kim's exact setup after moving from software engineering into freelance design.",
   "blocks": [
@@ -60,6 +61,14 @@
       "reposts": 6,
       "captured": "2026-09-15"
     }
+  },
+  "image": {
+    "src": "/images/stacks/design-engineer-full-loop.webp",
+    "alt": "Portrait graphic of Cecilia Kim at a laptop under the title how i build apps as a designer, with an Exact Setup card.",
+    "width": 1638,
+    "height": 2048,
+    "credit": "@ceciliakdesign",
+    "creditHref": "https://x.com/ceciliakdesign/status/2089829521662910872"
   },
   "tags": ["design-engineer", "ios"],
   "paper_related": true,

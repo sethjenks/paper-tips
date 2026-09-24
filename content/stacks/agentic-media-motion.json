@@ -1,7 +1,7 @@
 {
   "$schema": "./schema/stack.schema.json",
   "id": "agentic-media-motion",
-  "title": "Agentic media and motion",
+  "title": "Agentic media is here",
   "outcome": "Claude Code creates videos through Paper MCP on the Paper canvas.",
   "summary": "Jay's short report that Claude Code + Paper MCP is already producing video.",
   "blocks": [

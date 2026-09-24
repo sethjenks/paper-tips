@@ -1,7 +1,7 @@
 {
   "$schema": "./schema/stack.schema.json",
   "id": "paper-mcp-agent-harness",
-  "title": "Paper MCP with agent harnesses",
+  "title": "Paper MCP holds up with agent harnesses",
   "outcome": "Drive Paper through MCP from Claude Code or Codex.",
   "summary": "JC's short report that Paper MCP holds up with agent harnesses — Claude Code or Codex.",
   "blocks": [

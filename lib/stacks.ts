@@ -72,12 +72,23 @@ export interface StackSource {
   url: string;
 }
 
+export interface StackImage {
+  alt: string;
+  credit?: string;
+  creditHref?: string;
+  height: number;
+  src: string;
+  width: number;
+}
+
 export interface Stack {
   blocks: StackBlockRef[];
   id: string;
+  image?: StackImage;
   outcome: string;
   paper_related: boolean;
   source: StackSource;
+  stack_name?: string;
   status: StackStatus;
   summary?: string;
   tags?: string[];
@@ -275,6 +286,61 @@ function parseStackBlocks(value: unknown, id: string): StackBlockRef[] {
   });
 }
 
+function parseImage(value: unknown, id: string): StackImage | undefined {
+  if (value === undefined) {
+    return undefined;
+  }
+
+  if (!isRecord(value)) {
+    throw new Error(`Stack "${id}" has invalid image`);
+  }
+
+  const src = assertString(value.src, "image.src", id);
+  if (!/^\/images\/stacks\/.+\.(webp|png|jpe?g)$/.test(src)) {
+    throw new Error(`Stack "${id}" image.src must be a local /images/stacks file`);
+  }
+
+  const width = optionalInteger(value.width, "image.width", id);
+  const height = optionalInteger(value.height, "image.height", id);
+
+  if (!width || !height) {
+    throw new Error(`Stack "${id}" image needs positive width and height`);
+  }
+
+  const credit = optionalString(value.credit);
+  const creditHref = optionalString(value.creditHref);
+
+  if (creditHref && !/^https?:\/\//.test(creditHref)) {
+    throw new Error(`Stack "${id}" image.creditHref must be a URL`);
+  }
+
+  if (creditHref && !credit) {
+    throw new Error(`Stack "${id}" image.creditHref needs image.credit`);
+  }
+
+  return {
+    src,
+    alt: assertString(value.alt, "image.alt", id),
+    width,
+    height,
+    credit,
+    creditHref,
+  };
+}
+
+function parseStackName(value: unknown, id: string): string | undefined {
+  if (value === undefined) {
+    return undefined;
+  }
+
+  const name = assertString(value, "stack_name", id);
+  if (!/^[A-Z]{2,4} stack$/.test(name)) {
+    throw new Error(`Stack "${id}" stack_name must be a 2–4 letter coin plus " stack"`);
+  }
+
+  return name;
+}
+
 function parseTags(value: unknown, id: string): string[] | undefined {
   if (value === undefined) {
     return undefined;
@@ -301,10 +367,12 @@ function parseStack(id: string, data: Record<string, unknown>): Stack {
   return {
     id: parsedId,
     title: assertString(data.title, "title", id),
+    stack_name: parseStackName(data.stack_name, id),
     outcome: assertString(data.outcome, "outcome", id),
     summary: optionalString(data.summary),
     blocks: parseStackBlocks(data.blocks, id),
     source: parseSource(data.source, id),
+    image: parseImage(data.image, id),
     tags: parseTags(data.tags, id),
     paper_related: data.paper_related,
     status: parseStackStatus(data.status, id),
@@ -338,19 +406,35 @@ export function getBlock(id: string): Block | null {
 }
 
 export function getAllStacks(): Stack[] {
-  return listJsonIds(stacksDirectory)
-    .map(readStackFile)
-    .sort((a, b) => {
-      if (a.id === pinnedStackId) {
-        return -1;
-      }
+  const stacks = listJsonIds(stacksDirectory).map(readStackFile);
+  const coins = new Map<string, string>();
 
-      if (b.id === pinnedStackId) {
-        return 1;
-      }
+  for (const stack of stacks) {
+    if (!stack.stack_name) {
+      continue;
+    }
 
-      return (b.source.posted_at ?? "").localeCompare(a.source.posted_at ?? "");
-    });
+    const owner = coins.get(stack.stack_name);
+    if (owner) {
+      throw new Error(
+        `stack_name "${stack.stack_name}" is used by both "${owner}" and "${stack.id}"`,
+      );
+    }
+
+    coins.set(stack.stack_name, stack.id);
+  }
+
+  return stacks.sort((a, b) => {
+    if (a.id === pinnedStackId) {
+      return -1;
+    }
+
+    if (b.id === pinnedStackId) {
+      return 1;
+    }
+
+    return (b.source.posted_at ?? "").localeCompare(a.source.posted_at ?? "");
+  });
 }
 
 export function getStack(id: string): Stack | null {
@@ -464,4 +548,14 @@ export function formatStackDate(iso?: string): string | undefined {
 
 export function formatMetricCount(value: number): string {
   return value.toLocaleString("en-US");
+}
+
+export const stackImageSizes =
+  "(max-width: 600px) calc(100vw - 88px), (max-width: 1079px) calc(100vw - 148px), 790px";
+
+export const stackCardImageSizes =
+  "(max-width: 600px) calc(100vw - 76px), (max-width: 1079px) calc(100vw - 80px), 720px";
+
+export function stackShowsCardImage(image: StackImage): boolean {
+  return image.width >= image.height;
 }

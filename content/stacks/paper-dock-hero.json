@@ -1,7 +1,8 @@
 {
   "$schema": "./schema/stack.schema.json",
   "id": "paper-dock-hero",
-  "title": "The new builder stack (dock)",
+  "title": "The new builder stack",
+  "stack_name": "PC stack",
   "outcome": "Social-proof dock: agent IDE + Paper",
   "summary": "Paper's own screenshot of the dock pairing — an agent IDE sitting next to Paper — posted as the stack they keep seeing.",
   "blocks": [
@@ -42,6 +43,14 @@
       "reposts": 6,
       "captured": "2026-09-15"
     }
+  },
+  "image": {
+    "src": "/images/stacks/paper-dock-hero.webp",
+    "alt": "A Mac dock with Claude, Cursor, Paper, Figma, ChatGPT, and Linear, Paper sitting next to the agent IDEs.",
+    "width": 670,
+    "height": 150,
+    "credit": "@aiwithremy",
+    "creditHref": "https://x.com/aiwithremy/status/2095805905358958814"
   },
   "tags": ["dock", "social-proof"],
   "paper_related": true,

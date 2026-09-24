@@ -4,11 +4,14 @@ import Link from "next/link";
 import { SiteChrome } from "../../components/SiteChrome";
 import { SiteFooter } from "../../components/SiteFooter";
 import { StackChips } from "../../components/StackChips";
+import { StackMedia } from "../../components/StackMedia";
 import {
   formatMetricCount,
   getResolvedStacks,
   stackAuthorHref,
+  stackCardImageSizes,
   stackHandle,
+  stackShowsCardImage,
   stackStatusLabel,
 } from "../../lib/stacks";
 
@@ -52,12 +55,22 @@ export default function StacksPage() {
             {stacks.map((stack) => {
               const status = stackStatusLabel(stack.status);
               const featured = stack.id === "paper-dock-hero";
+              const cardImage =
+                stack.image && stackShowsCardImage(stack.image) ? stack.image : null;
 
               return (
                 <article
                   className={featured ? "stack-card stack-card-featured" : "stack-card"}
                   key={stack.id}
                 >
+                  {cardImage ? (
+                    <StackMedia
+                      image={cardImage}
+                      preload={featured}
+                      sizes={stackCardImageSizes}
+                      variant="card"
+                    />
+                  ) : null}
                   <header className="stack-card-copy">
                     {featured || status ? (
                       <div className="stack-card-meta">
@@ -83,7 +96,7 @@ export default function StacksPage() {
                       </p>
                     ) : null}
                   </header>
-                  <StackChips blocks={stack.blocks} />
+                  <StackChips blocks={stack.blocks} stackName={stack.stack_name} />
                   <footer className="stack-card-source">
                     <a href={stackAuthorHref(stack)} target="_blank" rel="noopener noreferrer">
                       {stackHandle(stack)}
@@ -91,7 +104,7 @@ export default function StacksPage() {
                     </a>
                     <span aria-hidden="true">·</span>
                     <a href={stack.source.url} target="_blank" rel="noopener noreferrer">
-                      Original post
+                      Original post on X
                     </a>
                   </footer>
                 </article>

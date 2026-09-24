@@ -1,7 +1,7 @@
 {
   "$schema": "./schema/stack.schema.json",
   "id": "custom-design-skill",
-  "title": "Custom design skill + agents",
+  "title": "Write a design skill, then pick an agent",
   "outcome": "Pair Paper with a custom design skill in Opencode, Claude Code, or Codex.",
   "summary": "Mark's setup: a written design skill, then Opencode (or Claude Code / Codex) against Paper.",
   "blocks": [

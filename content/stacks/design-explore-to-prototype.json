@@ -1,7 +1,8 @@
 {
   "$schema": "./schema/stack.schema.json",
   "id": "design-explore-to-prototype",
-  "title": "Design explore to prototype",
+  "title": "From canvas to live demo",
+  "stack_name": "PAC stack",
   "outcome": "From a design canvas to a live demo: explore in Paper MCP + Antigravity, then prototype with Paper + Claude Code + GitHub.",
   "summary": "Alex K's Paper Challenge workflow splits exploration from the live prototype, with Paper in both halves.",
   "blocks": [

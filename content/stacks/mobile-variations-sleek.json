@@ -1,7 +1,8 @@
 {
   "$schema": "./schema/stack.schema.json",
   "id": "mobile-variations-sleek",
-  "title": "Mobile variations with Sleek",
+  "title": "Generate variations, refine in Paper",
+  "stack_name": "CSP stack",
   "outcome": "Generate mobile design variations in Claude Code, then refine them in Paper.",
   "summary": "Mattia's mobile-app workflow: Claude Code + Sleek Skill + Paper MCP, with Paper as the refinement surface.",
   "blocks": [

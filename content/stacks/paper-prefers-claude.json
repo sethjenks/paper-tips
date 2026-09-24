@@ -1,7 +1,7 @@
 {
   "$schema": "./schema/stack.schema.json",
   "id": "paper-prefers-claude",
-  "title": "Paper with Claude Code",
+  "title": "More often with Claude Code than Codex",
   "outcome": "Use Paper regularly with Claude Code, more often than Codex or manual work.",
   "summary": "Natalia's report that agents move faster in Paper than in Figma, and that Claude Code is the usual pairing.",
   "blocks": [

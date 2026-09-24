@@ -1,7 +1,8 @@
 {
   "$schema": "./schema/stack.schema.json",
   "id": "gtm-landing-idea-browser",
-  "title": "GTM landing with Idea Browser",
+  "title": "Landing page, no Figma handoff",
+  "stack_name": "ICP stack",
   "outcome": "Pull ICP and offer context through Idea Browser MCP, then design the landing page in Paper with Claude Code.",
   "summary": "Reconstructed from a broader GTM automation post. The source also mentions analytics and ads tools that are not in this catalog.",
   "blocks": [

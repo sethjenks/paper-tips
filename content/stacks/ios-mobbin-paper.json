@@ -1,7 +1,8 @@
 {
   "$schema": "./schema/stack.schema.json",
   "id": "ios-mobbin-paper",
-  "title": "iOS with Mobbin + Paper",
+  "title": "Designing a first iOS app",
+  "stack_name": "CMP stack",
   "outcome": "Design a first iOS app with Claude Code, Mobbin MCP, and Paper MCP.",
   "summary": "Sanket's recipe for designing an iOS app: Claude Code + Fable + Mobbin MCP + Paper MCP, with Paper as the canvas.",
   "blocks": [

@@ -12,6 +12,10 @@
       "pattern": "^[a-z0-9-]+$"
     },
     "title": { "type": "string", "minLength": 1 },
+    "stack_name": {
+      "type": "string",
+      "pattern": "^[A-Z]{2,4} stack$"
+    },
     "outcome": { "type": "string", "minLength": 1 },
     "summary": { "type": "string", "minLength": 1 },
     "blocks": {
@@ -62,6 +66,22 @@
             "captured": { "type": "string", "format": "date" }
           }
         }
+      }
+    },
+    "image": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["src", "alt", "width", "height"],
+      "properties": {
+        "src": {
+          "type": "string",
+          "pattern": "^/images/stacks/.+\\.(webp|png|jpe?g)$"
+        },
+        "alt": { "type": "string", "minLength": 1 },
+        "width": { "type": "integer", "minimum": 1 },
+        "height": { "type": "integer", "minimum": 1 },
+        "credit": { "type": "string", "minLength": 1 },
+        "creditHref": { "type": "string", "format": "uri" }
       }
     },
     "tags": {

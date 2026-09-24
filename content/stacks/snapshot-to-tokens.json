@@ -1,7 +1,8 @@
 {
   "$schema": "./schema/stack.schema.json",
   "id": "snapshot-to-tokens",
-  "title": "Snapshot to tokens",
+  "title": "Snapshot the live UI, list the tokens",
+  "stack_name": "SPC stack",
   "outcome": "Snapshot live components into a blank Paper file, then ask Claude Code via MCP to list tokens.",
   "summary": "Charles Postiaux's design-system recipe: copy shadcn components with Paper Snapshot, paste them as reference, connect Claude Code, and extract tokens.",
   "blocks": [

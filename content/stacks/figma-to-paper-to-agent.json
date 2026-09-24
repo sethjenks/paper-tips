@@ -1,7 +1,8 @@
 {
   "$schema": "./schema/stack.schema.json",
   "id": "figma-to-paper-to-agent",
-  "title": "Figma to Paper to agent",
+  "title": "Paper in the middle of the handoff",
+  "stack_name": "FPC stack",
   "outcome": "Move a design from Figma into Paper, then to Codex or Claude Code via MCP.",
   "summary": "Ash Designs' three-step handoff: Figma → Paper, then Paper → Codex or Claude Code through MCP.",
   "blocks": [

@@ -1,7 +1,7 @@
 {
   "$schema": "./schema/stack.schema.json",
   "id": "designer-toolkit-split",
-  "title": "Designer toolkit, split",
+  "title": "Build, refine, and bridge both ways",
   "outcome": "Build with Claude Code, Codex, and Framer; refine in Figma / Paper; bridge both ways with Figma MCP and Paper MCP.",
   "summary": "Akhil Krishnan's 2026 designer toolkit, split into building, design, and the MCP bridge.",
   "blocks": [
@@ -52,6 +52,14 @@
       "reposts": 0,
       "captured": "2026-09-15"
     }
+  },
+  "image": {
+    "src": "/images/stacks/designer-toolkit-split.webp",
+    "alt": "Claude, Figma, Cursor, Paper, and Framer icons over a night landscape, with a child assembling a glowing puzzle.",
+    "width": 1800,
+    "height": 1013,
+    "credit": "@akhilllkrishnan",
+    "creditHref": "https://x.com/akhilllkrishnan/status/2044272003431985489"
   },
   "tags": ["toolkit"],
   "paper_related": true,

@@ -1,7 +1,8 @@
 {
   "$schema": "./schema/stack.schema.json",
   "id": "paper-codex-storybook",
-  "title": "Paper + Codex + Storybook",
+  "title": "Storybook components agents can reuse",
+  "stack_name": "PXS stack",
   "outcome": "Design in Paper, keep the component library in sync via MCP, and ship Storybook components agents can reuse.",
   "summary": "Marvin Kennis's production loop: Paper + Codex closes the design-to-production gap, with Storybook as the shared component surface. A follow-up notes Paper Desktop + MCP + Codex as the setup.",
   "blocks": [

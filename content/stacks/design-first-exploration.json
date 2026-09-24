@@ -1,7 +1,7 @@
 {
   "$schema": "./schema/stack.schema.json",
   "id": "design-first-exploration",
-  "title": "Design-first exploration",
+  "title": "Design first, decide what's worth building",
   "outcome": "Use Paper MCP with Claude Code to design first and decide what's worth building.",
   "summary": "Dhruval's experiment for appgrowkit: explore ideas on the canvas before committing to a build.",
   "blocks": [
@@ -36,6 +36,14 @@
       "reposts": 2,
       "captured": "2026-09-15"
     }
+  },
+  "image": {
+    "src": "/images/stacks/design-first-exploration.webp",
+    "alt": "A Paper canvas of AppGrowKit onboarding screens, with layers for Add your app and Your screenshots.",
+    "width": 2226,
+    "height": 1728,
+    "credit": "@dhruvalgolakiya",
+    "creditHref": "https://x.com/dhruvalgolakiya/status/2076285936003055725"
   },
   "tags": ["exploration", "design-first"],
   "paper_related": true,
