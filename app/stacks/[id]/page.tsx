@@ -51,6 +51,10 @@ export async function generateMetadata({ params }: StackPageProps): Promise<Meta
   return {
     title: stack.title,
     description: stack.outcome,
+    robots: {
+      index: false,
+      follow: false,
+    },
     alternates: {
       canonical: `/stacks/${stack.id}`,
     },

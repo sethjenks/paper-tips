@@ -19,6 +19,10 @@ export const metadata: Metadata = {
   title: "Builder stacks",
   description:
     "Community-cited tool stacks that put Paper in the loop — recipes people actually post, not official Paper documentation.",
+  robots: {
+    index: false,
+    follow: false,
+  },
   alternates: {
     canonical: "/stacks",
   },

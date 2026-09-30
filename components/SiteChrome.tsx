@@ -19,9 +19,6 @@ export function SiteChrome({ active }: SiteChromeProps) {
           <Link href="/notes" aria-current={active === "notes" ? "page" : undefined}>
             Notes
           </Link>
-          <Link href="/stacks" aria-current={active === "stacks" ? "page" : undefined}>
-            Stacks
-          </Link>
         </div>
       </nav>
     </>

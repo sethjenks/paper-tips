@@ -13,7 +13,7 @@ This project looks like "just a static page" but carries a measured design contr
 - **The site uses the Next.js App Router.** `app/page.tsx` holds the full guide markup as one Server Component. `app/notes/page.tsx` and `app/notes/[slug]/page.tsx` render the field-note index and statically generated posts. `app/stacks/page.tsx` and `app/stacks/[id]/page.tsx` render the builder-stack index and statically generated recipes.
 - **Notes are markdown-backed.** Files live in `content/notes`; `lib/notes.ts` is the only data interface routes should import. It parses frontmatter and markdown today so that a CMS can replace the filesystem later without changing the route contract.
 - **Stacks are a JSON catalog.** Files live in `content/blocks` and `content/stacks`; `lib/stacks.ts` is the only data interface routes should import. Schemas live in `content/stacks/schema`. This is not Markdown-primary and has no database.
-- **Shared chrome stays shared.** `components/SiteChrome.tsx` owns the ruler and Guide / Notes / Stacks navigation; `components/SiteFooter.tsx` owns the footer variants. `components/IconSprite.tsx` is mounted once from the root layout. `components/GuideEffects.tsx` remains the only client island and only renders on the guide.
+- **Shared chrome stays shared.** `components/SiteChrome.tsx` owns the ruler and Guide / Notes navigation (Stacks is unpublished from the nav until it is ready); `components/SiteFooter.tsx` owns the footer variants. `components/IconSprite.tsx` is mounted once from the root layout. `components/GuideEffects.tsx` remains the only client island and only renders on the guide.
 - **`app/globals.css` is the complete stylesheet.** Keep its source order intact. Inter and Geist Mono are self-hosted through `next/font`; the rendered page makes no external font request.
 - Install with `npm install`, preview with `npm run dev`, and verify a production build with `npm run build`.
 
@@ -59,7 +59,7 @@ Check at 1400px, 900px, and 390px widths; also 360px (single-column nav) and 375
 ### Page anatomy
 
 - **Ruler** — sticky top strip mimicking Paper's canvas ruler
-- **Site navigation** — shared Guide / Notes / Stacks navigation directly below the ruler; `aria-current="page"` marks the active surface
+- **Site navigation** — shared Guide / Notes navigation directly below the ruler; `aria-current="page"` marks the active surface. Stacks stays off the nav until it is ready.
 - **Masthead** — `Paper.tips` wordmark + lede; the eyebrow credits paper.design with its logo
 - **The Twelve** (`.quickcard`) — one-screen grid of the 12 core shortcuts; header has "copy as svg", and `@media print` renders *only* this card as a one-pager
 - **Contents** (`.pagenav`, mobile-only ≤1079px) / **Layers rail** (`.rail`, desktop) — same 11 sections, same icons; scrollspy sets `aria-current`
