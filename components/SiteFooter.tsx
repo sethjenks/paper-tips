@@ -54,10 +54,10 @@ export function SiteFooter({ kind = "guide" }: SiteFooterProps) {
           <use href="#ic-paper" />
         </svg>
         Compiled from the <a href="https://paper.design/build-log">Paper build log</a>{" "}
-        and <a href="https://paper.design/docs">docs</a> — tokens, vector editing,
-        paste, MCP, and support — September 2026. Shortcuts shown for macOS. Styled
-        after paper.design; Matter and Paper Mono are commercial faces, so this page
-        uses Inter and Geist Mono as stand-ins.
+        and <a href="https://paper.design/docs">docs</a> on Nov 2, 2026, covering the
+        September 2026 changelog: tokens, vector editing, paste, MCP, and support.
+        Shortcuts shown for macOS. Styled after paper.design; Matter and Paper Mono
+        are commercial faces, so this page uses Inter and Geist Mono as stand-ins.
       </p>
       <p className="fine">
         The Paper and Figma logos are trademarks of their respective owners and appear
