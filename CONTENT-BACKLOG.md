@@ -192,3 +192,20 @@ Quick fact-check while filing (September 2026) — not a full verification pass:
 - [ ] Read the full guide. Extract candidate tips only after checking each one against [docs](https://paper.design/docs), the [build log](https://paper.design/build-log), and the live product.
 - [ ] Skip anything already covered on the live page (see the skip list at the top of this file).
 - [ ] File any keepers as their own backlog items in this format — do not dump the thread into `#mcp`.
+
+---
+
+## Sept 2026 build-log Notes (drafted 2026-11-02, draft: true)
+
+Source: https://paper.design/build-log (September, 2026). Drafts are in `content/notes/` with `draft: true`. Hero images are placeholders until real stills exist.
+
+- [x] drafted: `in-app-agent-setup`. MCP panel, pick harness, one-click connect. Links docs/mcp, Guide #mcp. Needs image.
+- [x] drafted: `webmcp-in-the-browser`. Browser app supports WebMCP; browser vs Desktop. Needs image.
+- [x] drafted: `copy-selection-from-export-panel`. React CSS / Tailwind / PNG from export panel. Links Guide export. Needs image.
+- [x] drafted: `add-a-color-token-from-any-panel`. Token from any color property panel. Links Guide tokens. Needs image.
+- [x] drafted: `image-generation-via-mcp`. Agent image gen via MCP, with prompt block. Needs image.
+- [x] drafted: `paper-texture-2`. Shader of the month design tips. Links Guide shaders. Needs image.
+- [x] stub, skipped as a note: `large-files-feel-lighter`. The performance callout is on the Guide canvas section instead.
+- [x] candidate, already on the Guide: CJK keep-words-together text option.
+- [x] candidate, already on the Guide: cross-folder dashboard search.
+- Roadmap only, no how-to: Remote MCP, Components, Rich text editing, Scale tool, Permissions per file.
