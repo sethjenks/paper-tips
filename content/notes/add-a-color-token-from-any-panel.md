@@ -20,4 +20,4 @@ A good workflow:
 
 Tokens still travel between files via File menu, Theme, Copy theme / Paste theme.
 
-Sources: [Paper build log, September 2026](https://paper.design/build-log). See also the Guide's [tokens section](/guide#tokens).
+Sources: [Paper build log, September 2026](https://paper.design/build-log). See also the Guide's [tokens section](/#color).

@@ -22,4 +22,4 @@ Tip: if you set Paper up the old HTTP way, remove that entry first so you do not
 Create a basic Hello World frame in Paper
 ```
 
-Sources: [Paper build log, September 2026](https://paper.design/build-log), [Paper MCP docs](https://paper.design/docs/mcp). See also the Guide's [MCP section](/guide#mcp).
+Sources: [Paper build log, September 2026](https://paper.design/build-log), [Paper MCP docs](https://paper.design/docs/mcp). See also the Guide's [MCP section](/#mcp).

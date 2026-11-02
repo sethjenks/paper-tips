@@ -23,4 +23,4 @@ Name the layer clearly, then show me the result before you touch anything else.
 
 Tip: treat agent images as drafts for composition. Swap in final art (or re-prompt) once the layout is approved.
 
-Sources: [Paper build log, September 2026](https://paper.design/build-log), [Paper MCP docs](https://paper.design/docs/mcp). See also the Guide's [MCP section](/guide#mcp).
+Sources: [Paper build log, September 2026](https://paper.design/build-log), [Paper MCP docs](https://paper.design/docs/mcp). See also the Guide's [MCP section](/#mcp).

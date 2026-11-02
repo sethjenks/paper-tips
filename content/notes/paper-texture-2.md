@@ -19,4 +19,4 @@ How to use it well:
 - **Roughness rows for a ledger feel.** The grid-like grain reads like notebook or newsprint stock. Nice for editorial and receipt-style layouts.
 - **Check text contrast last.** Texture adds noise. Zoom out and make sure the headline still reads.
 
-Sources: [Paper build log, September 2026](https://paper.design/build-log). See also the Guide's [shaders section](/guide#shaders).
+Sources: [Paper build log, September 2026](https://paper.design/build-log). See also the Guide's [shaders section](/#ai).

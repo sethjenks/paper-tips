@@ -19,4 +19,4 @@ The build log announces WebMCP support in a single line, so treat setup details 
 
 Coming soon on the roadmap: Remote MCP. That is a different thing, and it is not shipped yet.
 
-Sources: [Paper build log, September 2026](https://paper.design/build-log), [Paper MCP docs](https://paper.design/docs/mcp). See also the Guide's [MCP section](/guide#mcp).
+Sources: [Paper build log, September 2026](https://paper.design/build-log), [Paper MCP docs](https://paper.design/docs/mcp). See also the Guide's [MCP section](/#mcp).

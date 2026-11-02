@@ -21,4 +21,4 @@ Prefer the keyboard? The build log lists &#8997; R for Copy as React CSS and &#8
 
 Tip: code comes out cleaner from frames built with flex layout. Wrap loose elements before you copy.
 
-Sources: [Paper build log, September 2026](https://paper.design/build-log). See also the Guide's [export section](/guide#export).
+Sources: [Paper build log, September 2026](https://paper.design/build-log). See also the Guide's [export section](/#export).
