@@ -120,6 +120,8 @@ export default function Home() {
             <li><b>Hide the UI</b><span className="m">There's a button as well as the shortcut. Good for reviewing work or presenting. <kbd>Shift</kbd><kbd>.</kbd> minimises the UI instead of hiding it outright.</span></li>
             <li><b>Resizable panels</b><span className="m">The left sidebar and page list both resize. Pages support drag-and-drop reordering.</span></li>
             <li><b>Desktop tabs</b><span className="m">Paper Desktop supports tabs, so you can keep multiple files open like a browser.</span></li>
+            <li><b>Agents work in background tabs</b><span className="m">An agent can work across those open files, including ones sitting in background tabs.</span></li>
+            <li><b>Large files got faster</b><span className="m">Memory use is about half of what it was. New tabs and page switches load faster, and pan and zoom are much smoother in big files.</span></li>
           </ul>
         </div>
       </section>
@@ -149,7 +151,7 @@ export default function Home() {
             <li className="third"><b>Marquee to refine</b><span className="m">Drag a rectangular selection over an existing one to refine it instead of starting over.</span></li>
             <li className="third"><b>Selection brush</b><span className="m">Brush across elements to select everything the stroke touches &mdash; faster than marquee for scattered layers.</span></li>
             <li className="third"><b>Recolor in bulk</b><span className="m">The Selection colors panel changes every selected element's colors at once. Also how you recolor pasted SVGs.</span></li>
-            <li className="wide"><b>The dashboard is a real file manager</b><span className="m">Multi-select, duplication, search, and folders with subfolders for team files.</span></li>
+            <li className="wide"><b>The dashboard is a real file manager</b><span className="m">Multi-select, duplication, cross-folder search in the side panel, and folders with subfolders for team files.</span></li>
           </ul>
         </div>
       </section>
@@ -252,6 +254,8 @@ export default function Home() {
             <li><b>Variable fonts, full control</b><span className="m">Set custom axis values on any variable font, including optical size. OpenType features &mdash; ligatures, alternates &mdash; are supported too.</span></li>
             <li><b>Text gradients</b><span className="m">Apply a gradient to text straight from the Fill panel. Multi-fill text survives export.</span></li>
             <li><b>Formatting panel</b><span className="m">Casing, wrapping, and truncation live in a dedicated panel. Line height has an "auto" value.</span></li>
+            <li><b>Keep CJK words together</b><span className="m">The same formatting options include a setting to keep CJK words together.</span></li>
+            <li><b>Type tokens in the font menu</b><span className="m">Typography tokens show in the font dropdown, alongside your favorite fonts.</span></li>
             <li><b>Text stroke</b><span className="m">There's a dedicated Text Stroke panel for outlined type.</span></li>
             <li className="wide"><b>It types like a native app</b><span className="m">macOS text replacements, emoji, diacritics, and system-standard line and word navigation all work. Hidden truncated text reveals itself while you're editing.</span></li>
           </ul>
@@ -310,6 +314,9 @@ export default function Home() {
             <li><b>Shaders are parametric</b><span className="m">Every shader exposes editable parameters, and the eyedropper pulls reference colors straight into shader settings.</span></li>
             <li><b>Shaders export as video</b><span className="m">Export any frame, animated shaders included, as MP4 with a duration setting (Pro) from a dedicated Video panel.</span></li>
             <li><b>HEIC just works</b><span className="m">HEIC and HEIF photos straight off an iPhone drop onto the canvas without conversion.</span></li>
+            <li><b>Bigger uploads on Pro</b><span className="m">Paper Pro accepts larger image uploads.</span></li>
+            <li><b>Ask an agent for the image</b><span className="m">Image generation also works through the MCP. Ask for an image in the file you have open.</span></li>
+            <li className="wide"><b>Paper Texture 2.0</b><span className="m">Three-color schemes, a wrinkles property, and roughness rows for a grid-like grain. Creases are softer, image edges are cleaner, fold lines are smoother, and it performs better.</span></li>
           </ul>
       
           <h3>shader library</h3>
@@ -359,6 +366,7 @@ export default function Home() {
           <h3>tokens &amp; themes</h3>
           <ul className="tips">
             <li><b>Ten token types</b><span className="m">Color, radius, spacing, container, breakpoint, font family, font weight, font size, line height, letter spacing. Create them in the Theme tab.</span></li>
+            <li><b>Add a color token in place</b><span className="m">You can add a color token from any color property panel.</span></li>
             <li><b>Apply from any property</b><span className="m">Use the property's dropdown &mdash; for colors, the four-circle icon opens the token list. Detach with the adjacent button or Backspace.</span></li>
             <li><b><svg><use href="#ic-warn"/></svg>Copied themes don't stay synced</b><span className="m"><kbd>&#8984;A</kbd> in the Theme tab, copy, paste into another file &mdash; or File &rsaquo; Theme &rsaquo; Copy/Paste theme. The copy is a snapshot, not a link.</span></li>
             <li><b>Tokens from your codebase</b><span className="m">Via MCP, an agent can generate tokens from your CSS variables or from an existing canvas frame. Tokens flow back out through code export as CSS variables.</span></li>
@@ -381,6 +389,7 @@ export default function Home() {
           <div className="ledger">
             <div className="row"><span className="keys"><kbd>&#8997;</kbd><kbd>R</kbd></span><span className="desc">Copy selection as <b>React + CSS</b></span></div>
             <div className="row"><span className="keys"><kbd>&#8997;</kbd><kbd>T</kbd></span><span className="desc">Copy selection as <b>Tailwind</b></span></div>
+            <div className="row"><span className="keys"><kbd>&#8679;</kbd><kbd>&#8984;</kbd><kbd>C</kbd></span><span className="desc">Copy selection as a <b>PNG</b></span></div>
             <div className="row"><span className="keys"><kbd>&#8984;</kbd><kbd>Enter</kbd></span><span className="desc">Full-page screenshot</span></div>
           </div>
       
@@ -392,6 +401,10 @@ export default function Home() {
             <div className="row"><span className="fmt">MP4</span><span className="desc">Video from any frame, with duration control &mdash; <b>Pro</b></span></div>
             <div className="row"><span className="fmt">REACT / TAILWIND</span><span className="desc">Code export that can reference your theme's CSS variables, so handoff speaks your design system's vocabulary</span></div>
           </div>
+
+          <ul className="tips">
+            <li className="wide"><b>The export panel copies code and PNG</b><span className="m">Copy the selection as React CSS, Tailwind, or PNG from the export panel. The selection's right-click menu still does the same.</span></li>
+          </ul>
         </div>
       </section>
       
@@ -465,6 +478,7 @@ export default function Home() {
       
           <ul className="tips">
             <li className="wide"><b>Pin the issues, then send the agent through</b><span className="m">Comments are for teammates <em>and</em> agents. Mark every problem you see, then ask an agent to read the threads and fix them in one pass.</span></li>
+            <li className="wide"><b>Comments stay visible</b><span className="m">Creating a comment unhides comments. Unread comments are easier to spot, and attachments open in a lightbox.</span></li>
             <li className="third"><b>Follow a teammate</b><span className="m">Click a collaborator's cursor to follow their view. Right-click for cursor chat on the canvas.</span></li>
             <li className="third"><b>Free seats are generous</b><span className="m">Free teams invite editors at no cost, and viewer roles with folder or file-level access are free too. View-only links work outside the team, anonymous visitors included.</span></li>
             <li className="third"><b>Agents show presence</b><span className="m">When an AI agent works in your file over MCP, it appears with a presence indicator like any other collaborator.</span></li>
@@ -485,12 +499,19 @@ export default function Home() {
           </div>
       
           <h3>setup</h3>
+          <ul className="tips">
+            <li className="wide"><b>One click from the editor</b><span className="m">With nothing selected, open the MCP panel on the right, or the Connect your agent callout in the top right. Pick your agent and click Add. Manual steps stay in that dialog.</span></li>
+            <li className="wide"><b>The old HTTP URL still works</b><span className="m">Desktop still serves <code>http://127.0.0.1:29979/mcp</code> while a file is open. The block below is that older path.</span></li>
+            <li className="wide"><b><svg><use href="#ic-warn"/></svg>Remote MCP is not in the app yet</b><span className="m">The September 2026 coming-soon list names Remote MCP, components, rich text editing, a scale tool, and per-file permissions.</span></li>
+          </ul>
           <div className="term">
             <header>
               <i></i><i></i><i></i><span>claude code</span>
               <button className="copy" type="button" data-copy="claude mcp add paper --transport http http://127.0.0.1:29979/mcp --scope user">copy</button>
             </header>
-            <div className="body"><pre><span className="c"># Keep Paper Desktop open with a file loaded.</span>
+            <div className="body"><pre>      <span className="c"># Prefer one-click Add in the MCP panel.</span>
+      <span className="c"># Older HTTP setup. It still works.</span>
+      <span className="c"># Keep Paper Desktop open with a file loaded.</span>
       <span className="c"># The server starts automatically:</span>
       http://127.0.0.1:29979/mcp
       
@@ -506,13 +527,15 @@ export default function Home() {
           <h3>other clients</h3>
           <ul className="tips">
             <li><b>Cursor plugin</b><span className="m">Run <button className="cmd" type="button" data-copy="/add-plugin paper-desktop">/add-plugin paper-desktop</button> in the agent panel, or install Paper from the Cursor Marketplace.</span></li>
-            <li><b>Codex</b><span className="m">In Settings &rsaquo; MCP Servers, choose Streamable HTTP, name it <code>paper</code>, and use <code>http://127.0.0.1:29979/mcp</code>.</span></li>
-            <li className="wide"><b>Other MCP hosts</b><span className="m">Paper&apos;s <a href="https://paper.design/docs/mcp">MCP docs</a> also include official setup for Copilot, Antigravity, and OpenCode using the same local server.</span></li>
+            <li><b>Codex</b><span className="m">In the MCP panel, click Add to Codex. That covers the ChatGPT app and the Codex CLI. To install by hand, copy the Paper CLI path from the panel and run <code>codex mcp add paper -- /path/to/paper mcp</code>.</span></li>
+            <li className="wide"><b>Other MCP hosts</b><span className="m">The same panel has one-click setup for the GitHub Copilot app, VS Code, Antigravity, and OpenCode. Copilot means the GitHub Copilot app. VS Code has its own Add to VS Code button. Manual steps are in the <a href="https://paper.design/docs/mcp">MCP docs</a>.</span></li>
           </ul>
       
           <h3>living with it</h3>
           <ul className="tips">
             <li><b>What agents can do</b><span className="m">Read selection and file info, take screenshots, export JSX/PNG/SVG/video, create artboards, edit text and styles, and move, duplicate, or delete elements.</span></li>
+            <li><b>Agents can generate images</b><span className="m">Ask for an image in the open file. The MCP docs use this connection check: Generate an image of a beautiful sunset in Paper.</span></li>
+            <li className="wide"><b>WebMCP for in-browser agents</b><span className="m">The browser app supports <a href="https://webmcp.paper.design/">WebMCP</a>, so an in-browser agent can use Paper. The published example is for Paper partners: Chrome 150 or newer, the WebMCP origin trial, and Paper has to allow your origin. Sample code is in the <a href="https://github.com/paper-design/webmcp-agent-example">webmcp-agent-example</a> repo.</span></li>
             <li><b>Workflow ideas</b><span className="m">Pull design-system colors from Figma via dual MCPs, fill placeholders with real Notion content, or convert canvas designs into React and Tailwind pages.</span></li>
             <li><b><svg><use href="#ic-warn"/></svg>Wrong file getting edited?</b><span className="m">The MCP server always targets the <em>currently active</em> file. Ask the agent to call <button className="cmd" type="button" data-copy="get_basic_info">get_basic_info</button> to confirm which one that is.</span></li>
             <li><b><svg><use href="#ic-warn"/></svg>Connection stale?</b><span className="m">Restart the agent session first, then Paper Desktop. Behind a proxy or VPN, allowlist <button className="cmd" type="button" data-copy="*.paper.design">*.paper.design</button>.</span></li>

@@ -85,4 +85,4 @@ Check at 1400px, 900px, and 390px widths; also 360px (single-column nav) and 375
 
 - Design-iteration history (baseline → critique → polish) lives in the `life-os` vault repo, branch `paper-guide-polish`; pre-critique baseline on its `master`.
 - A shareable preview is published as a Claude artifact (same content, wrapper tags stripped).
-- Content compiled September 2026; shortcut count and "compiled" date in the page should move together when updating.
+- The guide footer records the Nov 2, 2026 build-log pass covering September 2026. The masthead still says compiled September 2026, the changelog month. Shortcut count and those compiled lines should move together when updating.
